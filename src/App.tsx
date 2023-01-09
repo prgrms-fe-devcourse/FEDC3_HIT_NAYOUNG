@@ -5,23 +5,14 @@ const App = () => {
     <div>
       <label>
         <div className="text-5xl mx-auto font-bold">tailwind</div>
-        <div className="text-3xl font-bold underline">
-          Hello world!
-        </div>
+        <div className="text-3xl font-bold underline">Hello world!</div>
       </label>
 
-      <div className="text-5xl mx-auto font-bold">
-        checkbox - daisyUI
-      </div>
+      <div className="text-5xl mx-auto font-bold">checkbox - daisyUI</div>
       <div className="form-control">
         <label className="label cursor-pointer">
           <span className="label-text">Remember me</span>
-          <input
-            type="checkbox"
-            checked
-            className="checkbox"
-            readOnly
-          />
+          <input type="checkbox" checked className="checkbox" readOnly />
         </label>
       </div>
 
