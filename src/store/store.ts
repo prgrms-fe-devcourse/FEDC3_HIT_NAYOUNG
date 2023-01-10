@@ -14,7 +14,7 @@ export const charCountState = selector({
   },
 });
 
-export const informLoginModalState = atom({
+export const informLoginModalState = atom<boolean>({
   key: 'informLoginModalState',
   default: false,
 });

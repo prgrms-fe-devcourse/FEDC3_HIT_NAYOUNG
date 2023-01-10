@@ -4,7 +4,7 @@ import { useRecoilState } from 'recoil';
 import ModalPortal from './ModalPortal';
 
 const InformLoginModal = () => {
-  const [open, setOpen] = useRecoilState(informLoginModalState);
+  const [open, setOpen] = useRecoilState<boolean>(informLoginModalState);
 
   return (
     <ModalPortal>
