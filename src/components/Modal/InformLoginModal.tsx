@@ -16,17 +16,17 @@ const InformLoginModal = () => {
           </h3>
           <p className="pt-10 text-sm">
             아직 회원이 아니신가요? &nbsp;
-            <Link onClick={() => setOpen(false)} to="/login" className="text-[#FFC7C7]">
-              로그인하기
+            <Link onClick={() => setOpen(false)} to="/signup" className="text-[#FFC7C7]">
+              회원가입하기
             </Link>
           </p>
           <div className="modal-action mt-2 mb-4">
             <Link
               className="btn w-full bg-[#FFC7C7] border-[#FFC7C7] hover:bg-[#e7aeae] hover:border-[#e7aeae]"
               onClick={() => setOpen(false)}
-              to="/signup"
+              to="/login"
             >
-              회원가입하기
+              로그인하기
             </Link>
           </div>
           <center>
