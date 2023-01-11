@@ -63,6 +63,7 @@ const SignupForm = () => {
           },
         }
       );
+      navigate('/');
     } catch (error) {
       setError('email', {
         type: 'server',
@@ -80,8 +81,8 @@ const SignupForm = () => {
         { shouldFocus: true }
       );
     } else {
+      console.log('성공');
       SignUpUser({ fullName, email, password });
-      navigate('/');
     }
   };
 
@@ -170,7 +171,7 @@ const SignupForm = () => {
         <button
           type="submit"
           disabled={!isDirty || !isValid}
-          className="btn w-80 bg-[#FFC7C7] border-[#FFC7C7] mt-4"
+          className="btn w-80 bg-BASE border-BASE mt-4"
         >
           회원가입
         </button>
