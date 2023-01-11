@@ -1,9 +1,12 @@
 import api from '@/Api/api';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
+import { HOME_PAGE } from '@/utils/constants';
 import Logo from './Logo';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [account, setAccount] = useState({
     email: '',
     password: '',
@@ -19,9 +22,7 @@ const Login = () => {
 
   const onClickLoginButton = async () => {
     const { email, password } = account;
-    // admin@programmers.co.kr
-    // programmers
-    const login = await api
+    await api
       .post(
         `/login`,
         {
@@ -37,6 +38,7 @@ const Login = () => {
       .then((res) => {
         const token = res.data.token;
         localStorage.setItem('login-token', token);
+        navigate(HOME_PAGE);
       });
   };
 
