@@ -1,9 +1,12 @@
 import { Home, Login, Signup, ReviewList, ReviewDetail, NotFound } from './pages';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+
+import Navbar from './components/Navbar';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -12,7 +15,7 @@ const App = () => {
         <Route path="/category/:category/detail" element={<ReviewDetail />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 
