@@ -15,7 +15,6 @@ const categoryIcon: categoryNameAndIcon = {
   시계: <IoWatchOutline />,
 };
 
-// ? 이거 mapping하면 style은 어캐주지?
 const CategoryItem = ({ name, posts }: categoryItem) => {
   return (
     <Link to={`/${name}`}>
