@@ -55,13 +55,16 @@ const Login = () => {
   } = useForm<formState>();
 
   return (
-    <center>
+    <center className="overflow-hidden">
       <form onSubmit={handleSubmit(onClickLoginButton)}>
-        <br />
-        <div className="absolute left-3.5">뒤로가기</div>
-        <Logo logoText="로그인" />
-        <br />
-        <div className="form-control w-2/5 min-w-[250px]">
+        <div className="absolute left-6">
+          <Link to={HOME_PAGE}>뒤로가기</Link>
+        </div>
+        <div className="mt-20">
+          <Logo logoText="로그인" />
+        </div>
+
+        <div className="form-control w-2/5 min-w-[300px] mt-16">
           <div className="text-sm">이메일</div>
           <input
             {...register('email', {
@@ -81,7 +84,7 @@ const Login = () => {
         </div>
         <span className="label-text-alt text-red-500">{errors?.email?.message}</span>
         <br />
-        <div className="form-control w-2/5 min-w-[250px]">
+        <div className="form-control w-2/5 min-w-[300px] mt-2">
           <div className="text-sm">비밀번호</div>
           <input
             {...register('password', {
@@ -101,19 +104,21 @@ const Login = () => {
         </div>
         <span className="label-text-alt text-red-500">{errors?.password?.message}</span>
         <br />
-        <button
-          type="submit"
-          className="btn w-2/5 min-w-[250px] bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
-        >
-          로그인
-        </button>
-        <br />
-        <br />
-        <Link to={SIGNUP_PAGE}>
-          <button className="btn w-2/5 min-w-[250px] bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
-            회원가입
+        <div>
+          <button
+            type="submit"
+            className="btn w-2/5 min-w-[300px] mt-10 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+          >
+            로그인
           </button>
-        </Link>
+        </div>
+        <div>
+          <Link to={SIGNUP_PAGE}>
+            <button className="btn w-2/5 min-w-[300px] mt-8 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
+              회원가입
+            </button>
+          </Link>
+        </div>
       </form>
     </center>
   );
