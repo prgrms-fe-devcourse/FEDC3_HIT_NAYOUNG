@@ -29,7 +29,7 @@ const CategoryList = () => {
     };
 
     getCategory();
-  });
+  }, []);
 
   return (
     <div className="flex flex-wrap">
