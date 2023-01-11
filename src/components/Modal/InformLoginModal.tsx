@@ -1,4 +1,5 @@
 import { informLoginModalState } from '@/store/store';
+import { LOGIN_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import ModalPortal from './ModalPortal';
@@ -16,15 +17,15 @@ const InformLoginModal = () => {
           </h3>
           <p className="pt-10 text-sm">
             아직 회원이 아니신가요? &nbsp;
-            <Link onClick={() => setOpen(false)} to="/signup" className="text-[#FDA4AF]">
+            <Link onClick={() => setOpen(false)} to={SIGNUP_PAGE} className="text-HOVER">
               회원가입하기
             </Link>
           </p>
           <div className="modal-action mt-2 mb-4">
             <Link
-              className="btn w-full bg-[#FFC7C7] border-[#FFC7C7] hover:bg-[#FDA4AF] hover:border-[#FDA4AF]"
+              className="btn w-full bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
               onClick={() => setOpen(false)}
-              to="/login"
+              to={LOGIN_PAGE}
             >
               로그인하기
             </Link>
