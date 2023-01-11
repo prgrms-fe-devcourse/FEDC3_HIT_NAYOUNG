@@ -2,9 +2,9 @@ import api from '@/Api/api';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import Logo from './Logo';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,24 +23,30 @@ const Login = () => {
 
   const onClickLoginButton = async () => {
     const { email, password } = account;
-    await api
-      .post(
-        `/login`,
-        {
-          email: email,
-          password: password,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
+    try {
+      await api
+        .post(
+          `/login`,
+          {
+            email: email,
+            password: password,
           },
-        }
-      )
-      .then((res) => {
-        const token = res.data.token;
-        localStorage.setItem('login-token', token);
-        navigate(HOME_PAGE);
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        .then((res) => {
+          const token = res.data.token;
+          localStorage.setItem('login-token', token);
+          navigate(HOME_PAGE);
+        });
+    } catch {
+      setError('password', {
+        message: '아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.',
       });
+    }
   };
 
   type formState = {
@@ -51,6 +57,7 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<formState>();
 
