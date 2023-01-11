@@ -7,20 +7,22 @@ import { categoryItem, categoryNameAndIcon } from '@/types';
 import { Link } from 'react-router-dom';
 
 const categoryIcon: categoryNameAndIcon = {
-  노트북: <AiOutlineLaptop />,
-  키보드: <BsKeyboard />,
-  휴대폰: <GiSmartphone />,
-  모니터: <FiMonitor />,
-  오디오: <FiHeadphones />,
-  시계: <IoWatchOutline />,
+  노트북: AiOutlineLaptop,
+  키보드: BsKeyboard,
+  휴대폰: GiSmartphone,
+  모니터: FiMonitor,
+  오디오: FiHeadphones,
+  시계: IoWatchOutline,
 };
 
 const CategoryItem = ({ name, posts }: categoryItem) => {
+  const Icon = categoryIcon[name];
+
   return (
     <Link to={`/${name}`}>
       <section className="w-36 m-1 flex flex-col items-start p-2.5 border-black border rounded-xl cursor-pointer">
         <div className="border-[#FFC7C7] border rounded-full p-2">
-          {categoryIcon[name]}
+          <Icon className="text-xl" />
         </div>
         <div className="text-lg">{name}</div>
         <span className="text-gray-400 text-sm">
