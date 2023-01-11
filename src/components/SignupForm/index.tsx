@@ -4,6 +4,7 @@ import Logo from '@/components/Login/Logo';
 import WarningLabel from './WarningLabel';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 type FormData = {
   errors: {
@@ -26,6 +27,7 @@ type SignUpAPIData = {
 
 const SignupForm = () => {
   const [passwordShow, setPasswordShow] = useState(false);
+  const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
     setPasswordShow(!passwordShow);
@@ -79,6 +81,7 @@ const SignupForm = () => {
       );
     } else {
       SignUpUser({ fullName, email, password });
+      navigate('/');
     }
   };
 
