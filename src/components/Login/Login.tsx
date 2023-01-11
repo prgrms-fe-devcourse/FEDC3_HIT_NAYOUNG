@@ -2,8 +2,9 @@ import api from '@/Api/api';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { HOME_PAGE } from '@/utils/constants';
+import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import Logo from './Logo';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -106,6 +107,13 @@ const Login = () => {
         >
           로그인
         </button>
+        <br />
+        <br />
+        <Link to={SIGNUP_PAGE}>
+          <button className="btn w-2/5 min-w-[250px] bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
+            회원가입
+          </button>
+        </Link>
       </form>
     </center>
   );
