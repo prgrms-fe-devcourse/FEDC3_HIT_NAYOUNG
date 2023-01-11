@@ -1,9 +1,9 @@
 import api from '@/Api/api';
 import { useState } from 'react';
 
-interface User {
+type User = {
   email: string;
-}
+};
 
 const Home = () => {
   const [users, setUsers] = useState<User[]>([]);
