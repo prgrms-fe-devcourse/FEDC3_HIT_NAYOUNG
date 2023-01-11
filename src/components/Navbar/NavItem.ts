@@ -1,5 +1,12 @@
 import { navbarItem } from '@/types';
 import {
+  ALARM_PAGE,
+  CREATE_REVIVEW_PAGE,
+  HOME_PAGE,
+  MY_PAGE,
+  SEARCH_PAGE,
+} from '@/utils/constants';
+import {
   AiOutlineHome,
   AiOutlineSearch,
   AiOutlinePlus,
@@ -8,36 +15,35 @@ import {
   AiFillHeart,
 } from 'react-icons/ai';
 import { FaRegUser, FaUser, FaSearch } from 'react-icons/fa';
-import { FiLogOut } from 'react-icons/fi';
 
 const BottomNavItem: navbarItem[] = [
   {
     title: 'Home',
-    link: '/',
+    link: HOME_PAGE,
     icon: AiOutlineHome,
     activeIcon: AiFillHome,
   },
   {
     title: 'Search',
-    link: '/search',
+    link: SEARCH_PAGE,
     icon: AiOutlineSearch,
     activeIcon: FaSearch,
   },
   {
     title: 'CreateReview',
-    link: '/create',
+    link: CREATE_REVIVEW_PAGE,
     icon: AiOutlinePlus,
     activeIcon: AiOutlinePlus,
   },
   {
     title: 'Alarm',
-    link: '/alarm',
+    link: ALARM_PAGE,
     icon: AiOutlineHeart,
     activeIcon: AiFillHeart,
   },
   {
     title: 'MyPage',
-    link: '/mypage',
+    link: MY_PAGE,
     icon: FaRegUser,
     activeIcon: FaUser,
   },
@@ -46,39 +52,33 @@ const BottomNavItem: navbarItem[] = [
 const SideNavItem: navbarItem[] = [
   {
     title: '홈',
-    link: '/',
+    link: HOME_PAGE,
     icon: AiOutlineHome,
     activeIcon: AiFillHome,
   },
   {
     title: '검색',
-    link: '/search',
+    link: SEARCH_PAGE,
     icon: AiOutlineSearch,
     activeIcon: FaSearch,
   },
   {
     title: '알림',
-    link: '/alarm',
+    link: ALARM_PAGE,
     icon: AiOutlineHeart,
     activeIcon: AiFillHeart,
   },
   {
     title: '만들기',
-    link: '/create',
+    link: CREATE_REVIVEW_PAGE,
     icon: AiOutlinePlus,
     activeIcon: AiOutlinePlus,
   },
   {
     title: '내 정보',
-    link: '/mypage',
+    link: MY_PAGE,
     icon: FaRegUser,
     activeIcon: FaUser,
-  },
-  {
-    title: '로그아웃',
-    link: '/logout',
-    icon: FiLogOut,
-    activeIcon: FiLogOut,
   },
 ];
 
