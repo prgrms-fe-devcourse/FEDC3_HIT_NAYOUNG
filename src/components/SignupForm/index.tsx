@@ -27,11 +27,11 @@ type SignUpAPIData = {
 };
 
 const SignupForm = () => {
-  const [passwordShow, setPasswordShow] = useState(false);
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const togglePasswordVisibility = () => {
-    setPasswordShow(!passwordShow);
+    setIsShowPassword(!isShowPassword);
   };
 
   const {
@@ -40,16 +40,13 @@ const SignupForm = () => {
     setError,
     watch,
     formState: { errors, isDirty, isValid },
-  } = useForm<FormData>({ mode: 'onChange' }); // onChange를 통해 입력할 때마다 유효성 겅사를 합니다
+  } = useForm<FormData>({ mode: 'onChange' });
 
-  // watch를 통해 input value를 체크하여 api 날릴때 해당 값을 넣어서 보내줍니다
   const fullName = watch('fullName');
   const email = watch('email');
   const password = watch('password');
 
-  // SugnUpUser 네이밍이 마음에 안드는데 추천해주세요
-  // SignUpUser를 다른 파일로 빼놓는게 좋을까요?
-  const SignUpUser = async ({ fullName, email, password }: SignUpAPIData) => {
+  const callSignupAPI = async ({ fullName, email, password }: SignUpAPIData) => {
     try {
       const response = await api.post(
         '/signup',
@@ -73,8 +70,7 @@ const SignupForm = () => {
     }
   };
 
-  // 비밀번호 확인하는 로직인데 onVlid말고 다른 함수명 추천해주세요
-  const onValid = (data: FormData) => {
+  const onCheckSamePassword = (data: FormData) => {
     if (data.password !== data.confirmPassword) {
       setError(
         'confirmPassword',
@@ -82,14 +78,13 @@ const SignupForm = () => {
         { shouldFocus: true }
       );
     } else {
-      console.log('성공');
-      SignUpUser({ fullName, email, password });
+      callSignupAPI({ fullName, email, password });
     }
   };
 
   return (
     <center className="mt-10">
-      <form onSubmit={handleSubmit(onValid)}>
+      <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
         <div className="form-control w-80 max-w-xs mt-4">
           <span className="text-lg font-bold">이름</span>
@@ -138,7 +133,7 @@ const SignupForm = () => {
                     '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다',
                 },
               })}
-              type={passwordShow ? 'text' : 'password'}
+              type={isShowPassword ? 'text' : 'password'}
               autoComplete="off"
               placeholder="비밀번호를 입력해주세요"
               className="input input-bordered text-center"
@@ -147,7 +142,7 @@ const SignupForm = () => {
               className="absolute top-4 right-5 cursor-pointer"
               onClick={togglePasswordVisibility}
             >
-              {passwordShow ? <AiFillEye /> : <AiFillEyeInvisible />}
+              {isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
             </i>
           </div>
         </div>

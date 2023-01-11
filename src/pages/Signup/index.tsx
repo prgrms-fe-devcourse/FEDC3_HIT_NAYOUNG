@@ -1,10 +1,10 @@
-import SignupComponent from '@/components/SignupForm';
+import SignupForm from '@/components/SignupForm';
 
 const Signup = () => {
   return (
     <div>
       <center>
-        <SignupComponent />
+        <SignupForm />
       </center>
     </div>
   );
