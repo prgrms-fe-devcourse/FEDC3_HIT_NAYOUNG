@@ -16,13 +16,13 @@ const InformLoginModal = () => {
           </h3>
           <p className="pt-10 text-sm">
             아직 회원이 아니신가요? &nbsp;
-            <Link onClick={() => setOpen(false)} to="/signup" className="text-[#FFC7C7]">
+            <Link onClick={() => setOpen(false)} to="/signup" className="text-[#FDA4AF]">
               회원가입하기
             </Link>
           </p>
           <div className="modal-action mt-2 mb-4">
             <Link
-              className="btn w-full bg-[#FFC7C7] border-[#FFC7C7] hover:bg-[#e7aeae] hover:border-[#e7aeae]"
+              className="btn w-full bg-[#FFC7C7] border-[#FFC7C7] hover:bg-[#FDA4AF] hover:border-[#FDA4AF]"
               onClick={() => setOpen(false)}
               to="/login"
             >
@@ -33,7 +33,7 @@ const InformLoginModal = () => {
             <label
               onClick={() => setOpen(false)}
               htmlFor="my-modal-6"
-              className="text-sm"
+              className="text-sm hover:cursor-pointer"
             >
               다음에 할게요
             </label>

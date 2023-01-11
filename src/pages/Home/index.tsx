@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
   return (
-    <div>
+    <div className="w-96 mx-auto my-0">
       <button className="btn" onClick={() => setOpen(true)}>
         오픈
       </button>

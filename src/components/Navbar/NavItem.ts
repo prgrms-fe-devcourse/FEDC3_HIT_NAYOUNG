@@ -1,3 +1,4 @@
+import { navbarItem } from '@/types';
 import {
   AiOutlineHome,
   AiOutlineSearch,
@@ -9,7 +10,7 @@ import {
 import { FaRegUser, FaUser, FaSearch } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 
-const BottomNavItem = [
+const BottomNavItem: navbarItem[] = [
   {
     title: 'Home',
     link: '/',
@@ -42,7 +43,7 @@ const BottomNavItem = [
   },
 ];
 
-const SideNavItem = [
+const SideNavItem: navbarItem[] = [
   {
     title: '홈',
     link: '/',

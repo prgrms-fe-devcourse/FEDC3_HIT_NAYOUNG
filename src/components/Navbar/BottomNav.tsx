@@ -5,7 +5,7 @@ const BottomNav = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="fixed md:hidden bottom-0 py-2 max-w-3xl w-full flex justify-around align-middle border-t-2 border-neutral-300">
+    <div className="fixed md:hidden bottom-0 py-2 max-w-3xl w-full flex justify-around align-middle border-t-2 border-GRAY_100">
       {BottomNavItem.map((item, index) => {
         return (
           <Link
@@ -13,7 +13,7 @@ const BottomNav = () => {
             to={item.link}
             className={
               index === 2
-                ? 'bg-red-400 flex-1 flex flex-col justify-center items-center px-6 rounded-3xl'
+                ? 'bg-HOVER flex-1 flex flex-col justify-center items-center px-6 rounded-3xl'
                 : 'flex-1 text-center py-2 px-4'
             }
           >
