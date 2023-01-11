@@ -5,6 +5,7 @@ import WarningLabel from './WarningLabel';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { HOME_PAGE } from '@/utils/constants';
 
 type FormData = {
   errors: {
@@ -63,7 +64,7 @@ const SignupForm = () => {
           },
         }
       );
-      navigate('/');
+      navigate(HOME_PAGE);
     } catch (error) {
       setError('email', {
         type: 'server',
