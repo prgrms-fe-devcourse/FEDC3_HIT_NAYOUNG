@@ -16,7 +16,7 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterProps) => {
     // Link component는 a tag로 만들어졌는데 a tag안에서 div tag와 같은 block tag를 자식으로 가지고 있으면 semantic HTML이 아니지 않나요? 다른 팀원들의 의견이 궁금해요.
     <Link
       className="flex flex-col justify-center w-full lg:w-1/2 h-2/5 lg:h-3/6 group py-3 cursor-pointer"
-      to={`/${categoryPathName}/detail`}
+      to={`/category/${categoryPathName}/detail`}
       state={{ id }}
     >
       <div className="relative h-full w-full overflow-hidden rounded-md group-hover:opacity-75">
