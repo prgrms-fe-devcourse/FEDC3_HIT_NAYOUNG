@@ -1,5 +1,3 @@
-import { ReactElement } from 'react';
-
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
 
@@ -12,7 +10,7 @@ export type navigationItem = {
 
 export type CategoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
 
-export type CategoryNameAndIcon = Record<categoryName, ReactElement>;
+export type CategoryNameAndIcon = Record<categoryName, IconType>;
 
 export type Category = {
   authRequired: boolean;

@@ -5,7 +5,6 @@ import { IoWatchOutline } from 'react-icons/io5';
 import { BsKeyboard } from 'react-icons/bs';
 import { Category, CategoryNameAndIcon } from '@/types';
 import { Link } from 'react-router-dom';
-import { REVIEW_LIST_PAGE } from '@/utils/constants';
 import styled from '@emotion/styled';
 
 // tailwind css에 원하는 percentage가 존재하지 않아서 @emotion을 사용했니다.
@@ -31,7 +30,7 @@ const CategoryItem = ({ name, posts }: Category) => {
   const Icon = categoryIcon[name];
 
   return (
-    <StyledLink to={`/${REVIEW_LIST_PAGE}`}>
+    <StyledLink to={`/category/${name}`}>
       <section className="w-full flex flex-col items-start p-2.5 text-TEXT_BASE_BLACK border-BASE border rounded-xl cursor-pointer">
         <div className="border-BASE border-1 rounded-full p-2">
           <Icon className="text-xl" />
