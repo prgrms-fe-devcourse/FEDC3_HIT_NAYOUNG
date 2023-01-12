@@ -13,8 +13,8 @@ const Login = () => {
     password: '',
   });
 
-  const onChangeInputValue = (e: any) => {
-    const { name, value } = e.target;
+  const onChangeInputValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = target;
     setAccount({
       ...account,
       [name]: value,
@@ -22,26 +22,19 @@ const Login = () => {
   };
 
   const onClickLoginButton = async () => {
-    const { email, password } = account;
+    const loginBody = {
+      email: account.email,
+      password: account.password,
+    };
     try {
-      await api
-        .post(
-          `/login`,
-          {
-            email: email,
-            password: password,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
-        .then((res) => {
-          const token = res.data.token;
-          localStorage.setItem('login-token', token);
-          navigate(HOME_PAGE);
-        });
+      const response = await api.post(`/login`, loginBody, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const token = response.data.token;
+      localStorage.setItem('login-token', token);
+      navigate(HOME_PAGE);
     } catch {
       setError('password', {
         message: '아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.',
@@ -49,7 +42,7 @@ const Login = () => {
     }
   };
 
-  type formState = {
+  type FormState = {
     email: string;
     password: string;
   };
@@ -59,7 +52,7 @@ const Login = () => {
     handleSubmit,
     setError,
     formState: { errors },
-  } = useForm<formState>();
+  } = useForm<FormState>();
 
   return (
     <center className="overflow-hidden">
