@@ -19,7 +19,7 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterProps) => {
       to={`/${categoryPathName}/detail`}
       state={{ id }}
     >
-      <div className="relative h-full w-full overflow-hidden rounded-md  group-hover:opacity-75">
+      <div className="relative h-full w-full overflow-hidden rounded-md group-hover:opacity-75">
         <img
           src={image}
           alt="review poster image"

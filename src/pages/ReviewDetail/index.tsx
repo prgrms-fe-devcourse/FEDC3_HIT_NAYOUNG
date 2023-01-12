@@ -11,8 +11,6 @@ const ReviewDetail = () => {
   useEffect(() => {
     const getReviewDetail = async () => {
       const response = await api.get(`/posts/${id}`);
-
-      console.log(response.data);
     };
 
     getReviewDetail();
