@@ -1,12 +1,12 @@
-export type categoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
+export type CategoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
 
-export type categoryNameAndIcon = Record<categoryName, ReactElement>;
+export type CategoryNameAndIcon = Record<categoryName, ReactElement>;
 
-export type categoryItem = {
+export type Category = {
   authRequired: boolean;
   posts: string[];
   _id: string;
-  name: categoryName;
+  name: CategoryName;
   description: string;
   createdAt: string;
   updatedAt: string;

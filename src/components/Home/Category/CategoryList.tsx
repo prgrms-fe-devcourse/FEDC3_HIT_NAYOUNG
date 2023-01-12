@@ -1,9 +1,9 @@
-import { categoryItem, categoryName } from '@/types';
+import { Category, CategoryName } from '@/types';
 import CategoryItem from '@/components/Home/Category/CategoryItem';
 import { useEffect, useState } from 'react';
 import api from '@/Api/api';
 
-const validCategoryName: categoryName[] = [
+const validCategoryName: CategoryName[] = [
   '노트북',
   '모니터',
   '시계',
@@ -13,12 +13,12 @@ const validCategoryName: categoryName[] = [
 ];
 
 const CategoryList = () => {
-  const [category, setCategory] = useState<categoryItem[]>();
+  const [category, setCategory] = useState<Category[]>();
 
   useEffect(() => {
     const getCategory = async () => {
       try {
-        const response = (await api.get('/channels')).data as categoryItem[];
+        const response = (await api.get('/channels')).data as Category[];
         const validCategory = response.filter((category) =>
           validCategoryName.includes(category.name)
         );
@@ -27,7 +27,6 @@ const CategoryList = () => {
         console.log(e); // TODO: 에러처리..UI를 보여주는 건 어때? 새로고침하세요 모달이라던지
       }
     };
-
     getCategory();
   }, []);
 
