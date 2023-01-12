@@ -1,7 +1,10 @@
-import ReviewPoster from '@/components/ReviewPoster';
+import { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from '@emotion/styled';
-import { useCallback, useEffect, useState } from 'react';
 import api from '@/Api/api';
+import ReviewPoster from '@/components/ReviewPoster';
+import { InformLoginModal } from '@/components/Modal';
+import { informLoginModalState } from '@/store/store';
 
 // 디자인 테스트를 위한 임시 layout
 // 메인 레이아웃 완성시 제거할 layout
@@ -23,6 +26,7 @@ type TempDataType = {
 
 const Home = () => {
   const [specifiedPoster, setSpecifiedPoster] = useState<TempDataType>(null);
+  const [open, setOpen] = useRecoilState(informLoginModalState);
 
   useEffect(() => {
     const getSpecifiedPoster = async () => {
@@ -47,18 +51,33 @@ const Home = () => {
 
   if (specifiedPoster) {
     return (
-      <TemplateLayout>
-        <h1>Home</h1>
-        <ReviewPoster
-          id={specifiedPoster.id}
-          title={specifiedPoster.title}
-          image={specifiedPoster.image}
-        />
-      </TemplateLayout>
+      <>
+        <TemplateLayout>
+          <h1>Home</h1>
+          <ReviewPoster
+            id={specifiedPoster.id}
+            title={specifiedPoster.title}
+            image={specifiedPoster.image}
+          />
+        </TemplateLayout>
+        <div className="w-96 mx-auto my-0">
+          <button className="btn" onClick={() => setOpen(true)}>
+            오픈
+          </button>
+          <InformLoginModal />
+        </div>
+      </>
     );
   }
 
   return <div>Error</div>;
 };
+
+// const Home = () => {
+
+//   return (
+
+//   );
+// };
 
 export default Home;
