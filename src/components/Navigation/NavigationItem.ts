@@ -1,4 +1,4 @@
-import { navbarItem } from '@/types';
+import { navigationItem } from '@/types';
 import {
   ALARM_PAGE,
   CREATE_REVIVEW_PAGE,
@@ -16,7 +16,7 @@ import {
 } from 'react-icons/ai';
 import { FaRegUser, FaUser, FaSearch } from 'react-icons/fa';
 
-const BottomNavItem: navbarItem[] = [
+const BottomNavigationItem: navigationItem[] = [
   {
     title: 'Home',
     link: HOME_PAGE,
@@ -49,7 +49,7 @@ const BottomNavItem: navbarItem[] = [
   },
 ];
 
-const SideNavItem: navbarItem[] = [
+const SideNavigationItem: navigationItem[] = [
   {
     title: '홈',
     link: HOME_PAGE,
@@ -82,4 +82,4 @@ const SideNavItem: navbarItem[] = [
   },
 ];
 
-export { BottomNavItem, SideNavItem };
+export { BottomNavigationItem, SideNavigationItem };

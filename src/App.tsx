@@ -1,6 +1,5 @@
 import { Home, Login, Signup, ReviewList, ReviewDetail, NotFound } from './pages';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import { Route, Routes } from 'react-router-dom';
 import {
   HOME_PAGE,
   LOGIN_PAGE,
@@ -15,13 +14,14 @@ import {
 } from '@/utils/constants';
 import Search from './pages/Search';
 import Alarm from './pages/Alarm';
-import MyInfo from './pages/MyInfo';
+import MyInfo from './pages/MyInformation';
 import ReviewCreate from './pages/ReviewCreate';
+import Navigation from './components/Navigation';
 
 const App = () => {
   return (
     <>
-      <Navbar />
+      <Navigation />
       <Routes>
         <Route path={HOME_PAGE} element={<Home />} />
         <Route path={LOGIN_PAGE} element={<Login />} />

@@ -1,12 +1,12 @@
-import { BottomNavItem } from './NavItem';
+import { BottomNavigationItem } from './NavigationItem';
 import { Link, useLocation } from 'react-router-dom';
 
-const BottomNav = () => {
+const BottomNavigation = () => {
   const { pathname } = useLocation();
 
   return (
     <div className="fixed md:hidden bottom-0 py-2 max-w-3xl w-full flex justify-around align-middle border-t-2 border-GRAY_100">
-      {BottomNavItem.map((item, index) => {
+      {BottomNavigationItem.map((item, index) => {
         return (
           <Link
             key={index}
@@ -39,4 +39,4 @@ const BottomNav = () => {
   );
 };
 
-export default BottomNav;
+export default BottomNavigation;

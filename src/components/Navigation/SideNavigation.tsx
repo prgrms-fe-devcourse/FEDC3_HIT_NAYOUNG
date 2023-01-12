@@ -1,12 +1,11 @@
-import { navbarItem } from '@/types';
-import { SideNavItem } from './NavItem';
+import { navigationItem } from '@/types';
+import { SideNavigationItem } from './NavigationItem';
 import { Link, useLocation } from 'react-router-dom';
 import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo.svg';
-import React from 'react';
 
-type NavItemProps = {
-  item: navbarItem;
+type NavigationItemProps = {
+  item: navigationItem;
   index: number;
 };
 
@@ -16,10 +15,10 @@ const onHandlerLogout = () => {
    */
 };
 
-const NavItemComponent = (
-  { item }: NavItemProps,
-  { index }: NavItemProps
-): React.ReactElement => {
+const NavigationItemComponent = (
+  { item }: NavigationItemProps,
+  { index }: NavigationItemProps
+) => {
   const { pathname } = useLocation();
 
   return (
@@ -37,7 +36,7 @@ const NavItemComponent = (
   );
 };
 
-const SideNav = () => {
+const SideNavigation = () => {
   return (
     <div className="fixed w-60 left-0 border-r-2 border-GRAY_200 h-full max-md:hidden max-xl:w-16">
       <div className="h-full flex flex-col justify-between">
@@ -45,16 +44,16 @@ const SideNav = () => {
           <div className="w-full py-2 px-4 max-xl:px-0">
             <img src={Logo} className="w-12 max-w-12" />
           </div>
-          {SideNavItem.map((item, index) => {
+          {SideNavigationItem.map((item, index) => {
             if (index < 4) {
-              return <NavItemComponent item={item} index={index} />;
+              return <NavigationItemComponent item={item} index={index} />;
             }
           })}
         </ul>
         <ul className="flex flex-col gap-4 p-4">
-          {SideNavItem.map((item, index) => {
+          {SideNavigationItem.map((item, index) => {
             if (index > 3) {
-              return <NavItemComponent item={item} index={index} />;
+              return <NavigationItemComponent item={item} index={index} />;
             }
           })}
           <a
@@ -75,4 +74,4 @@ const SideNav = () => {
   );
 };
 
-export default SideNav;
+export default SideNavigation;
