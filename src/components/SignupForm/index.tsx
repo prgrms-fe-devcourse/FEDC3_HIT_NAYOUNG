@@ -46,21 +46,19 @@ const SignupForm = () => {
   const email = watch('email');
   const password = watch('password');
 
+  const callSignupAPIBody = {
+    email,
+    fullName,
+    password,
+  };
+
   const callSignupAPI = async ({ fullName, email, password }: SignUpAPIData) => {
     try {
-      const response = await api.post(
-        '/signup',
-        {
-          email: email,
-          fullName: fullName,
-          password: password,
+      await api.post('/signup', callSignupAPIBody, {
+        headers: {
+          'Content-Type': 'application/json',
         },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      });
       navigate(HOME_PAGE);
     } catch (error) {
       setError('email', {
@@ -74,7 +72,7 @@ const SignupForm = () => {
     if (data.password !== data.confirmPassword) {
       setError(
         'confirmPassword',
-        { message: '비밀번호가 다릅니다' },
+        { message: '비밀번호가 다릅니다.' },
         { shouldFocus: true }
       );
     } else {
@@ -90,13 +88,13 @@ const SignupForm = () => {
           <span className="text-lg font-bold">이름</span>
           <input
             {...register('fullName', {
-              required: '이름을 입력해주세요',
+              required: '이름을 입력해 주세요.',
               validate: (value: string) =>
-                value === 'admin' ? 'admin으로 이름을 생성할 수 없습니다' : true,
+                value === 'admin' ? 'admin으로 이름을 생성할 수 없습니다.' : true,
             })}
             type="text"
             autoComplete="off"
-            placeholder="이름을 입력해주세요"
+            placeholder="이름을 입력해 주세요."
             className="input input-bordered text-center"
           />
         </div>
@@ -106,15 +104,15 @@ const SignupForm = () => {
           <div className="text-lg font-bold">이메일</div>
           <input
             {...register('email', {
-              required: '이메일을 입력해주세요',
+              required: '이메일을 입력해 주세요.',
               pattern: {
-                value: /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$/,
-                message: '정확한 이메일 주소를 넣어주세요',
+                value: /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$/,
+                message: '정확한 이메일 주소를 넣어 주세요.',
               },
             })}
             type="text"
             autoComplete="off"
-            placeholder="이메일을 입력해주세요"
+            placeholder="이메일을 입력해 주세요."
             className="input input-bordered text-center"
           />
         </div>
@@ -125,17 +123,17 @@ const SignupForm = () => {
           <div className="relative form-control">
             <input
               {...register('password', {
-                required: '비밀번호를 입력해주세요',
+                required: '비밀번호를 입력해 주세요.',
                 pattern: {
                   value:
                     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
                   message:
-                    '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다',
+                    '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
                 },
               })}
               type={isShowPassword ? 'text' : 'password'}
               autoComplete="off"
-              placeholder="비밀번호를 입력해주세요"
+              placeholder="비밀번호를 입력해 주세요."
               className="input input-bordered text-center"
             />
             <i
@@ -152,11 +150,11 @@ const SignupForm = () => {
           <div className="text-lg font-bold">비밀번호 확인</div>
           <input
             {...register('confirmPassword', {
-              required: '비밀번호를 확인해주세요',
+              required: '비밀번호를 확인해 주세요.',
             })}
             type="password"
             autoComplete="off"
-            placeholder="비밀번호를 확인해주세요"
+            placeholder="비밀번호를 확인해 주세요."
             className="input input-bordered text-center"
           />
         </div>
@@ -167,7 +165,7 @@ const SignupForm = () => {
         <button
           type="submit"
           disabled={!isDirty || !isValid}
-          className="btn w-80 bg-BASE border-BASE mt-4"
+          className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
         >
           회원가입
         </button>
