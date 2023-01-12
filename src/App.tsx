@@ -1,37 +1,40 @@
-import Test from '@/components/Test';
+import { Home, Login, Signup, ReviewList, ReviewDetail, NotFound } from './pages';
+import { Route, Routes } from 'react-router-dom';
+import {
+  HOME_PAGE,
+  LOGIN_PAGE,
+  NOT_FOUND_PAGE,
+  REVIEW_DETAIL_PAGE,
+  REVIEW_LIST_PAGE,
+  SIGNUP_PAGE,
+  SEARCH_PAGE,
+  ALARM_PAGE,
+  MY_PAGE,
+  CREATE_REVIVEW_PAGE,
+} from '@/utils/constants';
+import Search from './pages/Search';
+import Alarm from './pages/Alarm';
+import MyInfo from './pages/MyInformation';
+import ReviewCreate from './pages/ReviewCreate';
+import Navigation from './components/Navigation';
 
 const App = () => {
   return (
-    <div>
-      <label>
-        <div className="text-5xl mx-auto font-bold">tailwind</div>
-        <div className="text-3xl font-bold underline">Hello world!</div>
-      </label>
-
-      <div className="text-5xl mx-auto font-bold">checkbox - daisyUI</div>
-      <div className="form-control">
-        <label className="label cursor-pointer">
-          <span className="label-text">Remember me</span>
-          <input type="checkbox" checked className="checkbox" readOnly />
-        </label>
-      </div>
-
-      <h2>button - daisyUI</h2>
-      <button className="btn">Button</button>
-      <button className="btn btn-primary">Button</button>
-      <button className="btn btn-secondary">Button</button>
-      <button className="btn btn-accent">Button</button>
-      <button className="btn btn-ghost">Button</button>
-      <button className="btn btn-link">Button</button>
-
-      <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-
-      <Test />
-    </div>
+    <>
+      <Navigation />
+      <Routes>
+        <Route path={HOME_PAGE} element={<Home />} />
+        <Route path={LOGIN_PAGE} element={<Login />} />
+        <Route path={SIGNUP_PAGE} element={<Signup />} />
+        <Route path={SEARCH_PAGE} element={<Search />} />
+        <Route path={ALARM_PAGE} element={<Alarm />} />
+        <Route path={MY_PAGE} element={<MyInfo />} />
+        <Route path={CREATE_REVIVEW_PAGE} element={<ReviewCreate />} />
+        <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />
+        <Route path={REVIEW_DETAIL_PAGE} element={<ReviewDetail />} />
+        <Route path={NOT_FOUND_PAGE} element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 
