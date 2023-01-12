@@ -9,7 +9,13 @@ const InformLoginModal = () => {
 
   return (
     <ModalPortal>
-      <input checked={open} type="checkbox" id="my-modal-6" className="modal-toggle" />
+      <input
+        readOnly
+        checked={open}
+        type="checkbox"
+        id="my-modal-6"
+        className="modal-toggle"
+      />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-xl">
