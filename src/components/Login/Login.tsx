@@ -57,9 +57,6 @@ const Login = () => {
   return (
     <center className="overflow-hidden">
       <form onSubmit={handleSubmit(onClickLoginButton)}>
-        <div className="absolute left-6">
-          <Link to={HOME_PAGE}>뒤로가기</Link>
-        </div>
         <div className="mt-20">
           <Logo logoText="로그인" />
         </div>

@@ -5,6 +5,7 @@ import api from '@/Api/api';
 import ReviewPoster from '@/components/ReviewPoster';
 import { InformLoginModal } from '@/components/Modal';
 import { informLoginModalState } from '@/store/store';
+import CategoryList from '@/components/Home/Category/CategoryList';
 
 // 디자인 테스트를 위한 임시 layout
 // 메인 레이아웃 완성시 제거할 layout
@@ -59,6 +60,7 @@ const Home = () => {
             title={specifiedPoster.title}
             image={specifiedPoster.image}
           />
+          <CategoryList />
         </TemplateLayout>
         <div className="w-96 mx-auto my-0">
           <button className="btn" onClick={() => setOpen(true)}>
