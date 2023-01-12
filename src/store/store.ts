@@ -7,9 +7,14 @@ export const textState = atom({
 
 export const charCountState = selector({
   key: 'charCountState', // unique ID (with respect to other atoms/selectors)
-  get: ({get}) => {
+  get: ({ get }) => {
     const text = get(textState);
 
     return text.length;
   },
+});
+
+export const informLoginModalState = atom<boolean>({
+  key: 'informLoginModalState',
+  default: false,
 });
