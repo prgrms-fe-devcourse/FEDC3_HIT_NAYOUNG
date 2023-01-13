@@ -22,6 +22,7 @@ const CategoryList = () => {
         const validCategory = response.filter((category) =>
           validCategoryName.includes(category.name)
         );
+
         setCategory(validCategory);
       } catch (e) {
         console.log(e); // TODO: 에러처리..UI를 보여주는 건 어때? 새로고침하세요 모달이라던지
@@ -31,7 +32,7 @@ const CategoryList = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="flex flex-wrap justify-center gap-5 md:gap-6 lg:gap-6.5">
       {category &&
         category.map((category) => <CategoryItem key={category._id} {...category} />)}
     </div>

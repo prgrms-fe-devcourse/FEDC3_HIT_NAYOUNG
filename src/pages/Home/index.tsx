@@ -1,85 +1,53 @@
-import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import styled from '@emotion/styled';
-import api from '@/Api/api';
-import ReviewPoster from '@/components/ReviewPoster';
 import { InformLoginModal } from '@/components/Modal';
 import { informLoginModalState } from '@/store/store';
+import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
 
-// 디자인 테스트를 위한 임시 layout
-// 메인 레이아웃 완성시 제거할 layout
-// ReviewPoster 컴포넌트 test를 위한 임시 비동기 코드 (PR에 올라온 로직 merge 후 바로 삭제 예정)
-const TemplateLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  padding: 5rem 2rem;
-  height: 100vh;
-`;
-
-type TempDataType = {
-  id: string;
-  title: string;
-  image: string;
-} | null;
-
-const Home = () => {
-  const [specifiedPoster, setSpecifiedPoster] = useState<TempDataType>(null);
-  const [open, setOpen] = useRecoilState(informLoginModalState);
-
-  useEffect(() => {
-    const getSpecifiedPoster = async () => {
-      try {
-        const response = await api.get(
-          '/posts/channel/63bd045193836272216d31bc?offset=&limit'
-        );
-        const recentUpdatePoster = response.data[0];
-
-        setSpecifiedPoster({
-          id: recentUpdatePoster._id,
-          title: recentUpdatePoster.title,
-          image: recentUpdatePoster.image,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-
-    getSpecifiedPoster();
-  }, []);
-
-  if (specifiedPoster) {
-    return (
-      <>
-        <TemplateLayout>
-          <h1>Home</h1>
-          <ReviewPoster
-            id={specifiedPoster.id}
-            title={specifiedPoster.title}
-            image={specifiedPoster.image}
-          />
-          <CategoryList />
-        </TemplateLayout>
-        <div className="w-96 mx-auto my-0">
-          <button className="btn" onClick={() => setOpen(true)}>
-            오픈
-          </button>
-          <InformLoginModal />
-        </div>
-      </>
-    );
-  }
-
-  return <div>Error</div>;
+// UI test를 위한 더미 데이터
+const DUMMY_DATA = {
+  title: '맥북 강',
+  image:
+    'https://res.cloudinary.com/learnprogrammers/image/upload/v1673336085/post/6d8e6f95-d28a-4a47-bfe3-833bebd3ec98.jpg',
+  _id: '63bd151693836272216d3256',
 };
 
-// const Home = () => {
+const Home = () => {
+  const [open, setOpen] = useRecoilState(informLoginModalState);
+  const titleClassName =
+    'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
 
-//   return (
+  return (
+    <>
+      {/* 모바일 뷰에서만 보이는 임시 Logo 컴포넌트 레이아웃  */}
+      <h1
+        className={`md:hidden absolute top-5 left-1/2 -translate-x-1/2 text-5xl text-BASE font-extrabold`}
+      >
+        HIT
+      </h1>
+      <section className="flex flex-col items-center md:items-start lg:items-start max-w-xl w-full mx-auto pt-24 lg:pt-10 md:pt-10">
+        {/* 추천 게시글 area */}
+        <div className="w-11/12 h-full">
+          <h2 className={titleClassName}>추천 리뷰 게시글</h2>
 
-//   );
-// };
+          <ReviewPoster
+            id={DUMMY_DATA._id}
+            title={DUMMY_DATA.title}
+            image={DUMMY_DATA.image}
+          />
+          <ReviewPoster
+            id={DUMMY_DATA._id}
+            title={DUMMY_DATA.title}
+            image={DUMMY_DATA.image}
+          />
+          {/* 카테고리 목록 area */}
+          <h2 className={titleClassName}>카테고리</h2>
+          <CategoryList />
+        </div>
+      </section>
+      <InformLoginModal />
+    </>
+  );
+};
 
 export default Home;

@@ -9,7 +9,13 @@
 body {
   font-family: 'Pretendard-Regular';
   background-color: white;
-  height: 100vh;
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  /* 메인 페이지에 패딩을 넣어주지 않으면 마지막 컴포넌트와 위치가 일치해지는 문제 발생... */
+  padding-bottom: 100px;
 }
 
 @tailwind base;
