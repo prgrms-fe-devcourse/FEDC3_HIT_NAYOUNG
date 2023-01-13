@@ -10,9 +10,9 @@ type ReviewPosterProps = {
 
 const ReviewPoster = ({ id, title, image }: ReviewPosterProps) => {
   const { pathname } = useLocation();
-  console.log(pathname);
-
-  const categoryPathName = pathname === '/' ? 'notebook' : pathname;
+  // 다른 기능에서 사용하게 된다면 constants.ts로 옮기겠습니다.
+  const BASE_CATEGORY_ROUTER_NAME = 'notebook';
+  const categoryPathName = pathname === '/' ? BASE_CATEGORY_ROUTER_NAME : pathname;
 
   return (
     // Link component는 a tag로 만들어졌는데 a tag안에서 div tag와 같은 block tag를 자식으로 가지고 있으면 semantic HTML이 아니지 않나요? 다른 팀원들의 의견이 궁금해요.
@@ -30,7 +30,7 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterProps) => {
       </div>
 
       <div className="flex justify-between items-center pt-2 text-base">
-        <h3 className="text-base md:text-lg lg:text-xl font-semibold text-[#261204]">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK">
           <span>{title}</span>
         </h3>
         <span className="font-medium text-[#00000080]">User Name</span>

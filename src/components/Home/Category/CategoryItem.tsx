@@ -1,18 +1,17 @@
+import { Link } from 'react-router-dom';
 import { AiOutlineLaptop } from 'react-icons/ai';
 import { GiSmartphone } from 'react-icons/gi';
 import { FiMonitor, FiHeadphones } from 'react-icons/fi';
 import { IoWatchOutline } from 'react-icons/io5';
 import { BsKeyboard } from 'react-icons/bs';
 import { Category, CategoryNameAndIcon } from '@/types';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { MOBILE_SCREEN } from '@/utils/constants';
 
-// tailwind css에 원하는 percentage가 존재하지 않아서 @emotion을 사용했니다.
-// 더 좋은 방법이 있다면 의견 남겨주세요.
 const StyledLink = styled(Link)`
   width: 47.5%;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${MOBILE_SCREEN}) {
     width: 30%;
   }
 `;
