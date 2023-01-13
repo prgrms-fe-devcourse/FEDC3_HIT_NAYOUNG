@@ -10,8 +10,8 @@ const BackNavigation = ({ route, size = 32 }: BackNavigation) => {
   const Icon = BsArrowLeftShort;
   return (
     <div>
-      <Link to={route}>
-        <Icon size={size} />
+      <Link to={route} className="inline-block">
+        <Icon size={size} to={route} />
       </Link>
     </div>
   );
