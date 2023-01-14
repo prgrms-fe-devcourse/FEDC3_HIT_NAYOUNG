@@ -33,7 +33,6 @@ const ReviewDetail = () => {
     const getReviewDetail = async () => {
       try {
         const { data } = await api.get(`/posts/${id}`);
-        console.log(data);
 
         setReviewContent(data);
         setCommentList(data.comments);
@@ -48,16 +47,18 @@ const ReviewDetail = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto h-full px-8 pt-8">
       {reviewContent && (
-        <ReviewContent
-          author={reviewContent.author.fullName}
-          title={reviewContent.title}
-          imageUrl={reviewContent.image}
-          category={reviewContent.channel.name}
-          createdAt={reviewContent.createdAt}
-        />
+        <>
+          <ReviewContent
+            author={reviewContent.author.fullName}
+            title={reviewContent.title}
+            imageUrl={reviewContent.image}
+            category={reviewContent.channel.name}
+            createdAt={reviewContent.createdAt}
+          />
+          <ReviewCommentInput postId={id} />
+          {commentList && <ReviewCommentList commentList={commentList} />}
+        </>
       )}
-      <ReviewCommentInput postId={id} />
-      {commentList && <ReviewCommentList commentList={commentList} />}
     </div>
   );
 };

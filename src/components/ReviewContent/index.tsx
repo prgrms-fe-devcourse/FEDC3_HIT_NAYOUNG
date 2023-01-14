@@ -19,8 +19,6 @@ const ReviewContent = ({
   category,
   createdAt,
 }: ReviewContentProps) => {
-  console.log(author);
-
   return (
     <section className="mb-4">
       <div className="mb-8">

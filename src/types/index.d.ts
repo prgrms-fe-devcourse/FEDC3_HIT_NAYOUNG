@@ -88,7 +88,7 @@ export type Comment = {
     _id: string;
   };
   comment: string;
-  createdAt: any;
+  createdAt: string;
   post: string;
   updatedAt: string;
   __v: string;

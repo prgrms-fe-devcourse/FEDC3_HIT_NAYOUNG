@@ -1,30 +1,9 @@
 import api from '@/Api/api';
+import { getUserInformation } from '@/Api/user';
 import { likePropState } from '@/store/store';
 import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
-
-// pull 하고 지울것
-const getUserInformation = async () => {
-  try {
-    const token = localStorage.getItem('login-token');
-    if (token === null) {
-      return false;
-    }
-    const response = await api.get(`/auth-user`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response) {
-      return response.data;
-    }
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
-};
 
 const LikeButton = () => {
   const [likeToggle, setLikeToggle] = useState(false);
@@ -34,7 +13,7 @@ const LikeButton = () => {
 
   const loginToken = localStorage.getItem('login-token');
 
-  let timer: any = null;
+  let timer: any | number = null;
 
   useEffect(() => {
     const getUser = async () => {
@@ -77,7 +56,6 @@ const LikeButton = () => {
   const onToggleLikeButton = async () => {
     debouncing(delayFunc);
     if (likeToggle) {
-      console.log('좋아요 취소');
       try {
         const response = await api.delete('/likes/delete', {
           data: {
@@ -87,19 +65,16 @@ const LikeButton = () => {
             Authorization: `bearer ${loginToken}`,
           },
         });
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log('좋아요');
       const response = await api.post('/likes/create', likeAPIBody, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `bearer ${loginToken}`,
         },
       });
-      console.log(response);
     }
 
     setLikeToggle(!likeToggle);

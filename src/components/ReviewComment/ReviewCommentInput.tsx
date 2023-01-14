@@ -14,12 +14,12 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
   const [isCommentEmpty, setIsCommentEmpty] = useState(true);
   const loginToken = localStorage.getItem('login-token');
 
-  const onChangeInput = (e: any) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
   };
 
   useEffect(() => {
-    if (comment !== '') setIsCommentEmpty(false);
+    if (comment.trim() !== '') setIsCommentEmpty(false);
     else setIsCommentEmpty(true);
   }, [comment]);
 
