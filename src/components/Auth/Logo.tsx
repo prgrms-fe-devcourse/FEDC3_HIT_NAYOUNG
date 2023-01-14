@@ -1,14 +1,14 @@
-type logo = {
+type LogoProps = {
   logoText: string;
 };
 
-const Logo = ({ logoText }: logo) => {
+const Logo = ({ logoText }: LogoProps) => {
   return (
     <div>
-      <div className="box-border rounded-lg h-20 w-20 bg-[#FFC7C7] flex items-center justify-center">
+      <div className="box-border rounded-lg h-20 w-20 bg-BASE flex items-center justify-center">
         <div className="text-white text-3xl">HIT</div>
       </div>
-      <div className="text-2xl">{logoText}</div>
+      <div className="text-2xl mt-0.5">{logoText}</div>
     </div>
   );
 };
