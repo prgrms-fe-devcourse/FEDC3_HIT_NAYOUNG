@@ -1,12 +1,12 @@
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 
-type BackNavigation = {
+type BackNavigationProps = {
   route: string;
   size: number;
 };
 
-const BackNavigation = ({ route, size = 32 }: BackNavigation) => {
+const BackNavigation = ({ route, size = 32 }: BackNavigationProps) => {
   const Icon = BsArrowLeftShort;
   return (
     <div>
