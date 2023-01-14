@@ -1,11 +1,11 @@
-import { ReviewPosterDataType } from '@/types';
+import { ReviewPosterType } from '@/types';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 
 const ReviewListSection = ({
   reviews,
   reviewCount,
 }: {
-  reviews: ReviewPosterDataType[];
+  reviews: ReviewPosterType[];
   reviewCount: number;
 }) => {
   if (reviewCount) {

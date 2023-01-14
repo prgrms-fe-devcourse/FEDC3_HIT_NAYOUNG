@@ -2,12 +2,12 @@ import { getAllReviewPoster } from '@/Api/reviewPoster';
 import ReviewCount from '@/components/ReviewList/ReviewCount';
 import ReviewListHeader from '@/components/ReviewList/ReviewListHeader';
 import ReviewListSection from '@/components/ReviewList/ReviewListSection';
-import { ReviewPosterDataType } from '@/types';
+import { ReviewPosterType } from '@/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ReviewList = () => {
-  const [reviews, setReviews] = useState<ReviewPosterDataType[]>([]);
+  const [reviews, setReviews] = useState<ReviewPosterType[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
   const {
@@ -22,7 +22,7 @@ const ReviewList = () => {
         setLoading(true);
         const response = await getAllReviewPoster(channelId);
         const reviewListData = response.data.map(
-          ({ _id, title, image }: Omit<ReviewPosterDataType, 'id'>) => ({
+          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
             id: _id,
             title,
             image,
