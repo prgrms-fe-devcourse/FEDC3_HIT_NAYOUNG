@@ -34,7 +34,7 @@ const Profile = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       {user && (
-        <center>
+        <div className="flex flex-col items-center">
           <div className="avatar mt-10">
             <div className={`w-${36} rounded-full`}>
               <img
@@ -55,7 +55,7 @@ const Profile = () => {
             </button>
           </div>
           <div className="mt-10">
-            <ul className="flex justify-between max-w-[300px]">
+            <ul className="flex justify-around text-center min-w-[300px]">
               <li className="cursor-pointer">
                 <div>게시물</div>
                 <div>{user?.posts.length}</div>
@@ -120,7 +120,7 @@ const Profile = () => {
               })
             )}
           </div>
-        </center>
+        </div>
       )}
     </div>
   );

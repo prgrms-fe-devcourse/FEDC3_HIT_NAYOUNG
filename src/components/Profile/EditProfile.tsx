@@ -126,7 +126,7 @@ const EditProfile = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       {user && (
-        <center>
+        <div className="flex flex-col items-center">
           <div className="avatar mt-10">
             <div className="w-36 rounded-full">
               <img
@@ -185,7 +185,7 @@ const EditProfile = () => {
               저장
             </button>
           </Link>
-        </center>
+        </div>
       )}
     </div>
   );
