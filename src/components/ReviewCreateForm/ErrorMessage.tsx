@@ -1,4 +1,4 @@
-import WarningLabel from '@/components/SignupForm/WarningLabel';
+import WarningLabel from '@/components/Auth/WarningLabel';
 import { FieldError } from 'react-hook-form';
 
 const ErrorMessage = ({ errors }: { errors?: FieldError }) => {
