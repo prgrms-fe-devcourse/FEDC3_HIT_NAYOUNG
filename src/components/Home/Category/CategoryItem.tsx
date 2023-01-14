@@ -25,11 +25,11 @@ const categoryIcon: CategoryNameAndIcon = {
   시계: IoWatchOutline,
 };
 
-const CategoryItem = ({ name, posts }: Category) => {
+const CategoryItem = ({ _id, name, posts }: Category) => {
   const Icon = categoryIcon[name];
 
   return (
-    <StyledLink to={`/category/${name}`}>
+    <StyledLink to={`/category/${name}`} state={{ id: _id, name }}>
       <section className="w-full flex flex-col items-start p-2.5 text-TEXT_BASE_BLACK border-BASE border rounded-xl cursor-pointer">
         <div className="border-BASE border-1 rounded-full p-2">
           <Icon className="text-xl" />
