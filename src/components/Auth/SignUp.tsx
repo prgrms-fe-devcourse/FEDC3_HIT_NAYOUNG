@@ -48,11 +48,12 @@ const SignupForm = () => {
 
   const callSignupAPI = async () => {
     try {
-      await api.post('/signup', callSignupAPIBody, {
+      const response = await api.post('/signup', callSignupAPIBody, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
+      localStorage.setItem('login-token', response.data.token);
       navigate(HOME_PAGE);
     } catch (error) {
       setError('email', {
