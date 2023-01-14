@@ -15,7 +15,7 @@ type DataType = {
     title: string;
     image: string;
   }[];
-} | null;
+};
 
 const validCategoryName: CategoryName[] = [
   '노트북',
@@ -28,7 +28,7 @@ const validCategoryName: CategoryName[] = [
 
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
-  const [data, setData] = useState<DataType>(null);
+  const [data, setData] = useState<DataType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
   const titleClassName =
