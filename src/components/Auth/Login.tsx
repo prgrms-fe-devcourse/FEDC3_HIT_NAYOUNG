@@ -66,9 +66,8 @@ const Login = () => {
         <div className="mt-20">
           <Logo logoText="로그인" />
         </div>
-
-        <div className="form-control w-2/5 min-w-[300px] mt-16">
-          <div className="text-sm">이메일</div>
+        <div className="form-control w-80 mt-14">
+          <div className="text-base">이메일</div>
           <input
             {...register('email', {
               required: '이메일 입력은 필수입니다.',
@@ -87,8 +86,8 @@ const Login = () => {
         </div>
         <span className="label-text-alt text-red-500">{errors?.email?.message}</span>
         <br />
-        <div className="relative form-control w-2/5 min-w-[300px] mt-2">
-          <div className="text-sm">비밀번호</div>
+        <div className="relative form-control w-80 mt-2">
+          <div className="text-base">비밀번호</div>
           <input
             {...register('password', {
               required: '비밀번호 입력은 필수입니다.',
@@ -105,7 +104,7 @@ const Login = () => {
             onChange={onChangeInputValue}
           />
           <i
-            className="absolute top-9 right-5 cursor-pointer"
+            className="absolute top-10 right-5 cursor-pointer"
             onClick={togglePasswordVisibility}
           >
             {isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
@@ -116,14 +115,14 @@ const Login = () => {
         <div>
           <button
             type="submit"
-            className="btn w-2/5 min-w-[300px] mt-10 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            className="btn w-80 mt-10 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
           >
             로그인
           </button>
         </div>
         <div>
           <Link to={SIGNUP_PAGE}>
-            <button className="btn w-2/5 min-w-[300px] mt-8 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
+            <button className="btn w-80 mt-8 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
               회원가입
             </button>
           </Link>

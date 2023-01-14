@@ -75,11 +75,11 @@ const SignupForm = () => {
   };
 
   return (
-    <center className="mt-10">
+    <center className="mt-11 overflow-hidden">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <span className="text-lg font-bold">이름</span>
+        <div className="form-control w-80 max-w-xs mt-7">
+          <span className="text-base">이름</span>
           <input
             {...register('fullName', {
               required: '이름을 입력해 주세요.',
@@ -94,8 +94,8 @@ const SignupForm = () => {
         </div>
         {errors?.fullName && <WarningLabel message={errors.fullName.message} />}
         <br />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">이메일</div>
+        <div className="form-control w-80 max-w-xs mt-1">
+          <div className="text-base">이메일</div>
           <input
             {...register('email', {
               required: '이메일을 입력해 주세요.',
@@ -112,8 +112,8 @@ const SignupForm = () => {
         </div>
         {errors?.email && <WarningLabel message={errors.email.message} />}
         <br />
-        <div className="w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">비밀번호</div>
+        <div className="w-80 max-w-xs mt-1">
+          <div className="text-base">비밀번호</div>
           <div className="relative form-control">
             <input
               {...register('password', {
@@ -140,8 +140,8 @@ const SignupForm = () => {
         </div>
         {errors?.password && <WarningLabel message={errors.password.message} />}
         <br />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">비밀번호 확인</div>
+        <div className="form-control w-80 max-w-xs mt-1">
+          <div className="text-base">비밀번호 확인</div>
           <input
             {...register('confirmPassword', {
               required: '비밀번호를 확인해 주세요.',
@@ -159,7 +159,7 @@ const SignupForm = () => {
         <button
           type="submit"
           disabled={!isDirty || !isValid}
-          className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+          className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-3"
         >
           회원가입
         </button>
