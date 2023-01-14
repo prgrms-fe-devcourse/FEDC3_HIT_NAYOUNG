@@ -1,8 +1,8 @@
 import api from '@/Api/api';
-import { useForm } from 'react-hook-form';
-import Logo from '@/components/Login/Logo';
+import Logo from '@/components/Auth/Logo';
 import WarningLabel from './WarningLabel';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { HOME_PAGE } from '@/utils/constants';
@@ -18,12 +18,6 @@ type FormData = {
   password: string;
   confirmPassword: string;
   extraError: string;
-};
-
-type SignUpAPIData = {
-  fullName: string;
-  email: string;
-  password: string;
 };
 
 const SignupForm = () => {
@@ -52,7 +46,7 @@ const SignupForm = () => {
     password,
   };
 
-  const callSignupAPI = async ({ fullName, email, password }: SignUpAPIData) => {
+  const callSignupAPI = async () => {
     try {
       await api.post('/signup', callSignupAPIBody, {
         headers: {
@@ -76,7 +70,7 @@ const SignupForm = () => {
         { shouldFocus: true }
       );
     } else {
-      callSignupAPI({ fullName, email, password });
+      callSignupAPI();
     }
   };
 
