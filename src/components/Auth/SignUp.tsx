@@ -1,9 +1,9 @@
 import api from '@/Api/api';
-import { useForm } from 'react-hook-form';
-import Logo from '@/components/Login/Logo';
+import Logo from '@/components/Auth/Logo';
 import WarningLabel from './WarningLabel';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { HOME_PAGE } from '@/utils/constants';
 
@@ -18,12 +18,6 @@ type FormData = {
   password: string;
   confirmPassword: string;
   extraError: string;
-};
-
-type SignUpAPIData = {
-  fullName: string;
-  email: string;
-  password: string;
 };
 
 const SignupForm = () => {
@@ -52,7 +46,7 @@ const SignupForm = () => {
     password,
   };
 
-  const callSignupAPI = async ({ fullName, email, password }: SignUpAPIData) => {
+  const callSignupAPI = async () => {
     try {
       await api.post('/signup', callSignupAPIBody, {
         headers: {
@@ -76,16 +70,16 @@ const SignupForm = () => {
         { shouldFocus: true }
       );
     } else {
-      callSignupAPI({ fullName, email, password });
+      callSignupAPI();
     }
   };
 
   return (
-    <center className="mt-10">
+    <div className="pt-11 overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <span className="text-lg font-bold">이름</span>
+        <div className="form-control w-80 max-w-xs mt-7">
+          <span className="text-base">이름</span>
           <input
             {...register('fullName', {
               required: '이름을 입력해 주세요.',
@@ -95,13 +89,13 @@ const SignupForm = () => {
             type="text"
             autoComplete="off"
             placeholder="이름을 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.fullName && <WarningLabel message={errors.fullName.message} />}
         <br />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">이메일</div>
+        <div className="form-control w-80 max-w-xs mt-1">
+          <div className="text-base">이메일</div>
           <input
             {...register('email', {
               required: '이메일을 입력해 주세요.',
@@ -113,13 +107,13 @@ const SignupForm = () => {
             type="text"
             autoComplete="off"
             placeholder="이메일을 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.email && <WarningLabel message={errors.email.message} />}
         <br />
-        <div className="w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">비밀번호</div>
+        <div className="w-80 max-w-xs mt-1">
+          <div className="text-base">비밀번호</div>
           <div className="relative form-control">
             <input
               {...register('password', {
@@ -134,7 +128,7 @@ const SignupForm = () => {
               type={isShowPassword ? 'text' : 'password'}
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
-              className="input input-bordered text-center"
+              className="input input-bordered text-center bg-white border-INPUT_BORDER"
             />
             <i
               className="absolute top-4 right-5 cursor-pointer"
@@ -146,8 +140,8 @@ const SignupForm = () => {
         </div>
         {errors?.password && <WarningLabel message={errors.password.message} />}
         <br />
-        <div className="form-control w-80 max-w-xs mt-4">
-          <div className="text-lg font-bold">비밀번호 확인</div>
+        <div className="form-control w-80 max-w-xs mt-1">
+          <div className="text-base">비밀번호 확인</div>
           <input
             {...register('confirmPassword', {
               required: '비밀번호를 확인해 주세요.',
@@ -155,7 +149,7 @@ const SignupForm = () => {
             type="password"
             autoComplete="off"
             placeholder="비밀번호를 확인해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.confirmPassword && (
@@ -165,12 +159,12 @@ const SignupForm = () => {
         <button
           type="submit"
           disabled={!isDirty || !isValid}
-          className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+          className="btn w-80 mt-3 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-white disabled:bg-BUTTON_DISABLED disabled:text-BUTTON_TEXT_DISABLED"
         >
           회원가입
         </button>
       </form>
-    </center>
+    </div>
   );
 };
 
