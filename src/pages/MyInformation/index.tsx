@@ -1,5 +1,12 @@
+import Profile from '@/components/Profile';
+import styled from '@emotion/styled';
+
 const MyInformation = () => {
-  return <div>MyInformation</div>;
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 };
 
 export default MyInformation;

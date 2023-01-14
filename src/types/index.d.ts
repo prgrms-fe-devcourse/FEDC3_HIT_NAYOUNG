@@ -22,3 +22,16 @@ export type Category = {
   updatedAt: string;
   __v: number;
 };
+
+export type Post = {
+  likes: Like[],
+  comments: Comment[],
+  _id: string,
+  image: Optional<string>,
+  imagePublicId: Optional<string>,
+  title: string,
+  channel: Channel,
+  author: User,
+  createdAt:string,
+  updatedAt: string
+}
