@@ -1,85 +1,112 @@
-import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import styled from '@emotion/styled';
-import api from '@/Api/api';
-import ReviewPoster from '@/components/ReviewPoster';
 import { InformLoginModal } from '@/components/Modal';
 import { informLoginModalState } from '@/store/store';
+import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
+import { useEffect, useState } from 'react';
+import { Category, CategoryName } from '@/types';
+import { getCategory } from '@/Api/category';
+import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
 
-// 디자인 테스트를 위한 임시 layout
-// 메인 레이아웃 완성시 제거할 layout
-// ReviewPoster 컴포넌트 test를 위한 임시 비동기 코드 (PR에 올라온 로직 merge 후 바로 삭제 예정)
-const TemplateLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  padding: 5rem 2rem;
-  height: 100vh;
-`;
+type DataType = {
+  category: Category[];
+  specifiedPoster: {
+    id: string;
+    title: string;
+    image: string;
+  }[];
+};
 
-type TempDataType = {
-  id: string;
-  title: string;
-  image: string;
-} | null;
+const validCategoryName: CategoryName[] = [
+  '노트북',
+  '모니터',
+  '시계',
+  '오디오',
+  '키보드',
+  '휴대폰',
+];
 
 const Home = () => {
-  const [specifiedPoster, setSpecifiedPoster] = useState<TempDataType>(null);
   const [open, setOpen] = useRecoilState(informLoginModalState);
+  const [data, setData] = useState<DataType | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [loading, setLoading] = useState(false);
+  const titleClassName =
+    'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
 
   useEffect(() => {
-    const getSpecifiedPoster = async () => {
+    const run = async () => {
       try {
-        const response = await api.get(
-          '/posts/channel/63bd045193836272216d31bc?offset=&limit'
+        const getAllMainData = (
+          await Promise.all([getCategory(), getSpecifiedReviewPoster()])
+        ).map(({ data }) => data);
+        const categoryResponse: Category[] = getAllMainData[0];
+        const specifiedReviewPosterResponse: {
+          id: string;
+          title: string;
+          image: string;
+        }[] = getAllMainData[1];
+        const validCategory = categoryResponse.filter((category) =>
+          validCategoryName.includes(category.name)
         );
-        const recentUpdatePoster = response.data[0];
+        const validSpecifiedReviewPosterResponse = specifiedReviewPosterResponse.slice(
+          0,
+          2
+        );
 
-        setSpecifiedPoster({
-          id: recentUpdatePoster._id,
-          title: recentUpdatePoster.title,
-          image: recentUpdatePoster.image,
+        setData({
+          category: validCategory,
+          specifiedPoster: validSpecifiedReviewPosterResponse,
         });
-      } catch (e) {
-        console.log(e);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error);
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
-    getSpecifiedPoster();
+    run();
   }, []);
 
-  if (specifiedPoster) {
+  if (loading) {
+    // 로딩 컴포넌트(스켈레톤)으로 대체
+    return null;
+  }
+
+  if (data) {
     return (
       <>
-        <TemplateLayout>
-          <h1>Home</h1>
-          <ReviewPoster
-            id={specifiedPoster.id}
-            title={specifiedPoster.title}
-            image={specifiedPoster.image}
-          />
-          <CategoryList />
-        </TemplateLayout>
-        <div className="w-96 mx-auto my-0">
-          <button className="btn" onClick={() => setOpen(true)}>
-            오픈
-          </button>
-          <InformLoginModal />
-        </div>
+        <h1
+          className={`md:hidden absolute top-5 left-1/2 -translate-x-1/2 text-5xl text-BASE font-extrabold`}
+        >
+          HIT
+        </h1>
+        <section className="flex flex-col items-center md:items-start lg:items-start max-w-xl w-full mx-auto pt-24 lg:pt-10 md:pt-10">
+          {/* 추천 게시글 area */}
+          <div className="w-11/12 h-full">
+            <h2 className={titleClassName}>추천 리뷰 게시글</h2>
+
+            <ReviewPoster
+              id={data?.specifiedPoster[0].id}
+              title={data?.specifiedPoster[0].title}
+              image={data?.specifiedPoster[0].image}
+            />
+            <ReviewPoster
+              id={data?.specifiedPoster[1].id}
+              title={data?.specifiedPoster[1].title}
+              image={data?.specifiedPoster[1].image}
+            />
+            {/* 카테고리 목록 area */}
+            <h2 className={titleClassName}>카테고리</h2>
+            <CategoryList category={data?.category} />
+          </div>
+        </section>
+        <InformLoginModal />
       </>
     );
   }
-
-  return <div>Error</div>;
 };
-
-// const Home = () => {
-
-//   return (
-
-//   );
-// };
 
 export default Home;
