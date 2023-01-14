@@ -44,4 +44,19 @@ const getUserInformation = async () => {
   }
 };
 
-export { checkAuthUser, getUserInformation };
+const getUserId = async () => {
+  try {
+    const headers = getAxiosHeader();
+    if (!headers) return false;
+    const { _id } = await getUserInformation();
+    const response = await api.get(`/users/${_id}`);
+    if (response) {
+      return response.data
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+export { checkAuthUser, getUserInformation, getUserId };
