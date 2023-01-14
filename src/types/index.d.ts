@@ -7,7 +7,6 @@ import {
 
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
-
 export type navigationItem = {
   title: string;
   link: string;
@@ -15,10 +14,9 @@ export type navigationItem = {
   activeIcon: IconType;
 };
 
+// 카테고리 타입
 export type CategoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
-
 export type CategoryNameAndIcon = Record<categoryName, IconType>;
-
 export type Category = {
   authRequired: boolean;
   posts: string[];
@@ -81,4 +79,34 @@ export type ReviewPosterType = {
   id: string;
   title: string;
   image: string;
+};
+
+// 리뷰 게시글 댓글 타입
+export type Comment = {
+  author: {
+    fullName: string;
+    _id: string;
+  };
+  comment: string;
+  createdAt: string;
+  post: string;
+  updatedAt: string;
+  __v: string;
+  _id: string;
+};
+
+// 좋아요 응답 타입
+export type Like = {
+  createdAt: string;
+  post: string;
+  updatedAt: string;
+  user: string;
+  __v: string;
+  _id: string;
+};
+
+// 좋아요 Prop 타입
+export type LikeProps = {
+  id: string;
+  likes: Like[];
 };

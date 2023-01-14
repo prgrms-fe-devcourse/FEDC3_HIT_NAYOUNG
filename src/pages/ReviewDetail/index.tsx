@@ -1,22 +1,66 @@
 import api from '@/Api/api';
-import { useEffect } from 'react';
+import ReviewCommentInput from '@/components/ReviewComment/ReviewCommentInput';
+import ReviewCommentList from '@/components/ReviewComment/ReviewCommentList';
+import ReviewContent from '@/components/ReviewContent';
+import { createCommentState, likePropState } from '@/store/store';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-// ReviewPoster 컴포넌트에서 ReviewDetail 라우터로 이동하면서 임시 비동기 코드가 작동하는지 확인하는 test 코드 (PR에 올라온 로직 merge 후 바로 삭제 예정)
+type ReviewContentType = {
+  author: {
+    fullName: string;
+  };
+  title: string;
+  image: string;
+  channel: {
+    name: string;
+  };
+  createdAt: string;
+};
+
 const ReviewDetail = () => {
   const {
     state: { id },
   } = useLocation();
 
+  const [reviewContent, setReviewContent] = useState<ReviewContentType>();
+  const [commentList, setCommentList] = useState();
+  const createComment = useRecoilValue(createCommentState);
+  const setLikeState = useSetRecoilState(likePropState);
+
   useEffect(() => {
     const getReviewDetail = async () => {
-      const response = await api.get(`/posts/${id}`);
+      try {
+        const { data } = await api.get(`/posts/${id}`);
+
+        setReviewContent(data);
+        setCommentList(data.comments);
+        setLikeState({ likes: data.likes, id });
+      } catch (error) {
+        console.log(error);
+      }
     };
-
     getReviewDetail();
-  }, []);
+  }, [createComment]);
 
-  return <div>ReviewDetail</div>;
+  return (
+    <div className="max-w-xl w-full my-0 mx-auto h-full px-8 pt-8">
+      {reviewContent && (
+        <>
+          <ReviewContent
+            author={reviewContent.author.fullName}
+            title={reviewContent.title}
+            imageUrl={reviewContent.image}
+            category={reviewContent.channel.name}
+            createdAt={reviewContent.createdAt}
+          />
+          <ReviewCommentInput postId={id} />
+          {commentList && <ReviewCommentList commentList={commentList} />}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default ReviewDetail;

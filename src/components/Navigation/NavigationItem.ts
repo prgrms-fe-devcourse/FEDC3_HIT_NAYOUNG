@@ -1,7 +1,7 @@
 import { navigationItem } from '@/types';
 import {
   ALARM_PAGE,
-  CREATE_REVIVEW_PAGE,
+  CREATE_REVIEW_PAGE,
   HOME_PAGE,
   MY_PAGE,
   SEARCH_PAGE,
@@ -31,7 +31,7 @@ const BottomNavigationItem: navigationItem[] = [
   },
   {
     title: 'CreateReview',
-    link: CREATE_REVIVEW_PAGE,
+    link: CREATE_REVIEW_PAGE,
     icon: AiOutlinePlus,
     activeIcon: AiOutlinePlus,
   },
@@ -70,7 +70,7 @@ const SideNavigationItem: navigationItem[] = [
   },
   {
     title: '만들기',
-    link: CREATE_REVIVEW_PAGE,
+    link: CREATE_REVIEW_PAGE,
     icon: AiOutlinePlus,
     activeIcon: AiOutlinePlus,
   },
