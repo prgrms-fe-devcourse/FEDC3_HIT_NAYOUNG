@@ -6,7 +6,6 @@ import Logo from './Logo.svg';
 
 type NavigationItemProps = {
   item: navigationItem;
-  key: number;
 };
 
 const onHandlerLogout = () => {
@@ -15,15 +14,11 @@ const onHandlerLogout = () => {
    */
 };
 
-const NavigationItemComponent = (
-  { item }: NavigationItemProps,
-  { key }: NavigationItemProps
-) => {
+const NavigationItemComponent = ({ item }: NavigationItemProps) => {
   const { pathname } = useLocation();
 
   return (
     <Link
-      key={key}
       to={item.link}
       className="w-full py-2 px-4 rounded-2xl hover:bg-GRAY_100 tooltip tooltip-right"
       data-tip={item.title}
@@ -38,7 +33,7 @@ const NavigationItemComponent = (
 
 const SideNavigation = () => {
   return (
-    <div className="fixed w-60 left-0 border-r-2 border-GRAY_200 h-full max-md:hidden max-xl:w-16">
+    <div className="fixed z-[100] w-60 left-0 border-r-2 border-GRAY_200 h-full max-md:hidden max-xl:w-16 bg-white">
       <div className="h-full flex flex-col justify-between">
         <ul className="flex flex-col gap-4 border-b-2 border-GRAY_200 p-4">
           <div className="w-full py-2 px-4 max-xl:px-0">

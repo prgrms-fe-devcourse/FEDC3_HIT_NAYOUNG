@@ -30,7 +30,7 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
         <h3 className="text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK">
           <span>{title}</span>
         </h3>
-        <span className="font-medium text-[#00000080]">User Name</span>
+        <span className="font-medium text-TEXT_SUB_GRAY">User Name</span>
       </div>
     </Link>
   );
