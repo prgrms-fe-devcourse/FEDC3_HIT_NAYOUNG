@@ -70,12 +70,7 @@ const Home = () => {
     run();
   }, []);
 
-  if (loading) {
-    // 로딩 컴포넌트(스켈레톤)으로 대체
-    return null;
-  }
-
-  if (data) {
+  if (data && !loading) {
     return (
       <>
         <h1
@@ -106,6 +101,8 @@ const Home = () => {
         <InformLoginModal />
       </>
     );
+  } else {
+    return <div>...Loading</div>;
   }
 };
 
