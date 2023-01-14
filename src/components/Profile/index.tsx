@@ -6,6 +6,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { FaComment } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { getUserInformation } from '@/Api/user';
+import { EDIT_MY_PAGE } from '@/utils/constants';
 
 type UserData = {
   fullName: string;
@@ -37,14 +38,12 @@ const Profile = () => {
         <div className="flex flex-col items-center">
           <div className="avatar mt-10">
             <div className={`w-${36} rounded-full`}>
-              <img
-                src={user?.image ? user?.image : 'https://placeimg.com/200/200/arch'}
-              />
+              <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
             </div>
           </div>
           <div>{user?.fullName}</div>
           <div>안녕하세요 월 수화 목금입니다.</div>
-          <Link to={'/editmypage'}>
+          <Link to={EDIT_MY_PAGE}>
             <button className="btn w-2/5 min-w-[300px] mt-5 bg-white text-BASE border-BASE hover:text-white hover:bg-HOVER hover:border-HOVER">
               프로필 편집
             </button>
@@ -58,15 +57,15 @@ const Profile = () => {
             <ul className="flex justify-around text-center min-w-[300px]">
               <li className="cursor-pointer">
                 <div>게시물</div>
-                <div>{user?.posts.length}</div>
+                <div>{user.posts.length}</div>
               </li>
               <li className="cursor-pointer">
                 <div>팔로워</div>
-                <div>{user?.followers.length}</div>
+                <div>{user.followers.length}</div>
               </li>
               <li className="cursor-pointer">
                 <div>팔로잉</div>
-                <div>{user?.following.length}</div>
+                <div>{user.following.length}</div>
               </li>
             </ul>
           </div>
@@ -79,10 +78,10 @@ const Profile = () => {
               user?.posts.map((post): any => {
                 return (
                   <div
-                    key={post?._id}
+                    key={post._id}
                     className="w-1/3 h-40 border-HOVER cursor-pointer relative overflow-hidden"
                   >
-                    {post?.image ? (
+                    {post.image ? (
                       <Figure>
                         <img
                           className="object-fill object-center w-52 h-52"
@@ -91,10 +90,10 @@ const Profile = () => {
                         <figcaption className="flex items-center justify-around">
                           <div className="flex gap-2 items-center">
                             <AiFillHeart />
-                            {post?.likes.length}
+                            {post.likes.length}
                           </div>
                           <div className="flex gap-2 items-center">
-                            <FaComment /> {post?.comments.length}
+                            <FaComment /> {post.comments.length}
                           </div>
                         </figcaption>
                       </Figure>
@@ -107,10 +106,10 @@ const Profile = () => {
                         <figcaption className="flex items-center justify-around">
                           <div className="flex gap-2 items-center">
                             <AiFillHeart />
-                            {post?.likes.length}
+                            {post.likes.length}
                           </div>
                           <div className="flex gap-2 items-center">
-                            <FaComment /> {post?.comments.length}
+                            <FaComment /> {post.comments.length}
                           </div>
                         </figcaption>
                       </Figure>

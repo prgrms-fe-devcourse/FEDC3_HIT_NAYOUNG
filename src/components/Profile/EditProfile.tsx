@@ -1,4 +1,5 @@
 import api from '@/Api/api';
+import { MY_PAGE } from '@/utils/constants';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -35,7 +36,6 @@ const EditProfile = () => {
       return;
     }
 
-    console.log(files);
     if (files !== undefined) {
       try {
         const response = await api.post(
@@ -48,13 +48,10 @@ const EditProfile = () => {
             },
           }
         );
-        console.log('파일 업로드 성공');
-        console.log(response.data);
         // 사진 변경시 바로 적용하기 위한 함수 호출
         // 뭔가 좋지 않은 코드 같음
         getUser();
       } catch (error) {
-        console.log('파일 업로드 실패');
         console.error(error);
       }
     }
@@ -121,17 +118,13 @@ const EditProfile = () => {
     );
   };
 
-  console.log(userInfomation);
-
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       {user && (
         <div className="flex flex-col items-center">
           <div className="avatar mt-10">
             <div className="w-36 rounded-full">
-              <img
-                src={user?.image ? user?.image : 'https://placeimg.com/200/200/arch'}
-              />
+              <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
             </div>
           </div>
           <div>
@@ -176,7 +169,7 @@ const EditProfile = () => {
               onChange={onChangeInputValue}
             />
           </div>
-          <Link to={'/mypage'}>
+          <Link to={MY_PAGE}>
             <button
               type="submit"
               className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
