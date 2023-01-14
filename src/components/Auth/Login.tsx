@@ -61,7 +61,7 @@ const Login = () => {
   } = useForm<FormState>();
 
   return (
-    <center className="overflow-hidden">
+    <div className="overflow-hidden flex flex-col items-center justify-center text-center">
       <form onSubmit={handleSubmit(onClickLoginButton)}>
         <div className="mt-20">
           <Logo logoText="로그인" />
@@ -128,7 +128,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
-    </center>
+    </div>
   );
 };
 

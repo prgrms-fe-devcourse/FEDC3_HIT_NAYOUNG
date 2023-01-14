@@ -75,7 +75,7 @@ const SignupForm = () => {
   };
 
   return (
-    <center className="mt-11 overflow-hidden">
+    <div className="mt-11 overflow-hidden flex flex-col items-center justify-center text-center">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
         <div className="form-control w-80 max-w-xs mt-7">
@@ -164,7 +164,7 @@ const SignupForm = () => {
           회원가입
         </button>
       </form>
-    </center>
+    </div>
   );
 };
 
