@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
-    <center className="overflow-hidden">
+    <div className="overflow-hidden flex flex-col items-center text-center">
       <div className="text-2xl mt-10 italic">404 Page</div>
       <div className="box-border rounded-404 w-80 h-80 mt-10 bg-BASE flex items-center justify-center">
         <div className="text-white text-6xl">HIT</div>
@@ -17,7 +17,7 @@ const NotFound = () => {
           BACK TO HOME
         </button>
       </Link>
-    </center>
+    </div>
   );
 };
 
