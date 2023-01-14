@@ -1,11 +1,10 @@
-import api from '@/Api/api';
 import { Post } from '@/types';
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import { FaComment } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { getUserInformation } from '@/Api/user';
+import { getUserId } from '@/Api/user';
 import { EDIT_MY_PAGE } from '@/utils/constants';
 
 type UserData = {
@@ -16,20 +15,33 @@ type UserData = {
   following: [];
 };
 
+const Figure = styled.figure`
+  figcaption {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    color: #fff;
+    opacity: 0;
+    transition: 0.3 ease-out;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+`;
+
 const Profile = () => {
   const [user, setUser] = useState<UserData>();
 
   useEffect(() => {
-    const getUser = async () => {
-      try {
-        const { _id } = await getUserInformation();
-        const { data } = await api.get(`/users/${_id}`);
-        setUser(data);
-      } catch (error) {
-        console.error(error);
-      }
+    const userIdData = async () => {
+      const data = await getUserId();
+      setUser(data);
     };
-    getUser();
+    userIdData();
   }, []);
 
   return (
@@ -75,7 +87,7 @@ const Profile = () => {
                 <div>작성하신 리뷰가 없습니다.</div>
               </div>
             ) : (
-              user?.posts.map((post): any => {
+              user.posts.map((post): ReactNode => {
                 return (
                   <div
                     key={post._id}
@@ -126,21 +138,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-const Figure = styled.figure`
-  figcaption {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    color: #fff;
-    opacity: 0;
-    transition: 0.3 ease-out;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-`;

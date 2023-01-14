@@ -1,5 +1,5 @@
 import api from '@/Api/api';
-import { MY_PAGE } from '@/utils/constants';
+import { FILE_SIZE_MAX_LIMIT, MY_PAGE } from '@/utils/constants';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,11 +10,9 @@ type EditUserData = {
   password: string;
 };
 
-const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB
-
 const EditProfile = () => {
   const [user, setUser] = useState<EditUserData>();
-  const [userInfomation, setUserInformation] = useState({
+  const [userInformation, setUserInformation] = useState({
     fullName: '',
     username: '',
     password: '',
@@ -77,7 +75,7 @@ const EditProfile = () => {
     // fullname, username, password 다 적지 않고 한번에 하는 방법이 있나요?
     // [dataName]: data.[dataName] 처럼?
     setUserInformation({
-      ...userInfomation,
+      ...userInformation,
       fullName: data.fullName,
       username: data.username,
       password: data.passowrd,
@@ -91,14 +89,14 @@ const EditProfile = () => {
   const onChangeInputValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
     setUserInformation({
-      ...userInfomation,
+      ...userInformation,
       [name]: value,
     });
   };
 
   const saveAPIBody = {
-    fullName: userInfomation.fullName,
-    username: userInfomation.username,
+    fullName: userInformation.fullName,
+    username: userInformation.username,
   };
 
   const onClickSaveButton = async () => {
@@ -109,7 +107,7 @@ const EditProfile = () => {
     });
     await api.put(
       '/settings/update-password',
-      { password: userInfomation.password },
+      { password: userInformation.password },
       {
         headers: {
           Authorization: `bearer ${token}`,
@@ -147,7 +145,7 @@ const EditProfile = () => {
             <input
               className="input input-bordered text-center mt-5"
               name="fullName"
-              value={userInfomation.fullName || ''}
+              value={userInformation.fullName || ''}
               onChange={onChangeInputValue}
             />
           </div>
@@ -156,7 +154,7 @@ const EditProfile = () => {
             <input
               className="input input-bordered text-center mt-5"
               name="username"
-              value={userInfomation.username || ''}
+              value={userInformation.username || ''}
               onChange={onChangeInputValue}
             />
           </div>
@@ -165,7 +163,7 @@ const EditProfile = () => {
             <input
               className="input input-bordered text-center mt-5"
               name="password"
-              value={userInfomation.password || ''}
+              value={userInformation.password || ''}
               onChange={onChangeInputValue}
             />
           </div>

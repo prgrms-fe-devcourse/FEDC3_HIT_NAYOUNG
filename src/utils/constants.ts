@@ -15,3 +15,6 @@ export const NOT_FOUND_PAGE = '*';
 export const MOBILE_SCREEN = '768px';
 export const TABLET_SCREEN = '1024px';
 export const DESKTOP_SCREEN = '1280px';
+
+// image size
+export const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB
