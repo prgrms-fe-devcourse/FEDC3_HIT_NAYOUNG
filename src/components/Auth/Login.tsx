@@ -1,13 +1,19 @@
 import api from '@/Api/api';
+import Logo from './Logo';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
-import Logo from './Logo';
 
 const Login = () => {
+  const [isShowPassword, setIsShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setIsShowPassword(!isShowPassword);
+  };
   const [account, setAccount] = useState({
     email: '',
     password: '',
@@ -81,7 +87,7 @@ const Login = () => {
         </div>
         <span className="label-text-alt text-red-500">{errors?.email?.message}</span>
         <br />
-        <div className="form-control w-2/5 min-w-[300px] mt-2">
+        <div className="relative form-control w-2/5 min-w-[300px] mt-2">
           <div className="text-sm">비밀번호</div>
           <input
             {...register('password', {
@@ -91,13 +97,19 @@ const Login = () => {
                 message: '8자리 이상의 비밀번호를 입력해 주세요.',
               },
             })}
-            type="text"
+            type={isShowPassword ? 'text' : 'password'}
             name="password"
             value={account.password}
             placeholder="비밀번호를 입력해 주세요."
             className="input input-bordered text-center"
             onChange={onChangeInputValue}
           />
+          <i
+            className="absolute top-9 right-5 cursor-pointer"
+            onClick={togglePasswordVisibility}
+          >
+            {isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+          </i>
         </div>
         <span className="label-text-alt text-red-500">{errors?.password?.message}</span>
         <br />
