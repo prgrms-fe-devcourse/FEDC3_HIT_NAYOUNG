@@ -61,7 +61,7 @@ const Login = () => {
   } = useForm<FormState>();
 
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center text-center">
+    <div className="overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onClickLoginButton)}>
         <div className="mt-20">
           <Logo logoText="로그인" />
@@ -80,7 +80,7 @@ const Login = () => {
             name="email"
             value={account.email}
             placeholder="이메일을 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
             onChange={onChangeInputValue}
           />
         </div>
@@ -100,7 +100,7 @@ const Login = () => {
             name="password"
             value={account.password}
             placeholder="비밀번호를 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
             onChange={onChangeInputValue}
           />
           <i
@@ -115,14 +115,14 @@ const Login = () => {
         <div>
           <button
             type="submit"
-            className="btn w-80 mt-10 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            className="btn w-80 mt-10 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-white"
           >
             로그인
           </button>
         </div>
         <div>
           <Link to={SIGNUP_PAGE}>
-            <button className="btn w-80 mt-8 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
+            <button className="btn w-80 mt-8 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-white">
               회원가입
             </button>
           </Link>

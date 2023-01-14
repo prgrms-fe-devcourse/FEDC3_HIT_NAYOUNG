@@ -75,7 +75,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="mt-11 overflow-hidden flex flex-col items-center justify-center text-center">
+    <div className="pt-11 overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
         <div className="form-control w-80 max-w-xs mt-7">
@@ -89,7 +89,7 @@ const SignupForm = () => {
             type="text"
             autoComplete="off"
             placeholder="이름을 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.fullName && <WarningLabel message={errors.fullName.message} />}
@@ -107,7 +107,7 @@ const SignupForm = () => {
             type="text"
             autoComplete="off"
             placeholder="이메일을 입력해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.email && <WarningLabel message={errors.email.message} />}
@@ -128,7 +128,7 @@ const SignupForm = () => {
               type={isShowPassword ? 'text' : 'password'}
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
-              className="input input-bordered text-center"
+              className="input input-bordered text-center bg-white border-INPUT_BORDER"
             />
             <i
               className="absolute top-4 right-5 cursor-pointer"
@@ -149,7 +149,7 @@ const SignupForm = () => {
             type="password"
             autoComplete="off"
             placeholder="비밀번호를 확인해 주세요."
-            className="input input-bordered text-center"
+            className="input input-bordered text-center bg-white border-INPUT_BORDER"
           />
         </div>
         {errors?.confirmPassword && (
@@ -159,7 +159,7 @@ const SignupForm = () => {
         <button
           type="submit"
           disabled={!isDirty || !isValid}
-          className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-3"
+          className="btn w-80 mt-3 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-white disabled:bg-BUTTON_DISABLED disabled:text-BUTTON_TEXT_DISABLED"
         >
           회원가입
         </button>
