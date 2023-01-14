@@ -18,6 +18,18 @@ body {
   padding-bottom: 100px;
 }
 
+@media (min-width: 768px) {
+  #root {
+    margin-left: 4rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  #root {
+    margin-left: 15rem;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
