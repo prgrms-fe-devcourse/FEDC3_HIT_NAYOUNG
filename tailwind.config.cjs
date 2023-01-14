@@ -13,6 +13,9 @@ module.exports = {
         GRAY_200: '#E5E7EB',
       },
     },
+    borderRadius: {
+      404: '41% 59% 64% 36% / 39% 43% 57% 61%',
+    },
   },
   plugins: [require('daisyui')],
 };
