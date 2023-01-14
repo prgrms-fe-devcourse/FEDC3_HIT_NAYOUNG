@@ -1,9 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
-import { ReviewPosterDataType } from '@/types';
+import { ReviewPosterType } from '@/types';
 
 // @param id - 선택한 포스터로 이동하기 위한 역할
 
-const ReviewPoster = ({ id, title, image }: ReviewPosterDataType) => {
+const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
   const { pathname } = useLocation();
   // 다른 기능에서 사용하게 된다면 constants.ts로 옮기겠습니다.
   const BASE_CATEGORY_ROUTER_NAME = 'notebook';
