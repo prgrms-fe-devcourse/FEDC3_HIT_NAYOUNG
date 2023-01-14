@@ -10,7 +10,7 @@ import {
   SEARCH_PAGE,
   ALARM_PAGE,
   MY_PAGE,
-  CREATE_REVIVEW_PAGE,
+  CREATE_REVIEW_PAGE,
 } from '@/utils/constants';
 import Search from './pages/Search';
 import Alarm from './pages/Alarm';
@@ -29,7 +29,7 @@ const App = () => {
         <Route path={SEARCH_PAGE} element={<Search />} />
         <Route path={ALARM_PAGE} element={<Alarm />} />
         <Route path={MY_PAGE} element={<MyInfo />} />
-        <Route path={CREATE_REVIVEW_PAGE} element={<ReviewCreate />} />
+        <Route path={CREATE_REVIEW_PAGE} element={<ReviewCreate />} />
         <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />
         <Route path={REVIEW_DETAIL_PAGE} element={<ReviewDetail />} />
         <Route path={NOT_FOUND_PAGE} element={<NotFound />} />

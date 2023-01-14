@@ -33,6 +33,7 @@ const ReviewDetail = () => {
     const getReviewDetail = async () => {
       try {
         const { data } = await api.get(`/posts/${id}`);
+
         setReviewContent(data);
         setCommentList(data.comments);
         setLikeState({ likes: data.likes, id });
