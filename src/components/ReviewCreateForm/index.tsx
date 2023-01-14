@@ -3,8 +3,11 @@ import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import { ReviewFormData } from '@/types';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import Button from '@/components/ReviewCreateForm/Button';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// UI 작업 - 버튼 컴포넌트
+// FIXME: 비동기 로직, 컴포넌트랑 분리
 
 const ReviewCreateForm = () => {
   const {
@@ -12,6 +15,8 @@ const ReviewCreateForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ReviewFormData>();
+
+  const navigate = useNavigate();
 
   const onSubmitReview: SubmitHandler<ReviewFormData> = ({ title, contents, image }) => {
     const titleAndContent = {
@@ -32,12 +37,13 @@ const ReviewCreateForm = () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((res) => console.log(res));
-
-    // api 호출(body 만들어서 주기)
-    // - 200번대 뜨면, /category로 이동해야해 <- 비즈니스 로직 어디로 빼지??
-    // - 글 생성못하면, 모달 띄우기 ! (2가지 액션 - 새로고침, 다시 전송)
+      .then(() => navigate(`/category/오디오`));
+    // TODO: 현재 어떤 카테고리에서 글 생성했는지 받아와야함. 글 생성 후, 다시 그 카테고리 페이지로 이동해야함. 현재는 오디오로 지정해둠
   };
+
+  const onClickCancelButton = useCallback(() => {
+    // TODO: 취소, 리뷰남기기 -> 나올 모달 만들고, 연결
+  }, []);
 
   return (
     <div className="flex justify-center text-TEXT_BASE_BLACK">
@@ -79,13 +85,17 @@ const ReviewCreateForm = () => {
             registerRules={{ required: '1장의 이미지를 올려주세요' }}
             errors={errors.image}
           />
-          <div className="action-buttons">
-            <button className="bg-GRAY_200" type="button">
-              취소
-            </button>
-            <button className="bg-BASE" onClick={handleSubmit(onSubmitReview)}>
-              리뷰남기기
-            </button>
+          <div className="action-buttons flex gap-4">
+            <Button
+              name="취소"
+              style="bg-GRAY_200 p-2.5 flex-1 rounded-xl hover:bg-slate-300"
+              clickHandler={onClickCancelButton}
+            />
+            <Button
+              name="리뷰남기기"
+              style="bg-BASE p-2.5 flex-1 rounded-xl hover:bg-HOVER"
+              clickHandler={handleSubmit(onSubmitReview)}
+            />
           </div>
         </form>
       </div>
