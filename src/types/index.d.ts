@@ -31,17 +31,17 @@ export type Category = {
 };
 
 export type Post = {
-  likes: Like[],
-  comments: Comment[],
-  _id: string,
-  image: Optional<string>,
-  imagePublicId: Optional<string>,
-  title: string,
-  channel: Channel,
-  author: User,
-  createdAt:string,
-  updatedAt: string
-}
+  likes: Like[];
+  comments: Comment[];
+  _id: string;
+  image: Optional<string>;
+  imagePublicId: Optional<string>;
+  title: string;
+  channel: Channel;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+};
 // React-hook-forms
 export type RegisterType<RegisterData extends FieldValues> = {
   register: UseFormRegister<RegisterData>;
@@ -72,6 +72,7 @@ export type RegisterTextareaProps<RegisterData> = {
 export type ReviewFormData = {
   title: string;
   contents: string;
+  image: string;
 };
 
 // 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생한느 이유를 모르겠습니다.
