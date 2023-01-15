@@ -41,14 +41,14 @@ const SideNavigation = () => {
           </div>
           {SideNavigationItem.map((item, index) => {
             if (index < 4) {
-              return <NavigationItemComponent item={item} key={index} />;
+              return <NavigationItemComponent item={item} key={item.id} />;
             }
           })}
         </ul>
         <ul className="flex flex-col gap-4 p-4">
           {SideNavigationItem.map((item, index) => {
             if (index > 3) {
-              return <NavigationItemComponent item={item} key={index} />;
+              return <NavigationItemComponent item={item} key={item.id} />;
             }
           })}
           <a
