@@ -51,12 +51,12 @@ const getUserId = async () => {
     const { _id } = await getUserInformation();
     const response = await api.get(`/users/${_id}`);
     if (response) {
-      return response.data
+      return response.data;
     }
   } catch (error) {
     console.error(error);
     return false;
   }
-}
+};
 
-export { checkAuthUser, getUserInformation, getUserId };
+export { checkAuthUser, getUserInformation, getUserId, getAxiosHeader };
