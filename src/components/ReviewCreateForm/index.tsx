@@ -27,8 +27,6 @@ const ReviewCreateForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<ReviewFormData>();
-  const prevCategoryUrl = '/category/오디오'; // FIXME: 더미데이터 <- 이전 페이지의 카테고리 값(id, name)받아와야함
-  const prevCategoryState = { id: '63bd141d93836272216d324a', name: '오디오' };
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
@@ -47,8 +45,6 @@ const ReviewCreateForm = () => {
     image,
     category,
   }) => {
-    console.log(title, contents, image, category);
-
     setLoading(true);
     const titleAndContent = {
       title,
@@ -58,23 +54,22 @@ const ReviewCreateForm = () => {
     const formData = new FormData();
     formData.append('title', JSON.stringify(titleAndContent));
     formData.append('image', image[0]);
-    formData.append('channelId', '63bd141d93836272216d324a');
+    formData.append('channelId', Dummy_Channel[category]);
 
-    // api
-    //   .post('/posts/create', formData, {
-    //     headers: {
-    //       Authorization:
-    //         'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzYzAyMmNkNmM1ZGQzMmZhMjllNDc1ZCIsImVtYWlsIjoic3Vod2FAbmF2ZXIuY29tIn0sImlhdCI6MTY3MzUzNjIwNX0.VabAJ1sxYkvnyZZRLMcPGqfA6KwYfuDXWJAFhKtOp7k',
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   })
-    //   .then(() =>
-    //     navigate(prevCategoryUrl, {
-    //       state: prevCategoryState,
-    //     })
-    //   )
-    //   .finally(() => setLoading(false));
-    // TODO: 현재 어떤 카테고리에서 글 생성했는지 받아와야함. 글 생성 후, 다시 그 카테고리 페이지로 이동해야함. 현재는 오디오로 지정해둠
+    api
+      .post('/posts/create', formData, {
+        headers: {
+          Authorization:
+            'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzYzAyMmNkNmM1ZGQzMmZhMjllNDc1ZCIsImVtYWlsIjoic3Vod2FAbmF2ZXIuY29tIn0sImlhdCI6MTY3MzUzNjIwNX0.VabAJ1sxYkvnyZZRLMcPGqfA6KwYfuDXWJAFhKtOp7k',
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() =>
+        navigate(`/category/${category}`, {
+          state: { id: Dummy_Channel[category], name: category },
+        })
+      )
+      .finally(() => setLoading(false));
   };
 
   return (
