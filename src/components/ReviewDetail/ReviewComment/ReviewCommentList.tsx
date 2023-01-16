@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '@/Api/api';
 import { Comment } from '@/types';
-import { formatDateTime } from '../../utils/format';
+import { formatDateTime } from '@/utils/format';
 import { BsTrash } from 'react-icons/bs';
 import { useSetRecoilState } from 'recoil';
 import { createCommentState } from '@/store/store';

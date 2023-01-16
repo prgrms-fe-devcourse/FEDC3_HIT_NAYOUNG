@@ -1,4 +1,4 @@
-import { Comment, LikeProps } from '@/types';
+import { BreadCrumbProps, Comment, LikeProps } from '@/types';
 import { atom, selector } from 'recoil';
 
 export const textState = atom({
@@ -31,4 +31,13 @@ export const createCommentState = atom<Comment | null>({
 export const likePropState = atom<LikeProps | null>({
   key: 'likePropState',
   default: null,
+});
+
+// BreadCrumb
+export const breadCrumbState = atom<BreadCrumbProps>({
+  key: 'breadCrumbState',
+  default: {
+    channelId: '',
+    category: '',
+  },
 });

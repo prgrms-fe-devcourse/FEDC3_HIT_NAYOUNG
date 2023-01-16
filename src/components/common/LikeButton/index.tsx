@@ -82,7 +82,11 @@ const LikeButton = () => {
 
   return (
     <div>
-      <button onClick={onToggleLikeButton}>
+      <button
+        onClick={onToggleLikeButton}
+        className="hover:cursor-pointer tooltip tooltip-top"
+        data-tip="좋아요"
+      >
         {likeToggle ? (
           <AiFillHeart className="text-2xl text-HOVER" />
         ) : (

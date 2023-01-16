@@ -81,6 +81,19 @@ export type ReviewPosterType = {
   image: string;
 };
 
+// 리뷰 게시글 상세페이지 타입
+export type ReviewContentType = {
+  userId: string;
+  author: {
+    _id: string;
+    fullName: string;
+    image: string;
+  };
+  title: string;
+  image: string;
+  createdAt: string;
+};
+
 // 리뷰 게시글 댓글 타입
 export type Comment = {
   author: {
@@ -109,4 +122,9 @@ export type Like = {
 export type LikeProps = {
   id: string;
   likes: Like[];
+};
+
+export type BreadCrumbProps = {
+  channelId: string;
+  category: string;
 };

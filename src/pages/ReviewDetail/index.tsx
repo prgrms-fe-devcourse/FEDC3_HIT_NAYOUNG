@@ -1,23 +1,13 @@
-import api from '@/Api/api';
-import ReviewCommentInput from '@/components/ReviewComment/ReviewCommentInput';
-import ReviewCommentList from '@/components/ReviewComment/ReviewCommentList';
-import ReviewContent from '@/components/ReviewContent';
-import { createCommentState, likePropState } from '@/store/store';
+import ReviewCommentInput from '@/components/ReviewDetail/ReviewComment/ReviewCommentInput';
+import ReviewCommentList from '@/components/ReviewDetail/ReviewComment/ReviewCommentList';
+import ReviewContent from '@/components/ReviewDetail/ReviewContent';
+import { callGetReviewDetailAPI } from '@/Api/reviewDetail';
+import { breadCrumbState, createCommentState, likePropState } from '@/store/store';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-
-type ReviewContentType = {
-  author: {
-    fullName: string;
-  };
-  title: string;
-  image: string;
-  channel: {
-    name: string;
-  };
-  createdAt: string;
-};
+import { getUserId } from '@/Api/user';
+import { ReviewContentType } from '@/types';
 
 const ReviewDetail = () => {
   const {
@@ -25,17 +15,33 @@ const ReviewDetail = () => {
   } = useLocation();
 
   const [reviewContent, setReviewContent] = useState<ReviewContentType>();
+  const [userId, setUserId] = useState('');
+
+  // 댓글 관련 state
   const [commentList, setCommentList] = useState();
   const createComment = useRecoilValue(createCommentState);
+
+  // breadCrumb (channelId, category)
+  const breadCrumbIdCategoryState = useSetRecoilState(breadCrumbState);
+
+  // 좋아요 state 부모로 전달
   const setLikeState = useSetRecoilState(likePropState);
 
   useEffect(() => {
     const getReviewDetail = async () => {
       try {
-        const { data } = await api.get(`/posts/${id}`);
+        const data = await callGetReviewDetailAPI(id);
+        const user = await getUserId();
+        console.log(data);
+        console.log(user);
 
+        setUserId(user._id);
         setReviewContent(data);
         setCommentList(data.comments);
+        breadCrumbIdCategoryState({
+          channelId: data.channel._id,
+          category: data.channel.name,
+        });
         setLikeState({ likes: data.likes, id });
       } catch (error) {
         console.log(error);
@@ -49,10 +55,10 @@ const ReviewDetail = () => {
       {reviewContent && (
         <>
           <ReviewContent
-            author={reviewContent.author.fullName}
+            userId={userId}
+            author={reviewContent.author}
             title={reviewContent.title}
-            imageUrl={reviewContent.image}
-            category={reviewContent.channel.name}
+            image={reviewContent.image}
             createdAt={reviewContent.createdAt}
           />
           <ReviewCommentInput postId={id} />
