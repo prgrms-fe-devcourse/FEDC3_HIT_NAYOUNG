@@ -8,6 +8,7 @@ import {
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
 export type navigationItem = {
+  id: string;
   title: string;
   link: string;
   icon: IconType;
@@ -82,7 +83,7 @@ export type ReviewPosterType = {
 };
 
 // 리뷰 게시글 댓글 타입
-export type Comment = {
+export type CommentType = {
   author: {
     fullName: string;
     _id: string;
