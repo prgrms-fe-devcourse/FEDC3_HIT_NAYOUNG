@@ -1,12 +1,10 @@
-import { useRecoilState } from 'recoil';
-import { InformLoginModal } from '@/components/Modal';
-import { informLoginModalState } from '@/store/store';
-import ReviewPoster from '@/components/Home/ReviewPoster';
-import CategoryList from '@/components/Home/Category/CategoryList';
+import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 import { useEffect, useState } from 'react';
 import { Category, CategoryName } from '@/types';
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
+import ReviewPoster from '@/components/Home/ReviewPoster';
+import CategoryList from '@/components/Home/Category/CategoryList';
 
 type DataType = {
   category: Category[];
@@ -27,7 +25,6 @@ const validCategoryName: CategoryName[] = [
 ];
 
 const Home = () => {
-  const [open, setOpen] = useRecoilState(informLoginModalState);
   const [data, setData] = useState<DataType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
@@ -99,6 +96,7 @@ const Home = () => {
           </div>
         </section>
         <InformLoginModal />
+        <InformLogOutModal />
       </>
     );
   } else {

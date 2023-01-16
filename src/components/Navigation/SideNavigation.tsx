@@ -1,6 +1,8 @@
 import { navigationItem } from '@/types';
 import { SideNavigationItem } from './NavigationItem';
 import { Link, useLocation } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { informLogOutModalState } from '@/store/store';
 import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo.svg';
 
@@ -8,15 +10,8 @@ type NavigationItemProps = {
   item: navigationItem;
 };
 
-const onHandlerLogout = () => {
-  /**
-   * 로그아웃 로직 들어가면 됩니다.
-   */
-};
-
 const NavigationItemComponent = ({ item }: NavigationItemProps) => {
   const { pathname } = useLocation();
-
   return (
     <Link
       to={item.link}
@@ -32,6 +27,12 @@ const NavigationItemComponent = ({ item }: NavigationItemProps) => {
 };
 
 const SideNavigation = () => {
+  const setModalOpened = useSetRecoilState(informLogOutModalState);
+
+  const onHandlerLogout = () => {
+    setModalOpened(true);
+  };
+
   return (
     <div className="fixed z-[100] w-60 left-0 border-r-2 border-GRAY_200 h-full max-md:hidden max-xl:w-16 bg-white">
       <div className="h-full flex flex-col justify-between">
