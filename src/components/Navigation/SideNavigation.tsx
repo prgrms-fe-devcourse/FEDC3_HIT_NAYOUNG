@@ -5,6 +5,7 @@ import { useSetRecoilState } from 'recoil';
 import { informLogOutModalState } from '@/store/store';
 import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo.svg';
+import { checkAuthUser } from '@/Api/user';
 
 type NavigationItemProps = {
   item: navigationItem;
@@ -30,7 +31,10 @@ const SideNavigation = () => {
   const setModalOpened = useSetRecoilState(informLogOutModalState);
 
   const onHandlerLogout = () => {
-    setModalOpened(true);
+    (async () => {
+      const isLogIn = await checkAuthUser();
+      if (isLogIn) setModalOpened(true);
+    })();
   };
 
   return (
