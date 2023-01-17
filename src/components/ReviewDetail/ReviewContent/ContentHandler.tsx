@@ -1,11 +1,12 @@
 import { callDeleteReviewDetailAPI } from '@/Api/reviewDetail';
-import { reviewContentState } from '@/store/store';
+import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { CREATE_REVIEW_PAGE, USER_PAGE } from '@/utils/constants';
 import { formatDate } from '@/utils/format';
 import { BsTrash } from 'react-icons/bs';
 import { FaRegEdit } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import Button from '@/components/ReviewDetail/ReviewContent/Button';
 
 const ContentHandler = () => {
   const {
@@ -13,17 +14,7 @@ const ContentHandler = () => {
   } = useLocation();
   const navigate = useNavigate();
   const { userId, author, title, image, channel, createdAt } =
-    useRecoilValue(reviewContentState);
-
-  const onDeleteReviewDetail = async () => {
-    // TODO 모달 컴포넌트로 변경 예정 @chunwookJoo
-    if (confirm('해당 게시글을 삭제할까요?')) {
-      await callDeleteReviewDetailAPI(id);
-      navigate(`/category/${channel.name}`, {
-        state: { id: channel._id, name: channel.name },
-      });
-    }
-  };
+    useRecoilValue(reviewDetailState);
 
   const updateBodyProp = {
     title,
@@ -31,13 +22,22 @@ const ContentHandler = () => {
     channelId: channel._id,
   };
 
-  const onMovePage = (page: string) => {
+  const onMovePage = async (page: 'userPage' | 'reviewUpdate' | 'reviewDelete') => {
     switch (page) {
       case 'userPage':
         navigate(USER_PAGE, { state: author._id });
         return;
       case 'reviewUpdate':
         navigate(CREATE_REVIEW_PAGE, { state: updateBodyProp });
+        return;
+      case 'reviewDelete':
+        // TODO 모달 컴포넌트로 변경 예정 @chunwookJoo
+        if (confirm('해당 게시글을 삭제할까요?')) {
+          await callDeleteReviewDetailAPI(id);
+          navigate(`/category/${channel.name}`, {
+            state: { id: channel._id, name: channel.name },
+          });
+        }
         return;
     }
   };
@@ -60,20 +60,18 @@ const ContentHandler = () => {
         <span>{formatDate(createdAt)}</span>
         {userId === author._id && (
           <>
-            <span
-              onClick={() => onMovePage('reviewUpdate')}
-              className="hover:cursor-pointer tooltip tooltip-bottom"
-              data-tip="글 수정"
-            >
-              <FaRegEdit className="text-xl" />
-            </span>
-            <span
-              onClick={onDeleteReviewDetail}
-              className="hover:cursor-pointer tooltip tooltip-bottom"
-              data-tip="글 삭제"
-            >
-              <BsTrash className="text-xl" />
-            </span>
+            <Button
+              childrenIcon={<FaRegEdit className="text-xl" />}
+              tooltipText="글 수정"
+              page="reviewUpdate"
+              onMovePage={onMovePage}
+            />
+            <Button
+              childrenIcon={<BsTrash className="text-xl" />}
+              tooltipText="글 삭제"
+              page="reviewDelete"
+              onMovePage={onMovePage}
+            />
           </>
         )}
       </div>

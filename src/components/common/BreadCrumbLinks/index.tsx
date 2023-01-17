@@ -1,4 +1,4 @@
-import { reviewContentState } from '@/store/store';
+import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { HOME_PAGE } from '@/utils/constants';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -8,7 +8,7 @@ type BreadCrumbLinksType = {
 };
 
 const BreadCrumbLinks = ({ textSize }: BreadCrumbLinksType) => {
-  const { channel } = useRecoilValue(reviewContentState);
+  const { channel } = useRecoilValue(reviewDetailState);
 
   return (
     <div className={`${textSize} text-TEXT_BASE_BLACK breadcrumbs`}>

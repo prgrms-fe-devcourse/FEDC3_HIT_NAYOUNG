@@ -2,7 +2,9 @@ import ReviewCommentInput from '@/components/ReviewDetail/ReviewComment/ReviewCo
 import ReviewCommentList from '@/components/ReviewDetail/ReviewComment/ReviewCommentList';
 import ReviewContent from '@/components/ReviewDetail/ReviewContent';
 import { callGetReviewDetailAPI } from '@/Api/reviewDetail';
-import { createCommentState, likePropState, reviewContentState } from '@/store/store';
+import { commentState } from '@/store/recoilCommentState';
+import { likeState } from '@/store/recoilLikeState';
+import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -15,17 +17,16 @@ const ReviewDetail = () => {
   } = useLocation();
 
   const [reviewContent, setReviewContent] = useState<ReviewContentType>();
-  const [userId, setUserId] = useState('');
 
   // 댓글 관련 state
   const [commentList, setCommentList] = useState();
-  const createdComment = useRecoilValue(createCommentState);
+  const createdComment = useRecoilValue(commentState);
 
   // 상세페이지 데이터 2depth이상 전역 상태 관리
-  const setReviewContentHandler = useSetRecoilState(reviewContentState);
+  const setReviewContentHandler = useSetRecoilState(reviewDetailState);
 
   // 좋아요 state 부모로 전달
-  const setLikeState = useSetRecoilState(likePropState);
+  const setLikeState = useSetRecoilState(likeState);
 
   useEffect(() => {
     const getReviewDetail = async () => {
@@ -33,7 +34,6 @@ const ReviewDetail = () => {
         const data = await callGetReviewDetailAPI(id);
         const user = await getUserId();
 
-        setUserId(user._id);
         setReviewContent(data);
         setCommentList(data.comments);
         setReviewContentHandler({

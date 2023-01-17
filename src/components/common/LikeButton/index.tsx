@@ -1,6 +1,6 @@
 import api from '@/Api/api';
 import { getUserInformation } from '@/Api/user';
-import { likePropState } from '@/store/store';
+import { likeState } from '@/store/recoilLikeState';
 import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
@@ -9,7 +9,7 @@ const LikeButton = () => {
   const [likeToggle, setLikeToggle] = useState(false);
   const [likeId, setLikeId] = useState('');
   const [userId, setUserId] = useState();
-  const likeState = useRecoilValue(likePropState);
+  const likePropState = useRecoilValue(likeState);
 
   const loginToken = localStorage.getItem('login-token');
 
@@ -20,7 +20,7 @@ const LikeButton = () => {
       const user = await getUserInformation();
       setUserId(user._id);
     };
-    likeState?.likes.forEach((like) => {
+    likePropState?.likes.forEach((like) => {
       if (like.user === userId) {
         return setLikeId(like._id);
       }
@@ -31,13 +31,13 @@ const LikeButton = () => {
   }, [userId]);
 
   const likeAPIBody = {
-    postId: likeState?.id,
+    postId: likePropState?.id,
   };
 
   const checkedUserLiked = () => {
     if (!userId) return;
-    likeState &&
-      likeState.likes.forEach((like) => {
+    likePropState &&
+      likePropState.likes.forEach((like) => {
         if (like.user === userId) {
           return setLikeToggle(true);
         }

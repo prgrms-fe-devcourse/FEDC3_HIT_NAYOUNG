@@ -1,5 +1,5 @@
 import { callCreateCommentAPI } from '@/Api/comment';
-import { createCommentState } from '@/store/store';
+import { commentState } from '@/store/recoilCommentState';
 import { useState, useEffect } from 'react';
 import { BsChat } from 'react-icons/bs';
 import { useSetRecoilState } from 'recoil';
@@ -9,7 +9,7 @@ type ReviewCommentInputProps = {
 };
 
 const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
-  const setCreateComment = useSetRecoilState(createCommentState);
+  const setCreateComment = useSetRecoilState(commentState);
   const [comment, setComment] = useState('');
   const [isCommentEmpty, setIsCommentEmpty] = useState(true);
 

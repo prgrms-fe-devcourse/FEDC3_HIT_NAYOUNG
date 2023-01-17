@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import BreadCrumbLinks from '@/components/common/BreadCrumbLinks';
 import LikeButton from '@/components/common/LikeButton';
 import { ReviewContentType } from '@/types';
@@ -5,6 +6,9 @@ import ContentHandler from './ContentHandler';
 
 const ReviewContent = ({ title, image }: ReviewContentType) => {
   const reviewContentData = JSON.parse(title);
+  // const reviewContentData: { title: string; contents: string } = useMemo(() => {
+  //   JSON.parse(title);
+  // }, [title]);
 
   return (
     <section className="mb-4">
