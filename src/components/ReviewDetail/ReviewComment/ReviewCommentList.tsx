@@ -4,7 +4,7 @@ import { CommentType } from '@/types';
 import { commentState } from '@/store/recoilCommentState';
 import { getUserInformation } from '@/Api/user';
 import { callCommentDeleteAPI } from '@/Api/comment';
-import Comment from '@/components/ReviewComment/Comment';
+import Comment from '@/components/ReviewDetail/ReviewComment/Comment';
 
 type ReviewCommentListProps = {
   commentList: CommentType[];
