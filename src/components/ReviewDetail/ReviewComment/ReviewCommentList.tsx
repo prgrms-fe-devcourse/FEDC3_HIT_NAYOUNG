@@ -1,41 +1,18 @@
 import { useEffect, useState } from 'react';
-import api from '@/Api/api';
-import { Comment } from '@/types';
-import { formatDateTime } from '@/utils/format';
-import { BsTrash } from 'react-icons/bs';
 import { useSetRecoilState } from 'recoil';
+import { CommentType } from '@/types';
 import { createCommentState } from '@/store/store';
+import { getUserInformation } from '@/Api/user';
+import { callCommentDeleteAPI } from '@/Api/comment';
+import Comment from '@/components/ReviewComment/Comment';
 
 type ReviewCommentListProps = {
-  commentList: Comment[];
-};
-
-// pull 하고 지울 것
-const getUserInformation = async () => {
-  try {
-    const token = localStorage.getItem('login-token');
-    if (token === null) {
-      return false;
-    }
-    const response = await api.get(`/auth-user`, {
-      headers: {
-        Authorization: `bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response) {
-      return response.data;
-    }
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+  commentList: CommentType[];
 };
 
 const ReviewCommentList = ({ commentList }: ReviewCommentListProps) => {
   const [userId, setUserId] = useState();
-  const setCreateComment = useSetRecoilState(createCommentState);
-  const loginToken = localStorage.getItem('login-token');
+  const setDeleteComment = useSetRecoilState(createCommentState);
 
   useEffect(() => {
     const getUser = async () => {
@@ -45,53 +22,35 @@ const ReviewCommentList = ({ commentList }: ReviewCommentListProps) => {
     getUser();
   }, []);
 
-  const callCommentDeleteAPI = async (commentId: string) => {
-    // 재확인 모달창으로 변경
+  const onDeleteComment = async (commentId: string) => {
     if (confirm('댓글을 삭제할까요?')) {
-      try {
-        const { data } = await api.delete('/comments/delete', {
-          data: {
-            id: commentId,
-          },
-          headers: {
-            Authorization: `bearer ${loginToken}`,
-          },
-        });
-        setCreateComment(data);
-      } catch (error) {
-        console.log(error);
-      }
+      const data = await callCommentDeleteAPI(commentId);
+      setDeleteComment(data);
     }
   };
 
   return (
     <ul>
-      {commentList
-        .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
-        .map((comment, index) => {
-          return (
-            <li key={index} className="bg-GRAY_100 mb-4 rounded-2xl p-6 ">
-              <div className="flex items-center justify-between mb-4 text-TEXT_BASE_BLACK">
-                <p>{comment.comment}</p>
-                {comment.author._id === userId ? (
-                  <button onClick={() => callCommentDeleteAPI(comment._id)}>
-                    <BsTrash />
-                  </button>
-                ) : (
-                  ''
-                )}
-              </div>
-              <div className="flex justify-between">
-                <span className="text-TEXT_SUB_GRAY text-sm">
-                  {comment.author.fullName}
-                </span>
-                <span className="text-TEXT_SUB_GRAY text-sm">
-                  {formatDateTime(comment.createdAt)}
-                </span>
-              </div>
-            </li>
-          );
-        })}
+      {commentList.length !== 0 ? (
+        <>
+          {commentList
+            .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
+            .map((comment) => {
+              return (
+                <Comment
+                  key={comment._id}
+                  userId
+                  comment={comment}
+                  clickHandler={onDeleteComment}
+                />
+              );
+            })}
+        </>
+      ) : (
+        <div className="text-center mt-10 text-TEXT_SUB_GRAY">
+          작성된 댓글이 아직 없어요.
+        </div>
+      )}
     </ul>
   );
 };

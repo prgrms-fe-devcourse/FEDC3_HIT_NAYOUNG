@@ -1,12 +1,13 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { InformLoginModal } from '@/components/Modal';
 import { informLoginModalState } from '@/store/store';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
 import { useEffect, useState } from 'react';
-import { Category, CategoryName } from '@/types';
+import { Category, CategoryName, ReviewPosterType } from '@/types';
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
+import { categoryState } from '@/store/recoilCategoryState';
 
 type DataType = {
   category: Category[];
@@ -28,6 +29,7 @@ const validCategoryName: CategoryName[] = [
 
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
+  const setCategory = useSetRecoilState(categoryState);
   const [data, setData] = useState<DataType | null>(null);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,7 +47,13 @@ const Home = () => {
           id: string;
           title: string;
           image: string;
-        }[] = getAllMainData[1];
+        }[] = getAllMainData[1].map(
+          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
+            id: _id,
+            title,
+            image,
+          })
+        );
         const validCategory = categoryResponse.filter((category) =>
           validCategoryName.includes(category.name)
         );
@@ -53,11 +61,16 @@ const Home = () => {
           0,
           2
         );
+        const selectedCategory = validCategory.map(({ name, _id }) => ({
+          name,
+          id: _id,
+        }));
 
         setData({
           category: validCategory,
           specifiedPoster: validSpecifiedReviewPosterResponse,
         });
+        setCategory(selectedCategory);
       } catch (error) {
         if (error instanceof Error) {
           setError(error);

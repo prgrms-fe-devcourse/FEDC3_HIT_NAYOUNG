@@ -1,4 +1,4 @@
-import api from '@/Api/api';
+import { callCreateCommentAPI } from '@/Api/comment';
 import { createCommentState } from '@/store/store';
 import { useState, useEffect } from 'react';
 import { BsChat } from 'react-icons/bs';
@@ -12,7 +12,6 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
   const setCreateComment = useSetRecoilState(createCommentState);
   const [comment, setComment] = useState('');
   const [isCommentEmpty, setIsCommentEmpty] = useState(true);
-  const loginToken = localStorage.getItem('login-token');
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -28,41 +27,35 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
     comment,
   };
 
-  const callCreateCommentAPI = async () => {
-    try {
-      const { data } = await api.post('/comments/create', callCreateCommentAPIBody, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer ${loginToken}`,
-        },
-      });
-      setCreateComment(data);
-      setComment('');
-    } catch (error) {
-      console.log(error);
-    }
+  const onCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = await callCreateCommentAPI(callCreateCommentAPIBody);
+    setCreateComment(data);
+    setComment('');
   };
 
   return (
-    <div className="w-full flex justify-between items-center gap-6 px-6 mb-4">
-      <span>
-        <BsChat className="text-xl" />
-      </span>
-      <input
-        type="text"
-        placeholder="댓글을 입력해주세요."
-        className="input input-bordered w-full flex-1"
-        value={comment}
-        onChange={(e) => onChangeInput(e)}
-      />
-      <button
-        disabled={isCommentEmpty}
-        className={isCommentEmpty ? 'text-GRAY_200' : 'text-HOVER'}
-        onClick={callCreateCommentAPI}
-      >
-        등록
-      </button>
-    </div>
+    <form onSubmit={(e) => onCreateComment(e)}>
+      <div className="w-full flex justify-between items-center gap-6 px-6 mb-4">
+        <span>
+          <BsChat className="text-xl" />
+        </span>
+        <input
+          type="text"
+          placeholder="댓글을 입력해주세요."
+          className="input input-bordered w-full flex-1"
+          value={comment}
+          onChange={(e) => onChangeInput(e)}
+        />
+        <button
+          disabled={isCommentEmpty}
+          className={isCommentEmpty ? 'text-GRAY_200' : 'text-HOVER'}
+          type="submit"
+        >
+          등록
+        </button>
+      </div>
+    </form>
   );
 };
 
