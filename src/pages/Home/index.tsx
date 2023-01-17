@@ -1,6 +1,6 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { InformLoginModal } from '@/components/Modal';
-import { informLoginModalState } from '@/store/store';
+import { modalState } from '@/store/recoilModalState';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
 import { useEffect, useState } from 'react';
@@ -28,7 +28,7 @@ const validCategoryName: CategoryName[] = [
 ];
 
 const Home = () => {
-  const [open, setOpen] = useRecoilState(informLoginModalState);
+  const [open, setOpen] = useRecoilState(modalState);
   const setCategory = useSetRecoilState(categoryState);
   const [data, setData] = useState<DataType | null>(null);
   const [error, setError] = useState<Error | null>(null);

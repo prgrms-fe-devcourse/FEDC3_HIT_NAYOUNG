@@ -3,7 +3,7 @@ import { formatDateTime } from '@/utils/format';
 import { CommentType } from '@/types';
 
 type ReviewCommentProps = {
-  userId: string | boolean;
+  userId: string;
   comment: CommentType;
   clickHandler: (commentId: string) => void;
 };

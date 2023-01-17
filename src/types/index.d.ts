@@ -82,6 +82,12 @@ export type ReviewPosterType = {
   image: string;
 };
 
+// 리뷰 게시글 상세페이지 타입
+export type ReviewContentType = {
+  title: string;
+  image: string;
+};
+
 // 리뷰 게시글 댓글 타입
 export type CommentType = {
   author: {
@@ -110,4 +116,21 @@ export type Like = {
 export type LikeProps = {
   id: string;
   likes: Like[];
+};
+
+// BreadCrumb, ReviewHandler에서 사용
+export type ReviewContentProps = {
+  userId: string;
+  author: {
+    _id: string;
+    fullName: string;
+    image: string;
+  };
+  title: string;
+  image: string;
+  createdAt: string;
+  channel: {
+    name: string;
+    _id: string;
+  };
 };

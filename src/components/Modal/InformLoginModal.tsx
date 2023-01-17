@@ -1,11 +1,11 @@
-import { informLoginModalState } from '@/store/store';
+import { modalState } from '@/store/recoilModalState';
 import { LOGIN_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import ModalPortal from './ModalPortal';
 
 const InformLoginModal = () => {
-  const [open, setOpen] = useRecoilState<boolean>(informLoginModalState);
+  const [open, setOpen] = useRecoilState<boolean>(modalState);
 
   return (
     <ModalPortal>
