@@ -4,7 +4,7 @@ import { informLoginModalState } from '@/store/store';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
 import { useEffect, useState } from 'react';
-import { Category, CategoryName } from '@/types';
+import { Category, CategoryName, ReviewPosterType } from '@/types';
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
 
@@ -45,7 +45,13 @@ const Home = () => {
           id: string;
           title: string;
           image: string;
-        }[] = getAllMainData[1];
+        }[] = getAllMainData[1].map(
+          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
+            id: _id,
+            title,
+            image,
+          })
+        );
         const validCategory = categoryResponse.filter((category) =>
           validCategoryName.includes(category.name)
         );

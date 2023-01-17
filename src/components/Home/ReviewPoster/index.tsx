@@ -6,7 +6,7 @@ import { ReviewPosterType } from '@/types';
 const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
   const { pathname } = useLocation();
   // 다른 기능에서 사용하게 된다면 constants.ts로 옮기겠습니다.
-  const BASE_CATEGORY_ROUTER_NAME = 'notebook';
+  const BASE_CATEGORY_ROUTER_NAME = 'category/오디오';
   const SLASH_NUMBER = 1;
   const categoryPathName =
     pathname === '/' ? BASE_CATEGORY_ROUTER_NAME : pathname.slice(SLASH_NUMBER);
