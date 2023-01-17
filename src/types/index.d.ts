@@ -8,6 +8,7 @@ import {
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
 export type navigationItem = {
+  id: string;
   title: string;
   link: string;
   icon: IconType;
@@ -83,19 +84,12 @@ export type ReviewPosterType = {
 
 // 리뷰 게시글 상세페이지 타입
 export type ReviewContentType = {
-  userId: string;
-  author: {
-    _id: string;
-    fullName: string;
-    image: string;
-  };
   title: string;
   image: string;
-  createdAt: string;
 };
 
 // 리뷰 게시글 댓글 타입
-export type Comment = {
+export type CommentType = {
   author: {
     fullName: string;
     _id: string;
@@ -124,7 +118,19 @@ export type LikeProps = {
   likes: Like[];
 };
 
-export type BreadCrumbProps = {
-  channelId: string;
-  category: string;
+// BreadCrumb, ReviewHandler에서 사용
+export type ReviewContentProps = {
+  userId: string;
+  author: {
+    _id: string;
+    fullName: string;
+    image: string;
+  };
+  title: string;
+  image: string;
+  createdAt: string;
+  channel: {
+    name: string;
+    _id: string;
+  };
 };

@@ -1,4 +1,4 @@
-import { BreadCrumbProps, Comment, LikeProps } from '@/types';
+import { Comment, LikeProps, ReviewContentProps } from '@/types';
 import { atom, selector } from 'recoil';
 
 export const textState = atom({
@@ -33,11 +33,23 @@ export const likePropState = atom<LikeProps | null>({
   default: null,
 });
 
-// BreadCrumb
-export const breadCrumbState = atom<BreadCrumbProps>({
-  key: 'breadCrumbState',
+// BreadCrumb, ReviewHandler에서 사용
+// 2depth 이상으로 내려가서 전역으로 관리합니다. @chunwookJoo
+export const reviewContentState = atom<ReviewContentProps>({
+  key: 'reviewContentState',
   default: {
-    channelId: '',
-    category: '',
+    userId: '',
+    author: {
+      _id: '',
+      fullName: '',
+      image: '',
+    },
+    title: '',
+    image: '',
+    createdAt: '',
+    channel: {
+      name: '',
+      _id: '',
+    },
   },
 });
