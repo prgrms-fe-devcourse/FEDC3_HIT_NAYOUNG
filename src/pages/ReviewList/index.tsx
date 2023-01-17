@@ -1,4 +1,5 @@
 import { getAllReviewPoster } from '@/Api/reviewPoster';
+import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 import ReviewCount from '@/components/ReviewList/ReviewCount';
 import ReviewListHeader from '@/components/ReviewList/ReviewListHeader';
 import ReviewListSection from '@/components/ReviewList/ReviewListSection';
@@ -50,6 +51,8 @@ const ReviewList = () => {
         <ReviewListHeader categoryName={categoryName} />
         <ReviewCount reviewCount={reviewCount} />
         <ReviewListSection reviews={reviews} reviewCount={reviewCount} />
+        <InformLoginModal />
+        <InformLogOutModal />
       </div>
     );
   }

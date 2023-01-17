@@ -4,8 +4,10 @@ import { ReactNode, useEffect, useState } from 'react';
 import { AiFillHeart } from 'react-icons/ai';
 import { FaComment } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { getUserId } from '@/Api/user';
+import { checkAuthUser, getUserId } from '@/Api/user';
 import { EDIT_MY_PAGE } from '@/utils/constants';
+import { useSetRecoilState } from 'recoil';
+import { informLogOutModalState } from '@/store/store';
 
 type UserData = {
   fullName: string;
@@ -35,6 +37,14 @@ const Figure = styled.figure`
 
 const Profile = () => {
   const [user, setUser] = useState<UserData>();
+  const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
+
+  const onHandlerLogout = () => {
+    (async () => {
+      const isLogIn = await checkAuthUser();
+      if (isLogIn) setLogOutModalOpened(true);
+    })();
+  };
 
   useEffect(() => {
     const userIdData = async () => {
@@ -61,7 +71,10 @@ const Profile = () => {
             </button>
           </Link>
           <div>
-            <button className="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER">
+            <button
+              className="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+              onClick={onHandlerLogout}
+            >
               로그아웃
             </button>
           </div>

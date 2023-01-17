@@ -1,3 +1,4 @@
+import { InformLogOutModal } from '@/components/Modal';
 import ReviewCreateForm from '@/components/ReviewCreateForm';
 import { categoryState } from '@/store/recoilCategoryState';
 import { useRecoilValue } from 'recoil';
@@ -8,6 +9,7 @@ const ReviewCreate = () => {
   return (
     <div className="h-full pt-16">
       <ReviewCreateForm categoryData={categoryData} />
+      <InformLogOutModal />
     </div>
   );
 };
