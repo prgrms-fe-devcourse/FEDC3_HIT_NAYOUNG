@@ -1,15 +1,17 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { InformLoginModal } from '@/components/Modal';
+
+import { Category, CategoryName } from '@/types';
+
 import { informLoginModalState } from '@/store/store';
-import ReviewPoster from '@/components/Home/ReviewPoster';
-import CategoryList from '@/components/Home/Category/CategoryList';
-import { useEffect, useState } from 'react';
-import { Category, CategoryName, ReviewPosterType } from '@/types';
-import { getCategory } from '@/Api/category';
-import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
 import { categoryState } from '@/store/recoilCategoryState';
 
-type DataType = {
+import useFetchHIT from '@/hooks/api/useFetchHIT';
+
+import { InformLoginModal } from '@/components/Modal';
+import ReviewPoster from '@/components/Home/ReviewPoster';
+import CategoryList from '@/components/Home/Category/CategoryList';
+
+export type DataType = {
   category: Category[];
   specifiedPoster: {
     id: string;
@@ -18,72 +20,16 @@ type DataType = {
   }[];
 };
 
-const validCategoryName: CategoryName[] = [
-  '노트북',
-  '모니터',
-  '시계',
-  '오디오',
-  '키보드',
-  '휴대폰',
-];
-
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
   const setCategory = useSetRecoilState(categoryState);
-  const [data, setData] = useState<DataType | null>(null);
-  const [error, setError] = useState<Error | null>(null);
-  const [loading, setLoading] = useState(false);
+  const { data, loading } = useFetchHIT();
   const titleClassName =
     'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
 
-  useEffect(() => {
-    const run = async () => {
-      try {
-        const getAllMainData = (
-          await Promise.all([getCategory(), getSpecifiedReviewPoster()])
-        ).map(({ data }) => data);
-        const categoryResponse: Category[] = getAllMainData[0];
-        const specifiedReviewPosterResponse: {
-          id: string;
-          title: string;
-          image: string;
-        }[] = getAllMainData[1].map(
-          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
-            id: _id,
-            title,
-            image,
-          })
-        );
-        const validCategory = categoryResponse.filter((category) =>
-          validCategoryName.includes(category.name)
-        );
-        const validSpecifiedReviewPosterResponse = specifiedReviewPosterResponse.slice(
-          0,
-          2
-        );
-        const selectedCategory = validCategory.map(({ name, _id }) => ({
-          name,
-          id: _id,
-        }));
-
-        setData({
-          category: validCategory,
-          specifiedPoster: validSpecifiedReviewPosterResponse,
-        });
-        setCategory(selectedCategory);
-      } catch (error) {
-        if (error instanceof Error) {
-          setError(error);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    run();
-  }, []);
-
   if (data && !loading) {
+    console.log(data);
+
     return (
       <>
         <h1
