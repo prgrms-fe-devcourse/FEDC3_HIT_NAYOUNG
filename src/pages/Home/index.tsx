@@ -7,6 +7,7 @@ import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
+import { useNavigate } from 'react-router-dom';
 
 type DataType = {
   category: Category[];
@@ -81,9 +82,24 @@ const Home = () => {
     run();
   }, []);
 
+  const navigate = useNavigate();
+  const useLocationTest = () => {
+    // const userId = '63bf90f26c5dd32fa29e42d3';
+    const userId = '63c651e0eec0e34ad830a161';
+    // 유저 클릭 시,
+    navigate('/userpage', {
+      state: {
+        userId,
+      },
+    });
+  };
+
   if (data && !loading) {
     return (
       <>
+        <button onClick={useLocationTest} className="btn">
+          uselocation
+        </button>
         <h1
           className={`md:hidden absolute top-5 left-1/2 -translate-x-1/2 text-5xl text-BASE font-extrabold`}
         >
