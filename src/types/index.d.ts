@@ -103,3 +103,11 @@ export type LikeProps = {
   id: string;
   likes: Like[];
 };
+
+// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생한느 이유를 모르겠습니다.
+export type ReviewPosterType = {
+  _id?: string;
+  id: string;
+  title: string;
+  image: string;
+};
