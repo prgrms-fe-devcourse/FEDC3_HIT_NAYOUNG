@@ -1,7 +1,5 @@
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import { Category, CategoryName } from '@/types';
-
 import { informLoginModalState } from '@/store/store';
 import { categoryState } from '@/store/recoilCategoryState';
 
@@ -10,7 +8,6 @@ import useFetchHIT from '@/hooks/api/useFetchHIT';
 import { InformLoginModal } from '@/components/Modal';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
-import { useEffect } from 'react';
 
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
@@ -30,6 +27,7 @@ const Home = () => {
         <section className="flex flex-col items-center md:items-start lg:items-start max-w-xl w-full mx-auto pt-24 lg:pt-10 md:pt-10">
           {/* 추천 게시글 area */}
           <div className="w-11/12 h-full">
+            {/* 컴포넌트르 분리하기 */}
             <h2 className={titleClassName}>추천 리뷰 게시글</h2>
 
             <ReviewPoster

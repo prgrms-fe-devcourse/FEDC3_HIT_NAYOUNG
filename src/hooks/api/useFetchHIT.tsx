@@ -10,48 +10,53 @@ type HITAllDataType = {
   specifiedPoster: Omit<ReviewPosterType, '_id'>[];
 };
 
-const validCategoryName: CategoryName[] = [
+const VALID_CATEGORY_NAME = [
   '노트북',
   '모니터',
   '시계',
   '오디오',
   '키보드',
   '휴대폰',
-];
+] as CategoryName[];
+
+const extractCategoryCondition = (
+  categories: Category[],
+  callback: (category: Category) => boolean
+) => categories.filter(callback);
+
+const extractReviewPosterCondition = (
+  reviews: ReviewPosterType[],
+  callback: (review: ReviewPosterType) => ReviewPosterType
+) => reviews.map(callback).slice(0, 2);
 
 const useFetchHIT = () => {
   const [data, setData] = useState<HITAllDataType | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const extractCategoryCondition = (categories: Category[]) => {
-    return categories.filter((category) => validCategoryName.includes(category.name));
-  };
-
-  const extractReviewPosterCondition = (data: ReviewPosterType[]) => {
-    const divideBanana = data.map(({ _id, title, image }: ReviewPosterType) => ({
-      id: _id as string,
-      title,
-      image,
-    }));
-
-    return divideBanana.slice(0, 2);
-  };
-
   useEffect(() => {
     const run = async () => {
       try {
-        const getAllHITData = (
+        const [categoryResponse, reviewPosterResponse] = (
           await Promise.all([getCategory(), getSpecifiedReviewPoster()])
         ).map(({ data }) => data);
 
-        // const selectedCategory = validCategory.map(({ name, _id }) => ({
+        // const selectedCategory = getAllHITData[1].map(({ name, _id }) => ({
         //   name,
         //   id: _id,
         // }));
 
         setData({
-          category: extractCategoryCondition(getAllHITData[0]),
-          specifiedPoster: extractReviewPosterCondition(getAllHITData[1]),
+          category: extractCategoryCondition(categoryResponse, (category) =>
+            VALID_CATEGORY_NAME.includes(category.name)
+          ),
+          specifiedPoster: extractReviewPosterCondition(
+            reviewPosterResponse,
+            ({ _id, title, image }) => ({
+              id: _id as string,
+              title,
+              image,
+            })
+          ),
         });
       } catch (error) {
         console.error(error);
