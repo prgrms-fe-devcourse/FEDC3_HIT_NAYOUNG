@@ -5,7 +5,7 @@ const BottomNavigation = () => {
   const { pathname } = useLocation();
 
   return (
-    <div className="fixed md:hidden bottom-0 py-2 max-w-3xl w-full flex justify-around align-middle border-t-2 border-GRAY_100 bg-white">
+    <div className="fixed z-[100] md:hidden bottom-0 py-2 max-w-3xl w-full flex justify-around align-middle border-t-2 border-GRAY_100 bg-white">
       {BottomNavigationItem.map((item, index) => {
         return (
           <Link
