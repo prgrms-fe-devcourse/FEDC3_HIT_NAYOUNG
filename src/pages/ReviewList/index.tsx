@@ -6,12 +6,10 @@ import { categoryState } from '@/store/recoilCategoryState';
 import { ReviewPosterType } from '@/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState<ReviewPosterType[]>([]);
   const [error, setError] = useState<Error | null>(null);
-  const setCategory = useSetRecoilState(categoryState);
   const [loading, setLoading] = useState(false);
   const {
     state: { id: channelId, name: categoryName },
@@ -33,7 +31,6 @@ const ReviewList = () => {
         );
 
         setReviews(reviewListData);
-        setCategory([{ id: channelId, name: categoryName }]);
       } catch (error) {
         if (error instanceof Error) {
           setError(error);
