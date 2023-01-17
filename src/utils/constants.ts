@@ -1,3 +1,5 @@
+import { CategoryName } from '@/types';
+
 // router
 export const HOME_PAGE = '/';
 export const LOGIN_PAGE = '/login';
@@ -18,3 +20,13 @@ export const DESKTOP_SCREEN = '1280px';
 
 // image size
 export const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB
+
+// 상수 객체
+export const VALID_CATEGORY_NAME = [
+  '노트북',
+  '모니터',
+  '시계',
+  '오디오',
+  '키보드',
+  '휴대폰',
+] as CategoryName[];
