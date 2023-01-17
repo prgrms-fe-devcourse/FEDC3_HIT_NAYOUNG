@@ -26,8 +26,7 @@ const InformLogOutModal = () => {
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-xl">정말 로그아웃 하시겠습니까?</h3>
-
-          <div className="modal-action mt-2 mb-4">
+          <div className="modal-action mt-4 mb-4">
             <Link
               className="btn w-full bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
               onClick={() => {

@@ -1,20 +1,42 @@
 import { navigationItem } from '@/types';
 import { SideNavigationItem } from './NavigationItem';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { informLogOutModalState } from '@/store/store';
+import { informLoginModalState, informLogOutModalState, logOut } from '@/store/store';
+import { checkAuthUser } from '@/Api/user';
 import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo.svg';
-import { checkAuthUser } from '@/Api/user';
+import React from 'react';
 
 type NavigationItemProps = {
   item: navigationItem;
+  isLogIn?: boolean;
+  checkLoginModal?: boolean;
 };
 
-const NavigationItemComponent = ({ item }: NavigationItemProps) => {
+const NavigationItemComponent = ({
+  item,
+  checkLoginModal = false,
+}: NavigationItemProps) => {
+  const setLogInModalOpened = useSetRecoilState(informLoginModalState);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  const onHandlerLogInModal = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    (async () => {
+      const isLogIn = await checkAuthUser();
+      if (!isLogIn && checkLoginModal) {
+        setLogInModalOpened(true);
+      } else {
+        navigate(item.link);
+      }
+    })();
+  };
+
   return (
     <Link
+      onClick={onHandlerLogInModal}
       to={item.link}
       className="w-full py-2 px-4 rounded-2xl hover:bg-GRAY_100 tooltip tooltip-right"
       data-tip={item.title}
@@ -28,12 +50,12 @@ const NavigationItemComponent = ({ item }: NavigationItemProps) => {
 };
 
 const SideNavigation = () => {
-  const setModalOpened = useSetRecoilState(informLogOutModalState);
+  const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
 
   const onHandlerLogout = () => {
     (async () => {
       const isLogIn = await checkAuthUser();
-      if (isLogIn) setModalOpened(true);
+      if (isLogIn) setLogOutModalOpened(true);
     })();
   };
 
@@ -45,15 +67,32 @@ const SideNavigation = () => {
             <img src={Logo} className="w-12 max-w-12" />
           </div>
           {SideNavigationItem.map((item, index) => {
-            if (index < 4) {
+            if (index < 2) {
               return <NavigationItemComponent item={item} key={item.id} />;
+            }
+          })}
+          {SideNavigationItem.map((item, index) => {
+            if (2 <= index && index <= 3) {
+              return (
+                <NavigationItemComponent
+                  item={item}
+                  key={item.id}
+                  checkLoginModal={true}
+                />
+              );
             }
           })}
         </ul>
         <ul className="flex flex-col gap-4 p-4">
           {SideNavigationItem.map((item, index) => {
-            if (index > 3) {
-              return <NavigationItemComponent item={item} key={item.id} />;
+            if (index >= 4) {
+              return (
+                <NavigationItemComponent
+                  item={item}
+                  key={item.id}
+                  checkLoginModal={true}
+                />
+              );
             }
           })}
           <a

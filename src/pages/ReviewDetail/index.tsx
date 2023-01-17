@@ -1,4 +1,5 @@
 import api from '@/Api/api';
+import { InformLogOutModal } from '@/components/Modal';
 import ReviewCommentInput from '@/components/ReviewComment/ReviewCommentInput';
 import ReviewCommentList from '@/components/ReviewComment/ReviewCommentList';
 import ReviewContent from '@/components/ReviewContent';
@@ -59,6 +60,7 @@ const ReviewDetail = () => {
           {commentList && <ReviewCommentList commentList={commentList} />}
         </>
       )}
+      <InformLogOutModal />
     </div>
   );
 };
