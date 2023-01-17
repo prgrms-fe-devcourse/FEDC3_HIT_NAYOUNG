@@ -1,6 +1,9 @@
 import api from '@/Api/api';
+import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
+import { callCreateNotificationAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
+import { LIKE } from '@/utils/constants';
 import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
@@ -10,10 +13,6 @@ const LikeButton = () => {
   const [likeId, setLikeId] = useState('');
   const [userId, setUserId] = useState();
   const likePropState = useRecoilValue(likeState);
-
-  const loginToken = localStorage.getItem('login-token');
-
-  let timer: any | number = null;
 
   useEffect(() => {
     const getUser = async () => {
@@ -30,10 +29,6 @@ const LikeButton = () => {
     checkedUserLiked();
   }, [userId]);
 
-  const likeAPIBody = {
-    postId: likePropState?.id,
-  };
-
   const checkedUserLiked = () => {
     if (!userId) return;
     likePropState &&
@@ -45,6 +40,7 @@ const LikeButton = () => {
   };
 
   const debouncing = (func: Function, timeout = 1000) => {
+    let timer: any | number = null;
     clearTimeout(timer);
     timer = setTimeout(func, timeout);
   };
@@ -56,25 +52,22 @@ const LikeButton = () => {
   const onToggleLikeButton = async () => {
     debouncing(delayFunc);
     if (likeToggle) {
-      try {
-        const response = await api.delete('/likes/delete', {
-          data: {
-            id: likeId,
-          },
-          headers: {
-            Authorization: `bearer ${loginToken}`,
-          },
-        });
-      } catch (error) {
-        console.log(error);
-      }
+      callDeleteLikeAPI(likeId);
     } else {
-      const response = await api.post('/likes/create', likeAPIBody, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer ${loginToken}`,
-        },
-      });
+      const likeAPIBody = {
+        postId: likePropState?.id,
+      };
+      const data = await callCreateLikeAPI(likeAPIBody);
+      setLikeId(data._id);
+
+      // 알림 보내기
+      const callCreateNotificationAPIBody = {
+        notificationType: LIKE,
+        notificationTypeId: data._id,
+        userId,
+        postId: data.post,
+      };
+      await callCreateNotificationAPI(callCreateNotificationAPIBody);
     }
 
     setLikeToggle(!likeToggle);

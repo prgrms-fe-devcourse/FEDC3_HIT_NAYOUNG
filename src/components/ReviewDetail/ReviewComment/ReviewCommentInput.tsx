@@ -1,5 +1,8 @@
 import { callCreateCommentAPI } from '@/Api/comment';
+import { callCreateNotificationAPI } from '@/Api/notification';
+import { getUserInformation } from '@/Api/user';
 import { commentState } from '@/store/recoilCommentState';
+import { COMMENT } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { BsChat } from 'react-icons/bs';
 import { useSetRecoilState } from 'recoil';
@@ -9,7 +12,7 @@ type ReviewCommentInputProps = {
 };
 
 const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
-  const setCreateComment = useSetRecoilState(commentState);
+  const setCreatedComment = useSetRecoilState(commentState);
   const [comment, setComment] = useState('');
   const [isCommentEmpty, setIsCommentEmpty] = useState(true);
 
@@ -30,7 +33,16 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
   const onCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = await callCreateCommentAPI(callCreateCommentAPIBody);
-    setCreateComment(data);
+    const user = await getUserInformation();
+    setCreatedComment(data);
+
+    const callCreateNotificationAPIBody = {
+      notificationType: COMMENT,
+      notificationTypeId: data._id,
+      userId: user._id,
+      postId: data.post,
+    };
+    await callCreateNotificationAPI(callCreateNotificationAPIBody);
     setComment('');
   };
 
