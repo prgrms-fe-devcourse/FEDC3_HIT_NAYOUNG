@@ -25,7 +25,7 @@ const ContentHandler = () => {
   const onMovePage = async (page: 'userPage' | 'reviewUpdate' | 'reviewDelete') => {
     switch (page) {
       case 'userPage':
-        navigate(USER_PAGE, { state: author._id });
+        navigate(USER_PAGE, { state: { id: author._id } });
         return;
       case 'reviewUpdate':
         navigate(CREATE_REVIEW_PAGE, { state: updateBodyProp });
