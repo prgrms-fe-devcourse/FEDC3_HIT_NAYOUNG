@@ -1,7 +1,6 @@
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 
 import { informLoginModalState } from '@/store/store';
-import { categoryState } from '@/store/recoilCategoryState';
 
 import useFetchHIT from '@/hooks/api/useFetchHIT';
 
@@ -11,7 +10,6 @@ import CategoryList from '@/components/Home/Category/CategoryList';
 
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
-  const setCategory = useSetRecoilState(categoryState);
   const { data, loading } = useFetchHIT();
   const titleClassName =
     'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
