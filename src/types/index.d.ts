@@ -29,6 +29,11 @@ export type Category = {
   __v: number;
 };
 
+export type CategoryType = {
+  name: CategoryName;
+  id: string;
+};
+
 export type Post = {
   likes: Like[];
   comments: Comment[];
@@ -56,7 +61,9 @@ export type RegisterInputProps<RegisterData> = {
     container?: string;
     input?: string;
   };
+  value?: string;
   accept?: string;
+  id?: string;
 } & RegisterType<RegisterData>;
 
 export type RegisterTextareaProps<RegisterData> = {
@@ -72,6 +79,7 @@ export type ReviewFormData = {
   title: string;
   contents: string;
   image: string;
+  category: CategoryName;
 };
 
 // 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생한느 이유를 모르겠습니다.
