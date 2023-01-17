@@ -1,17 +1,9 @@
 import BreadCrumbLinks from '@/components/common/BreadCrumbLinks';
 import LikeButton from '@/components/common/LikeButton';
 import { ReviewContentType } from '@/types';
-import { formatDate } from '@/utils/format';
-import { BsTrash } from 'react-icons/bs';
-import { FaRegEdit } from 'react-icons/fa';
+import ContentHandler from './ContentHandler';
 
-const ReviewContent = ({
-  author,
-  title,
-  image,
-  createdAt,
-  userId,
-}: ReviewContentType) => {
+const ReviewContent = ({ title, image }: ReviewContentType) => {
   const reviewContentData = JSON.parse(title);
 
   return (
@@ -29,36 +21,7 @@ const ReviewContent = ({
           </h1>
           <LikeButton />
         </div>
-        <div className="flex items-center justify-between mb-8 text-TEXT_SUB_GRAY">
-          <div className="avatar items-center gap-2">
-            <div className={`rounded-full`}>
-              <img
-                className="max-w-[36px]"
-                src={author.image ? author.image : 'https://placeimg.com/200/200/arch'}
-              />
-            </div>
-            <span>{author.fullName}</span>
-          </div>
-          <div className="flex items-center gap-2 text-TEXT_SUB_GRAY">
-            <span>{formatDate(createdAt)}</span>
-            {userId === author._id && (
-              <>
-                <span
-                  className="hover:cursor-pointer tooltip tooltip-top"
-                  data-tip="글 수정"
-                >
-                  <FaRegEdit className="text-xl" />
-                </span>
-                <span
-                  className="hover:cursor-pointer tooltip tooltip-top"
-                  data-tip="글 삭제"
-                >
-                  <BsTrash className="text-xl" />
-                </span>
-              </>
-            )}
-          </div>
-        </div>
+        <ContentHandler />
         <p className="mb-4 overflow-hidden text-ellipsis whitespace-pre text-TEXT_BASE_BLACK">
           {reviewContentData.contents}
         </p>
