@@ -10,15 +10,7 @@ import useFetchHIT from '@/hooks/api/useFetchHIT';
 import { InformLoginModal } from '@/components/Modal';
 import ReviewPoster from '@/components/Home/ReviewPoster';
 import CategoryList from '@/components/Home/Category/CategoryList';
-
-export type DataType = {
-  category: Category[];
-  specifiedPoster: {
-    id: string;
-    title: string;
-    image: string;
-  }[];
-};
+import { useEffect } from 'react';
 
 const Home = () => {
   const [open, setOpen] = useRecoilState(informLoginModalState);
@@ -28,8 +20,6 @@ const Home = () => {
     'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
 
   if (data && !loading) {
-    console.log(data);
-
     return (
       <>
         <h1

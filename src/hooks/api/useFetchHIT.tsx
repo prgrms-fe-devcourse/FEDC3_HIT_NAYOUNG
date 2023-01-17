@@ -1,8 +1,14 @@
+import { useEffect, useState } from 'react';
+
+import { Category, CategoryName, ReviewPosterType } from '@/types';
+
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
-import { DataType } from '@/pages/Home';
-import { Category, CategoryName, ReviewPosterType } from '@/types';
-import { useEffect, useState } from 'react';
+
+type HITAllDataType = {
+  category: Category[];
+  specifiedPoster: Omit<ReviewPosterType, '_id'>[];
+};
 
 const validCategoryName: CategoryName[] = [
   '노트북',
@@ -14,8 +20,22 @@ const validCategoryName: CategoryName[] = [
 ];
 
 const useFetchHIT = () => {
-  const [data, setData] = useState<DataType | null>(null);
+  const [data, setData] = useState<HITAllDataType | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const extractCategoryCondition = (categories: Category[]) => {
+    return categories.filter((category) => validCategoryName.includes(category.name));
+  };
+
+  const extractReviewPosterCondition = (data: ReviewPosterType[]) => {
+    const divideBanana = data.map(({ _id, title, image }: ReviewPosterType) => ({
+      id: _id as string,
+      title,
+      image,
+    }));
+
+    return divideBanana.slice(0, 2);
+  };
 
   useEffect(() => {
     const run = async () => {
@@ -24,34 +44,14 @@ const useFetchHIT = () => {
           await Promise.all([getCategory(), getSpecifiedReviewPoster()])
         ).map(({ data }) => data);
 
-        const categoryResponse: Category[] = getAllHITData[0];
-        const validCategory = categoryResponse.filter((category) =>
-          validCategoryName.includes(category.name)
-        );
-
-        const specifiedReviewPosterResponse: {
-          id: string;
-          title: string;
-          image: string;
-        }[] = getAllHITData[1].map(
-          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
-            id: _id,
-            title,
-            image,
-          })
-        );
-        const validSpecifiedReviewPosterResponse = specifiedReviewPosterResponse.slice(
-          0,
-          2
-        );
         // const selectedCategory = validCategory.map(({ name, _id }) => ({
         //   name,
         //   id: _id,
         // }));
 
         setData({
-          category: validCategory,
-          specifiedPoster: validSpecifiedReviewPosterResponse,
+          category: extractCategoryCondition(getAllHITData[0]),
+          specifiedPoster: extractReviewPosterCondition(getAllHITData[1]),
         });
       } catch (error) {
         console.error(error);
