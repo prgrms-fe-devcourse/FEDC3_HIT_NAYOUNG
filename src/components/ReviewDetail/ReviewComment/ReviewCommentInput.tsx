@@ -1,11 +1,11 @@
 import { callCreateCommentAPI } from '@/Api/comment';
 import { callCreateNotificationAPI } from '@/Api/notification';
-import { getUserInformation } from '@/Api/user';
 import { commentState } from '@/store/recoilCommentState';
+import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { COMMENT } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { BsChat } from 'react-icons/bs';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 type ReviewCommentInputProps = {
   postId: string;
@@ -13,6 +13,7 @@ type ReviewCommentInputProps = {
 
 const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
   const setCreatedComment = useSetRecoilState(commentState);
+  const { author } = useRecoilValue(reviewDetailState);
   const [comment, setComment] = useState('');
   const [isCommentEmpty, setIsCommentEmpty] = useState(true);
 
@@ -33,16 +34,18 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
   const onCreateComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = await callCreateCommentAPI(callCreateCommentAPIBody);
-    const user = await getUserInformation();
+
     setCreatedComment(data);
 
-    const callCreateNotificationAPIBody = {
-      notificationType: COMMENT,
-      notificationTypeId: data._id,
-      userId: user._id,
-      postId: data.post,
-    };
-    await callCreateNotificationAPI(callCreateNotificationAPIBody);
+    if (data.user !== author._id) {
+      const callCreateNotificationAPIBody = {
+        notificationType: COMMENT,
+        notificationTypeId: data._id,
+        userId: author._id,
+        postId: data.post,
+      };
+      await callCreateNotificationAPI(callCreateNotificationAPIBody);
+    }
     setComment('');
   };
 

@@ -3,6 +3,7 @@ import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
 import { callCreateNotificationAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
+import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { LIKE } from '@/utils/constants';
 import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
@@ -13,6 +14,7 @@ const LikeButton = () => {
   const [likeId, setLikeId] = useState('');
   const [userId, setUserId] = useState();
   const likePropState = useRecoilValue(likeState);
+  const { author } = useRecoilValue(reviewDetailState);
 
   useEffect(() => {
     const getUser = async () => {
@@ -58,16 +60,20 @@ const LikeButton = () => {
         postId: likePropState?.id,
       };
       const data = await callCreateLikeAPI(likeAPIBody);
+
+      if (!data) return false;
       setLikeId(data._id);
 
-      // 알림 보내기
-      const callCreateNotificationAPIBody = {
-        notificationType: LIKE,
-        notificationTypeId: data._id,
-        userId,
-        postId: data.post,
-      };
-      await callCreateNotificationAPI(callCreateNotificationAPIBody);
+      if (data.user !== author._id) {
+        // 알림 보내기
+        const callCreateNotificationAPIBody = {
+          notificationType: LIKE,
+          notificationTypeId: data._id,
+          userId: author._id,
+          postId: data.post,
+        };
+        await callCreateNotificationAPI(callCreateNotificationAPIBody);
+      }
     }
 
     setLikeToggle(!likeToggle);

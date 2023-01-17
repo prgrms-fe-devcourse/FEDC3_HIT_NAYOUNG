@@ -1,7 +1,9 @@
 import api from './api';
 import { getAxiosHeader } from './user';
 
-const callCreateLikeAPI = async (callCreateLikeAPIBody: object) => {
+const callCreateLikeAPI = async (callCreateLikeAPIBody: {
+  postId: string | undefined;
+}) => {
   try {
     const headers = getAxiosHeader();
     if (!headers) return false;
