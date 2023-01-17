@@ -1,8 +1,16 @@
+const getLocalStorage = (key: string) => {
+  try {
+    localStorage.getItem(key);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const setLocalStorage = (key: string, value: string) => {
   try {
     localStorage.setItem(key, value);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -14,4 +22,4 @@ const removeLocalStorage = (key: string) => {
   }
 };
 
-export { setLocalStorage, removeLocalStorage };
+export { getLocalStorage, setLocalStorage, removeLocalStorage };
