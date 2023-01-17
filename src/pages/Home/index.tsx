@@ -65,8 +65,6 @@ const Home = () => {
           specifiedPoster: validSpecifiedReviewPosterResponse,
         });
         setCategory(selectedCategory);
-
-        // setCategory()
       } catch (error) {
         if (error instanceof Error) {
           setError(error);

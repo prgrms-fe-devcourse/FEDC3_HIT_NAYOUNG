@@ -2,7 +2,6 @@ import { getAllReviewPoster } from '@/Api/reviewPoster';
 import ReviewCount from '@/components/ReviewList/ReviewCount';
 import ReviewListHeader from '@/components/ReviewList/ReviewListHeader';
 import ReviewListSection from '@/components/ReviewList/ReviewListSection';
-import { categoryState } from '@/store/recoilCategoryState';
 import { ReviewPosterType } from '@/types';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
