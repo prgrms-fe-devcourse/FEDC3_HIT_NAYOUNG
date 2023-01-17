@@ -29,6 +29,11 @@ export type Category = {
   __v: number;
 };
 
+export type CategoryType = {
+  name: CategoryName;
+  id: string;
+};
+
 export type Post = {
   likes: Like[];
   comments: Comment[];

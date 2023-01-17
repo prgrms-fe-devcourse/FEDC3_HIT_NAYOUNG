@@ -1,6 +1,6 @@
 import api from '@/Api/api';
 import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
-import { ReviewFormData } from '@/types';
+import { CategoryType, ReviewFormData } from '@/types';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@/components/ReviewCreateForm/Button';
@@ -12,21 +12,17 @@ import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 
-const Dummy_Channel = {
-  오디오: '63bd141d93836272216d324a',
-  노트북: '63bd045193836272216d31bc',
-  키보드: '63bd140193836272216d323e',
-  휴대폰: '63bd140b93836272216d3242',
-  모니터: '63bd141693836272216d3246',
-  시계: '63bd143493836272216d324e',
-};
-
-const ReviewCreateForm = () => {
+const ReviewCreateForm = ({
+  categoryData,
+}: {
+  categoryData: Readonly<CategoryType[]>;
+}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ReviewFormData>();
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [isOpenCancelModal, setIsOpenCancelModal] = useState(false);
@@ -39,7 +35,7 @@ const ReviewCreateForm = () => {
     setIsOpenCancelModal(false);
   }, []);
 
-  const onSubmitReview: SubmitHandler<ReviewFormData> = ({
+  const onSubmitReview: SubmitHandler<ReviewFormData> = async ({
     title,
     contents,
     image,
@@ -51,25 +47,29 @@ const ReviewCreateForm = () => {
       contents,
     };
 
+    // 리뷰작성할 카테고리 data(id,name) 찾기
+    const { id, name } = categoryData
+      .filter(({ name }) => name === category)
+      .pop() as CategoryType;
+
     const formData = new FormData();
     formData.append('title', JSON.stringify(titleAndContent));
     formData.append('image', image[0]);
-    formData.append('channelId', Dummy_Channel[category]);
+    formData.append('channelId', id);
 
-    api
-      .post('/posts/create', formData, {
+    try {
+      await api.post('/posts/create', formData, {
         headers: {
-          Authorization:
-            'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjYzYzAyMmNkNmM1ZGQzMmZhMjllNDc1ZCIsImVtYWlsIjoic3Vod2FAbmF2ZXIuY29tIn0sImlhdCI6MTY3MzUzNjIwNX0.VabAJ1sxYkvnyZZRLMcPGqfA6KwYfuDXWJAFhKtOp7k',
+          Authorization: `bearer ${localStorage.getItem('login-token')}`,
           'Content-Type': 'multipart/form-data',
         },
-      })
-      .then(() =>
-        navigate(`/category/${category}`, {
-          state: { id: Dummy_Channel[category], name: category },
-        })
-      )
-      .finally(() => setLoading(false));
+      });
+      navigate(`/category/${name}`, { state: { id, name }, replace: true });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -115,26 +115,26 @@ const ReviewCreateForm = () => {
             />
             <h2 className="text-lg pb-2.5 self-start font-bold">작성할 카테고리</h2>
             <fieldset className="flex flex-wrap ">
-              {Object.keys(Dummy_Channel).map((channelName) => {
+              {categoryData.map(({ id, name }) => {
                 return (
                   <label
-                    key={channelName}
+                    key={id}
                     className="flex mr-4 rounded-xl cursor-pointer hover:text-[#BE3555]"
-                    htmlFor={channelName}
+                    htmlFor={name}
                   >
                     <RegisterInput
-                      id={channelName}
+                      id={name}
                       type="radio"
                       style={{
                         container: 'mr-[3px]',
                         input: 'radio radio-error',
                       }}
-                      value={channelName}
+                      value={name}
                       register={register}
                       registerName="category"
                       registerRules={{ required: '카테고리를 골라주세요' }}
                     />
-                    {channelName}
+                    {name}
                   </label>
                 );
               })}
