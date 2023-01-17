@@ -1,6 +1,6 @@
 import { callDeleteReviewDetailAPI } from '@/Api/reviewDetail';
 import { reviewDetailState } from '@/store/recoilReviewDetailState';
-import { CREATE_REVIEW_PAGE, USER_PAGE } from '@/utils/constants';
+import { UPDATE_REVIEW_PAGE, USER_PAGE } from '@/utils/constants';
 import { formatDate } from '@/utils/format';
 import { BsTrash } from 'react-icons/bs';
 import { FaRegEdit } from 'react-icons/fa';
@@ -28,7 +28,7 @@ const ContentHandler = () => {
         navigate(USER_PAGE, { state: { id: author._id } });
         return;
       case 'reviewUpdate':
-        navigate(CREATE_REVIEW_PAGE, { state: updateBodyProp });
+        navigate(UPDATE_REVIEW_PAGE, { state: updateBodyProp });
         return;
       case 'reviewDelete':
         // TODO 모달 컴포넌트로 변경 예정 @chunwookJoo

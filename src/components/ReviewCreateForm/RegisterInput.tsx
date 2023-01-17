@@ -9,6 +9,7 @@ const RegisterInput = ({
   register,
   registerName,
   registerRules,
+  value,
   style,
   errors,
   ...props
@@ -19,6 +20,7 @@ const RegisterInput = ({
         className={style?.input}
         placeholder={placeholder}
         type={type}
+        value={value}
         {...(register && register(registerName, registerRules))}
         {...props}
       />

@@ -12,11 +12,13 @@ import {
   MY_PAGE,
   EDIT_MY_PAGE,
   CREATE_REVIEW_PAGE,
+  UPDATE_REVIEW_PAGE,
 } from '@/utils/constants';
 import Search from './pages/Search';
 import Alarm from './pages/Alarm';
 import MyInfo from './pages/MyInformation';
 import ReviewCreate from './pages/ReviewCreate';
+import ReviewUpdate from './pages/ReviewUpdate';
 import Navigation from './components/Navigation';
 import EditMyProfile from './pages/EditMyProfile';
 
@@ -33,6 +35,7 @@ const App = () => {
         <Route path={MY_PAGE} element={<MyInfo />} />
         <Route path={EDIT_MY_PAGE} element={<EditMyProfile />} />
         <Route path={CREATE_REVIEW_PAGE} element={<ReviewCreate />} />
+        <Route path={UPDATE_REVIEW_PAGE} element={<ReviewUpdate />} />
         <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />
         <Route path={REVIEW_DETAIL_PAGE} element={<ReviewDetail />} />
         <Route path={NOT_FOUND_PAGE} element={<NotFound />} />
