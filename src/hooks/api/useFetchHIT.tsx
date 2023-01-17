@@ -16,6 +16,7 @@ type HITAllDataType = {
   specifiedPoster: Omit<ExtractedReviewPosterType, '_id'>[];
 };
 
+// 공통화 어떻게 하면 좋을까요?
 function extractCategoryCondition(categories: Category[]) {
   return categories.filter((category) => VALID_CATEGORY_NAME.includes(category.name));
 }
@@ -38,18 +39,14 @@ const useFetchHIT = () => {
   useEffect(() => {
     const run = async () => {
       try {
-        const [categoryResponse, reviewPosterResponse] = (
-          await Promise.all([
-            getCategory<Category[]>(),
-            getSpecifiedReviewPoster<ExtractedReviewPosterType[]>(),
-          ])
-        ).map(({ data }) => data);
+        const [categoryResponse, reviewPosterResponse] = await Promise.all([
+          getCategory(),
+          getSpecifiedReviewPoster(),
+        ]);
 
         setData({
-          category: extractCategoryCondition(categoryResponse as Category[]),
-          specifiedPoster: extractReviewPosterCondition(
-            reviewPosterResponse as ExtractedReviewPosterType[]
-          ),
+          category: extractCategoryCondition(categoryResponse),
+          specifiedPoster: extractReviewPosterCondition(reviewPosterResponse),
         });
         setCategory(categoryResponse as Category[]);
       } catch (error) {

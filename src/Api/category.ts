@@ -1,6 +1,9 @@
-import { AxiosResponse } from 'axios';
+import { Category } from '@/types';
 
 import api from './api';
 
-export const getCategory = <T extends unknown[]>(): Promise<AxiosResponse<T>> =>
-  api.get<T>('/channels');
+export const getCategory = async (): Promise<Category[]> => {
+  const { data } = await api.get<Category[]>('/channels');
+
+  return data;
+};
