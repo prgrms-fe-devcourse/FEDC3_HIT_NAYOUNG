@@ -8,7 +8,7 @@ import ModalPortal from './ModalPortal';
 const InformLogOutModal = () => {
   const [open, setOpen] = useRecoilState<boolean>(informLogOutModalState);
 
-  const logOut = () => {
+  const onClickLogOut = () => {
     removeLocalStorage('login-token');
     useResetRecoilState(informLogOutModalState);
     alert('로그아웃 되었습니다.');
@@ -31,7 +31,7 @@ const InformLogOutModal = () => {
               className="btn w-full bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
               onClick={() => {
                 setOpen(false);
-                logOut();
+                onClickLogOut();
               }}
               to={HOME_PAGE}
             >

@@ -2,7 +2,7 @@ import { navigationItem } from '@/types';
 import { SideNavigationItem } from './NavigationItem';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { informLoginModalState, informLogOutModalState, logOut } from '@/store/store';
+import { informLoginModalState, informLogOutModalState } from '@/store/store';
 import { checkAuthUser } from '@/Api/user';
 import { FiLogOut } from 'react-icons/fi';
 import Logo from './Logo.svg';
@@ -10,7 +10,6 @@ import React from 'react';
 
 type NavigationItemProps = {
   item: navigationItem;
-  isLogIn?: boolean;
   checkLoginModal?: boolean;
 };
 

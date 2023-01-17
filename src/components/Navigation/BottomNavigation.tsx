@@ -9,7 +9,7 @@ const BottomNavigation = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const onHandlerLogInModal = (link: string, e: React.MouseEvent<HTMLAnchorElement>) => {
+  const onOpenLogInModal = (link: string, e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
     (async () => {
@@ -40,7 +40,7 @@ const BottomNavigation = () => {
             <Link
               key={index}
               onClick={(e) => {
-                onHandlerLogInModal(item.link, e);
+                onOpenLogInModal(item.link, e);
               }}
               to={item.link}
               className={
