@@ -1,12 +1,12 @@
 import ModalPortal from '@/components/Modal/ModalPortal';
 import { useNavigate } from 'react-router-dom';
 
-type CancelModal = {
+type CancelModalPropsType = {
   isOpen: boolean;
   modalOffHandler: () => void;
 };
 
-const InformCancelModal = ({ isOpen, modalOffHandler }: CancelModal) => {
+const InformCancelModal = ({ isOpen, modalOffHandler }: CancelModalPropsType) => {
   const navigate = useNavigate();
 
   return (
