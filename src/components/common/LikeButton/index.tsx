@@ -1,6 +1,6 @@
 import api from '@/Api/api';
 import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
-import { callCreateNotificationAPI } from '@/Api/notification';
+import { callCreateAlarmAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
 import { reviewDetailState } from '@/store/recoilReviewDetailState';
@@ -67,13 +67,13 @@ const LikeButton = () => {
 
       if (data.user !== author._id) {
         // 알림 보내기
-        const createNotificationAPIBody = {
+        const createAlarmAPIBody = {
           notificationType: LIKE,
           notificationTypeId: data._id,
           userId: author._id,
           postId: data.post,
         };
-        await callCreateNotificationAPI(createNotificationAPIBody);
+        await callCreateAlarmAPI(createAlarmAPIBody);
       }
     }
 

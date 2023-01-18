@@ -1,5 +1,5 @@
 import { callCreateCommentAPI } from '@/Api/comment';
-import { callCreateNotificationAPI } from '@/Api/notification';
+import { callCreateAlarmAPI } from '@/Api/notification';
 import { commentState } from '@/store/recoilCommentState';
 import { reviewDetailState } from '@/store/recoilReviewDetailState';
 import { COMMENT } from '@/utils/constants';
@@ -38,13 +38,13 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
     setCreatedComment(data);
 
     if (data.user !== author._id) {
-      const createNotificationAPIBody = {
+      const createAlarmAPIBody = {
         notificationType: COMMENT,
         notificationTypeId: data._id,
         userId: author._id,
         postId: data.post,
       };
-      await callCreateNotificationAPI(createNotificationAPIBody);
+      await callCreateAlarmAPI(createAlarmAPIBody);
     }
     setComment('');
   };

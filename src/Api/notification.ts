@@ -1,20 +1,18 @@
 import api from './api';
 import { getAxiosHeader } from './user';
 
-type CreateNotificationType = {
+type CreateAlarmType = {
   notificationType: string;
   notificationTypeId: string;
   userId: string;
   postId: string;
 };
 
-const callCreateNotificationAPI = async (
-  createNotificationAPIBody: CreateNotificationType
-) => {
+const callCreateAlarmAPI = async (createAlarmAPIBody: CreateAlarmType) => {
   try {
     const headers = getAxiosHeader();
     if (!headers) return false;
-    await api.post('/notifications/create', createNotificationAPIBody, {
+    await api.post('/notifications/create', createAlarmAPIBody, {
       headers,
     });
   } catch (error) {
@@ -22,4 +20,4 @@ const callCreateNotificationAPI = async (
   }
 };
 
-export { callCreateNotificationAPI };
+export { callCreateAlarmAPI };
