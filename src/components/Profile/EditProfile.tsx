@@ -2,7 +2,9 @@ import api from '@/Api/api';
 import { FILE_SIZE_MAX_LIMIT, MY_PAGE } from '@/utils/constants';
 import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import WarningLabel from '../Auth/WarningLabel';
 
 type EditUserData = {
   image: string;
@@ -117,6 +119,17 @@ const EditProfile = () => {
     );
   };
 
+  type FormData = {
+    fullName: string;
+    password: string;
+    username: string;
+  };
+
+  const {
+    register,
+    formState: { errors, isDirty, isValid },
+  } = useForm<FormData>({ mode: 'onChange' });
+
   if (!user) return false;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
@@ -162,16 +175,28 @@ const EditProfile = () => {
         <div>
           <span>Password: </span>
           <input
+            {...register('password', {
+              required: '비밀번호를 입력해 주세요.',
+              pattern: {
+                value:
+                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
+                message:
+                  '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
+              },
+            })}
+            type="password"
+            autoComplete="off"
+            placeholder="비밀번호를 입력해 주세요."
             className="input input-bordered text-center mt-5"
-            name="password"
-            value={userInformation.password || ''}
-            onChange={onChangeInputValue}
           />
         </div>
+        {errors?.password && <WarningLabel message={errors.password.message} />}
+        <br />
         <Link to={MY_PAGE}>
           <button
             type="submit"
-            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+            disabled={!isDirty || !isValid}
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
             onClick={onClickSaveButton}
           >
             저장
