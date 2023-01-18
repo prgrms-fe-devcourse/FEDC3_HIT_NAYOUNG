@@ -16,11 +16,11 @@ import {
 } from '@/utils/constants';
 import Search from './pages/Search';
 import Alarm from './pages/Alarm';
-import MyInfo from './pages/MyInformation';
+import MyPage from './pages/MyPage';
 import ReviewCreate from './pages/ReviewCreate';
 import Navigation from './components/Navigation';
 import EditMyProfile from './pages/EditMyProfile';
-import OpponentProfile from './components/Profile/OpponentProfile';
+import UserProfile from './components/Profile/UserProfile';
 
 const App = () => {
   return (
@@ -32,8 +32,8 @@ const App = () => {
         <Route path={SIGNUP_PAGE} element={<Signup />} />
         <Route path={SEARCH_PAGE} element={<Search />} />
         <Route path={ALARM_PAGE} element={<Alarm />} />
-        <Route path={MY_PAGE} element={<MyInfo />} />
-        <Route path={USER_PAGE} element={<OpponentProfile />} />
+        <Route path={MY_PAGE} element={<MyPage />} />
+        <Route path={USER_PAGE} element={<UserProfile />} />
         <Route path={EDIT_MY_PAGE} element={<EditMyProfile />} />
         <Route path={CREATE_REVIEW_PAGE} element={<ReviewCreate />} />
         <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />

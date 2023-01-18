@@ -7,9 +7,8 @@ import { informLogOutModalState } from '@/store/store';
 import { Link } from 'react-router-dom';
 import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
-import ProfileBottom from './ProfileBottom';
+import ReviewList from './ReviewList';
 
-// profile과 OpponentProfile이 유사함 -> 컴포넌트 새로 만들어서 다시 짜기
 const Profile = () => {
   const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
 
@@ -50,7 +49,7 @@ const Profile = () => {
           </button>
         </div>
         <ReviewAndFollow user={user} />
-        <ProfileBottom user={user} />
+        <ReviewList user={user} />
       </div>
     </div>
   );

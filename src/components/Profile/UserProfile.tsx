@@ -6,11 +6,10 @@ import { getUserId, getOpponentUserId } from '@/Api/user';
 import { FOLLOW, MY_PAGE } from '@/utils/constants';
 import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
-import ProfileBottom from './ProfileBottom';
+import ReviewList from './ReviewList';
 import { callCreateAlarmAPI } from '@/Api/notification';
 
-// 파일명 변경해야할 듯.. opponent: 상대방
-const OpponentProfile = () => {
+const UserProfile = () => {
   const [user, setUser] = useState<UserDataProps>();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -101,10 +100,10 @@ const OpponentProfile = () => {
         </div>
         {/* user recoil에 넣어야할듯 */}
         <ReviewAndFollow user={user} />
-        <ProfileBottom user={user} />
+        <ReviewList user={user} />
       </div>
     </div>
   );
 };
 
-export default OpponentProfile;
+export default UserProfile;

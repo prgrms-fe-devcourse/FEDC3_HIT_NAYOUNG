@@ -30,14 +30,14 @@ const categoryName = [
   },
 ];
 
-type ProfileBottomProps = {
+type ReviewListProps = {
   user: UserDataProps;
 };
 
-const ProfileBottom = ({ user }: ProfileBottomProps) => {
+const ReviewList = ({ user }: ReviewListProps) => {
   return (
     <div className="grid grid-cols-3 gap-3 mt-5 max-w-xl">
-      {user?.posts.length === 0 ? (
+      {user.posts.length === 0 ? (
         <div className="mt-10 col-start-2">
           <div>작성하신 리뷰가 없습니다.</div>
         </div>
@@ -60,4 +60,4 @@ const ProfileBottom = ({ user }: ProfileBottomProps) => {
   );
 };
 
-export default ProfileBottom;
+export default ReviewList;
