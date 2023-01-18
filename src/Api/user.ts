@@ -66,7 +66,7 @@ const getUserNameList = async () => {
     if (response) {
       const userList = response.data.slice(0, 6);
       const userNameList = userList.map((userList: UserList) => {
-        return userList.fullName;
+        return { name: userList.fullName, id: userList._id };
       });
       return userNameList;
     }
