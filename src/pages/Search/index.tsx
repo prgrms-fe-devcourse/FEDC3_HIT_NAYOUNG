@@ -2,11 +2,16 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 
+import { ExtractPostDataType, ExtractUserDataType } from '@/types/search';
+
 import SearchBar from '@/components/Search/SearchBar';
 import SearchTab from '@/components/Search/SearchTab';
+import SearchPostFeed from '@/components/Search/SearchPostFeed';
+
 import { SearchState } from '@/store/recoilSearchState';
 
-import api from '@/Api/api';
+import { getSearchByType } from '@/Api/search';
+import SearchUserFeed from '@/components/Search/SearchUserFeed';
 
 type SearchFormData = {
   searchWord: string;
@@ -19,19 +24,46 @@ const Search = () => {
     formState: { errors },
     resetField,
   } = useForm<SearchFormData>();
-  const [searchedInformation, setSearchedInformation] = useState<any[]>([]);
+  const [searchedPost, setSearchedPost] = useState<ExtractPostDataType[]>();
+  const [searchedUser, setSearchedUser] = useState<ExtractUserDataType[]>();
   const searchType = useRecoilValue(SearchState);
 
   const onSubmitSearchBar = async ({ searchWord }: SearchFormData) => {
-    const { data } = await api.get(`search/${searchType}/${searchWord}`);
+    try {
+      if (searchType === 'all') {
+        const result = await getSearchByType<'post'>(searchType, searchWord);
+        const extractPostInformation = result.filter((piece) => 'channel' in piece);
 
-    console.log(data);
-    setSearchedInformation([...data]);
-    resetField('searchWord');
+        setSearchedPost([...extractPostInformation]);
+        setSearchedUser([]);
+      } else {
+        const result = await getSearchByType<'user'>(searchType, searchWord);
+        const extractPostInformation = result.filter((piece) => 'posts' in piece);
+
+        setSearchedUser([...extractPostInformation]);
+        setSearchedPost([]);
+      }
+
+      resetField('searchWord');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
+  function SearchFeedSection() {
+    if (searchedPost && searchedPost.length) {
+      return <SearchPostFeed searchedPost={searchedPost} />;
+    }
+
+    if (searchedUser && searchedUser.length) {
+      return <SearchUserFeed searchedUser={searchedUser} />;
+    }
+
+    return null;
+  }
+
   return (
-    <div className="h-full pt-10 bg-white">
+    <div className="h-full pt-10 bg-white mx-20">
       <SearchBar
         register={register}
         errors={errors}
@@ -39,6 +71,7 @@ const Search = () => {
         onSubmitSearchBar={onSubmitSearchBar}
       />
       <SearchTab />
+      <SearchFeedSection />
     </div>
   );
 };

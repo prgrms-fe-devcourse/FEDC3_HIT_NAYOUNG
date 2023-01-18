@@ -5,11 +5,10 @@ import { SearchState } from '@/store/recoilSearchState';
 
 const SearchTab = () => {
   const [searchType, setSearchType] = useRecoilState(SearchState);
-  const buttonStyle =
-    'w-full p-2 text-TEXT_SUB_GRAY font-semibold cursor-pointer transition-all duration-200 linear';
-  const selectedButtonType = 'border-b-2 border-GRAY_200 ';
+  const buttonStyle = 'w-full p-2 text-TEXT_SUB_GRAY font-semibold cursor-pointer';
+  const selectedButtonType = 'border-b-2 border-BUTTON_TEXT_DISABLED';
 
-  const banana = ({ currentTarget: { name } }: React.MouseEvent<HTMLButtonElement>) =>
+  const onClickTab = ({ currentTarget: { name } }: React.MouseEvent<HTMLButtonElement>) =>
     setSearchType(name);
 
   return (
@@ -18,7 +17,7 @@ const SearchTab = () => {
         <button
           name="all"
           className={`${buttonStyle}  ${searchType === 'all' && selectedButtonType}`}
-          onClick={banana}
+          onClick={onClickTab}
         >
           피드 검색
         </button>
@@ -27,7 +26,7 @@ const SearchTab = () => {
         <button
           name="users"
           className={`${buttonStyle} ${searchType === 'users' && selectedButtonType}`}
-          onClick={banana}
+          onClick={onClickTab}
         >
           사용자 검색
         </button>

@@ -46,6 +46,30 @@ export type Post = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type User = {
+  image: Optional<string>;
+  likes: Like[];
+  comments: string[];
+  createdAt: string;
+  banned: boolean;
+  email: string;
+  emailVerified: string;
+  _id: string;
+  fullName: string;
+  imagePublicId: string;
+  role: string;
+  updatedAt: string;
+  username: string;
+  _v: number;
+  posts: string[];
+  notifications: string[];
+  message: string[];
+  followers: string[];
+  following: string[];
+  isOnline: boolean;
+};
+
 // React-hook-forms
 export type RegisterType<RegisterData extends FieldValues> = {
   register: UseFormRegister<RegisterData>;

@@ -4,6 +4,7 @@ import { getAxiosHeader } from '@/Api/user';
 const callGetReviewDetailAPI = async (id: string) => {
   try {
     const { data } = await api.get(`/posts/${id}`);
+
     return data;
   } catch (error) {
     console.log(error);
