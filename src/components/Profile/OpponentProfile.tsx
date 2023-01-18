@@ -13,14 +13,11 @@ import { callCreateAlarmAPI } from '@/Api/notification';
 const OpponentProfile = () => {
   const [user, setUser] = useState<UserDataProps>();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname, state } = useLocation();
+  const { state } = useLocation();
   const [isFollow, setIsFollow] = useState(false);
 
   const onClickFollowButton = async () => {
-    const opponentUser = await getOpponentUserId(state.userId);
-    const { _id } = await getUserId();
-
+    const opponentUser = await getOpponentUserId(state.id);
     const followData = await getFollowUser(opponentUser._id);
 
     const createAlarmAPIBody = {
@@ -35,7 +32,7 @@ const OpponentProfile = () => {
 
   const onClickUnFollowButton = async () => {
     if (confirm('팔로우를 취소하시겠습니까?')) {
-      const { followers } = await getOpponentUserId(state.userId);
+      const { followers } = await getOpponentUserId(state.id);
       const { _id } = await getUserId();
       const followData = followers.filter(
         (follower: FollowProps) => follower.follower === _id
@@ -48,7 +45,7 @@ const OpponentProfile = () => {
   };
 
   const opponentUserIdData = async () => {
-    const opponentUser = await getOpponentUserId(state.userId);
+    const opponentUser = await getOpponentUserId(state.id);
     const loginUser = await getUserId();
     if (opponentUser._id && opponentUser._id === loginUser._id) {
       // opponentUser에 id가 없음 (유저가 없으면)
