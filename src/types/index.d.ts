@@ -142,3 +142,24 @@ export type ReviewContentProps = {
     _id: string;
   };
 };
+
+export type FollowProps = {
+  _id: string;
+  user: string;
+  follower: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type UserDataProps = {
+  posts: Post[];
+  likes: Like[];
+  comments: string[];
+  following: FollowProps[];
+  followers: FollowProps[];
+  image: string;
+  fullName: string;
+  username: string;
+  _id: string;
+  email: string;
+}
