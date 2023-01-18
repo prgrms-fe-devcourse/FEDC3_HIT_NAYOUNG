@@ -5,10 +5,9 @@ import { ReviewContentType } from '@/types';
 import ContentHandler from './ContentHandler';
 
 const ReviewContent = ({ title, image }: ReviewContentType) => {
-  const reviewContentData = JSON.parse(title);
-  // const reviewContentData: { title: string; contents: string } = useMemo(() => {
-  //   JSON.parse(title);
-  // }, [title]);
+  const reviewContentData: { title: string; contents: string } = useMemo(() => {
+    return JSON.parse(title);
+  }, []);
 
   return (
     <section className="mb-4">

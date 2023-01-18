@@ -1,5 +1,6 @@
 import { ReviewPosterType } from '@/types';
-import ReviewPoster from '@/components/Home/ReviewPoster';
+
+import ReviewPoster from '@/components/Home/ReviewPoster/ReviewPoster';
 
 const ReviewListSection = ({
   reviews,

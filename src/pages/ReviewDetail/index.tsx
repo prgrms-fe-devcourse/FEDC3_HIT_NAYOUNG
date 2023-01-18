@@ -5,6 +5,7 @@ import { callGetReviewDetailAPI } from '@/Api/reviewDetail';
 import { commentState } from '@/store/recoilCommentState';
 import { likeState } from '@/store/recoilLikeState';
 import { reviewDetailState } from '@/store/recoilReviewDetailState';
+import { InformLogOutModal } from '@/components/Modal';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -61,6 +62,7 @@ const ReviewDetail = () => {
           {commentList && <ReviewCommentList commentList={commentList} />}
         </>
       )}
+      <InformLogOutModal />
     </div>
   );
 };
