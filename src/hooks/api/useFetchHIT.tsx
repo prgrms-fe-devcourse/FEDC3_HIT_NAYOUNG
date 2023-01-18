@@ -17,8 +17,8 @@ type HITAllDataType = {
   specifiedPoster: Omit<ExtractedReviewPosterType, '_id'>[];
 };
 
-// 공통화 어떻게 하면 좋을까요?
-function extractCategoryCondition(categories: Category[]) {
+// 공통화 어떻게 하면 좋을까요? -> utils로 빼는 게 나을 거 같은데
+export function extractCategoryCondition(categories: Category[]) {
   return categories.filter((category) => VALID_CATEGORY_NAME.includes(category.name));
 }
 
