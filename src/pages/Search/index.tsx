@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRecoilValue } from 'recoil';
 
 import SearchBar from '@/components/Search/SearchBar';
+import SearchTab from '@/components/Search/SearchTab';
+import { SearchState } from '@/store/recoilSearchState';
 
 import api from '@/Api/api';
-import { useState } from 'react';
 
 type SearchFormData = {
   searchWord: string;
@@ -16,13 +19,14 @@ const Search = () => {
     formState: { errors },
     resetField,
   } = useForm<SearchFormData>();
-  const [search, setSearch] = useState<any[]>([]);
+  const [searchedInformation, setSearchedInformation] = useState<any[]>([]);
+  const searchType = useRecoilValue(SearchState);
 
   const onSubmitSearchBar = async ({ searchWord }: SearchFormData) => {
-    const { data } = await api.get(`search/all/${searchWord}`);
+    const { data } = await api.get(`search/${searchType}/${searchWord}`);
 
-    setSearch([...data]);
-
+    console.log(data);
+    setSearchedInformation([...data]);
     resetField('searchWord');
   };
 
@@ -34,6 +38,7 @@ const Search = () => {
         handleSubmit={handleSubmit}
         onSubmitSearchBar={onSubmitSearchBar}
       />
+      <SearchTab />
     </div>
   );
 };

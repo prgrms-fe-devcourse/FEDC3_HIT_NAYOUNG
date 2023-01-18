@@ -26,7 +26,7 @@ const SearchBar = ({
   onSubmitSearchBar,
 }: SearchBarProps<SearchFormData>) => {
   return (
-    <div className="w-full px-10">
+    <section className="w-full px-10">
       <form onSubmit={handleSubmit(onSubmitSearchBar)}>
         <label className="relative">
           <Input
@@ -48,7 +48,7 @@ const SearchBar = ({
           </button>
         </label>
       </form>
-    </div>
+    </section>
   );
 };
 
