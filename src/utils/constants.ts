@@ -1,3 +1,5 @@
+import { CategoryName } from '@/types';
+
 // router
 export const HOME_PAGE = '/';
 export const LOGIN_PAGE = '/login';
@@ -25,3 +27,13 @@ export const COMMENT = 'COMMENT';
 export const FOLLOW = 'FOLLOW';
 export const LIKE = 'LIKE';
 export const MESSAGE = 'MESSAGE';
+
+// 상수 객체
+export const VALID_CATEGORY_NAME = [
+  '노트북',
+  '모니터',
+  '시계',
+  '오디오',
+  '키보드',
+  '휴대폰',
+] as CategoryName[];
