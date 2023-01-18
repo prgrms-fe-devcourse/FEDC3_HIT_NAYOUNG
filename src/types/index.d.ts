@@ -147,4 +147,8 @@ type AlarmItemType = {
     comment: string;
     post: Post;
   };
+  follow?: {
+    _id: string;
+    user: string;
+  };
 };
