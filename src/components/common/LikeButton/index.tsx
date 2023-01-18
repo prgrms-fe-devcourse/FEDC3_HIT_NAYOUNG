@@ -14,6 +14,7 @@ const LikeButton = () => {
   const [likeId, setLikeId] = useState('');
   const [userId, setUserId] = useState();
   const likePropState = useRecoilValue(likeState);
+
   const { author } = useRecoilValue(reviewDetailState);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const LikeButton = () => {
       });
   };
 
-  const debouncing = (func: Function, timeout = 1000) => {
+  const debouncing = (func: () => void, timeout = 1000) => {
     let timer: any | number = null;
     clearTimeout(timer);
     timer = setTimeout(func, timeout);
@@ -66,13 +67,13 @@ const LikeButton = () => {
 
       if (data.user !== author._id) {
         // 알림 보내기
-        const callCreateNotificationAPIBody = {
+        const createNotificationAPIBody = {
           notificationType: LIKE,
           notificationTypeId: data._id,
           userId: author._id,
           postId: data.post,
         };
-        await callCreateNotificationAPI(callCreateNotificationAPIBody);
+        await callCreateNotificationAPI(createNotificationAPIBody);
       }
     }
 

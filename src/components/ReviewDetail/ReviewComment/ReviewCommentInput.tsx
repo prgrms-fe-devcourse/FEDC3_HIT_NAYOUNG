@@ -38,13 +38,13 @@ const ReviewCommentInput = ({ postId }: ReviewCommentInputProps) => {
     setCreatedComment(data);
 
     if (data.user !== author._id) {
-      const callCreateNotificationAPIBody = {
+      const createNotificationAPIBody = {
         notificationType: COMMENT,
         notificationTypeId: data._id,
         userId: author._id,
         postId: data.post,
       };
-      await callCreateNotificationAPI(callCreateNotificationAPIBody);
+      await callCreateNotificationAPI(createNotificationAPIBody);
     }
     setComment('');
   };
