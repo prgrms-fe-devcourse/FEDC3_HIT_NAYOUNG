@@ -1,16 +1,12 @@
 import { UserDataProps } from '@/types';
-import { ReactNode, useEffect, useState } from 'react';
-import { AiFillHeart } from 'react-icons/ai';
-import { FaComment } from 'react-icons/fa';
+import { useEffect, useState } from 'react';
 import { checkAuthUser, getUserId } from '@/Api/user';
 import { EDIT_MY_PAGE } from '@/utils/constants';
 import { useSetRecoilState } from 'recoil';
 import { informLogOutModalState } from '@/store/store';
-import { Link, useLocation } from 'react-router-dom';
-import Figure from './Figure';
+import { Link } from 'react-router-dom';
 import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
-import ReviewItem from './ReviewItem';
 import ProfileBottom from './ProfileBottom';
 
 // profile과 OpponentProfile이 유사함 -> 컴포넌트 새로 만들어서 다시 짜기
@@ -24,34 +20,6 @@ const Profile = () => {
     })();
   };
   const [user, setUser] = useState<UserDataProps>();
-
-  // localstorage getItem 할 것
-  const categoryName = [
-    {
-      name: '노트북',
-      id: '63bd045193836272216d31bc',
-    },
-    {
-      name: '키보드',
-      id: '63bd140193836272216d323e',
-    },
-    {
-      name: '휴대폰',
-      id: '63bd140b93836272216d3242',
-    },
-    {
-      name: '모니터',
-      id: '63bd141693836272216d3246',
-    },
-    {
-      name: '오디오',
-      id: '63bd141d93836272216d324a',
-    },
-    {
-      name: '시계',
-      id: '63bd143493836272216d324e',
-    },
-  ];
 
   useEffect(() => {
     const userIdData = async () => {
