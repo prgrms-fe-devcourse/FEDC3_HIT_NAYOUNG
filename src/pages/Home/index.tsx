@@ -1,32 +1,31 @@
-import { useNavigate } from 'react-router-dom';
 import useFetchHIT from '@/hooks/api/useFetchHIT';
 
 import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 import CategorySection from '@/components/Home/Category/CategorySection';
 import ReviewPosterSection from '@/components/Home/ReviewPoster/ReviewPosterSection';
 
+import { useNavigate } from 'react-router-dom';
+
 const Home = () => {
   const { data } = useFetchHIT();
   const titleClassName =
     'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
 
+  const navigate = useNavigate();
+  const useLocationTest = () => {
+    // const userId = '63bf90f26c5dd32fa29e42d3';
+    const userId = '63c651e0eec0e34ad830a161';
+    navigate('/user-page', {
+      state: {
+        userId,
+      },
+    });
+  };
+
   if (!data) {
     return <div>Error</div>;
   } else {
     const { category, specifiedPoster } = data;
-
-    const navigate = useNavigate();
-    const useLocationTest = () => {
-      // const userId = '63bf90f26c5dd32fa29e42d3';
-      const userId = '63c651e0eec0e34ad830a161';
-      // 유저 클릭 시,
-      navigate('/userpage', {
-        state: {
-          userId,
-        },
-      });
-    };
-
     return (
       <>
         <button onClick={useLocationTest} className="btn">

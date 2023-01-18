@@ -1,5 +1,6 @@
 import api from '@/Api/api';
 import { FILE_SIZE_MAX_LIMIT, MY_PAGE } from '@/utils/constants';
+import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ const EditProfile = () => {
     password: '',
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const token = localStorage.getItem('login-token');
+  const token = getLocalStorage('login-token');
 
   const onUpLoadImage = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -116,68 +117,67 @@ const EditProfile = () => {
     );
   };
 
+  if (!user) return false;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
-      {user && (
-        <div className="flex flex-col items-center">
-          <div className="avatar mt-10">
-            <div className="w-36 rounded-full">
-              <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
-            </div>
+      <div className="flex flex-col items-center">
+        <div className="avatar mt-10">
+          <div className="w-36 rounded-full">
+            <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
           </div>
-          <div>
-            <input
-              className="hidden"
-              type="file"
-              accept="image/*"
-              ref={inputRef}
-              onChange={onUpLoadImage}
-            />
-            <button
-              className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-              onClick={onUploadImageButtonClick}
-            >
-              프로필 이미지 변경
-            </button>
-          </div>
-          <div>
-            <span>FullName: </span>
-            <input
-              className="input input-bordered text-center mt-5"
-              name="fullName"
-              value={userInformation.fullName || ''}
-              onChange={onChangeInputValue}
-            />
-          </div>
-          <div>
-            <span>UserName: </span>
-            <input
-              className="input input-bordered text-center mt-5"
-              name="username"
-              value={userInformation.username || ''}
-              onChange={onChangeInputValue}
-            />
-          </div>
-          <div>
-            <span>Password: </span>
-            <input
-              className="input input-bordered text-center mt-5"
-              name="password"
-              value={userInformation.password || ''}
-              onChange={onChangeInputValue}
-            />
-          </div>
-          <Link to={MY_PAGE}>
-            <button
-              type="submit"
-              className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-              onClick={onClickSaveButton}
-            >
-              저장
-            </button>
-          </Link>
         </div>
-      )}
+        <div>
+          <input
+            className="hidden"
+            type="file"
+            accept="image/*"
+            ref={inputRef}
+            onChange={onUpLoadImage}
+          />
+          <button
+            className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+            onClick={onUploadImageButtonClick}
+          >
+            프로필 이미지 변경
+          </button>
+        </div>
+        <div>
+          <span>FullName: </span>
+          <input
+            className="input input-bordered text-center mt-5"
+            name="fullName"
+            value={userInformation.fullName || ''}
+            onChange={onChangeInputValue}
+          />
+        </div>
+        <div>
+          <span>UserName: </span>
+          <input
+            className="input input-bordered text-center mt-5"
+            name="username"
+            value={userInformation.username || ''}
+            onChange={onChangeInputValue}
+          />
+        </div>
+        <div>
+          <span>Password: </span>
+          <input
+            className="input input-bordered text-center mt-5"
+            name="password"
+            value={userInformation.password || ''}
+            onChange={onChangeInputValue}
+          />
+        </div>
+        <Link to={MY_PAGE}>
+          <button
+            type="submit"
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+            onClick={onClickSaveButton}
+          >
+            저장
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

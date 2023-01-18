@@ -8,6 +8,10 @@ import { useSetRecoilState } from 'recoil';
 import { informLogOutModalState } from '@/store/store';
 import { Link, useLocation } from 'react-router-dom';
 import Figure from './Figure';
+import Avatar from '../common/Avatar';
+import ReviewAndFollow from './ReviewAndFollow';
+import ReviewItem from './ReviewItem';
+import ProfileBottom from './ProfileBottom';
 
 // profile과 OpponentProfile이 유사함 -> 컴포넌트 새로 만들어서 다시 짜기
 const Profile = () => {
@@ -20,7 +24,6 @@ const Profile = () => {
     })();
   };
   const [user, setUser] = useState<UserDataProps>();
-  const { pathname } = useLocation();
 
   // localstorage getItem 할 것
   const categoryName = [
@@ -62,12 +65,8 @@ const Profile = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       <div className="flex flex-col items-center">
-        <div className="avatar mt-10">
-          <div className={`w-${36} rounded-full`}>
-            <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
-          </div>
-        </div>
-        <div>{user?.fullName}</div>
+        <Avatar user={user} size={36} />
+        <div>{user.fullName}</div>
         <div>안녕하세요 월 수화 목금입니다.</div>
         <Link to={EDIT_MY_PAGE}>
           <button className="btn w-2/5 min-w-[300px] mt-5 bg-white text-BASE border-BASE hover:text-white hover:bg-HOVER hover:border-HOVER">
@@ -82,79 +81,8 @@ const Profile = () => {
             로그아웃
           </button>
         </div>
-        <div className="mt-10">
-          <ul className="flex justify-around text-center min-w-[300px]">
-            <li className="cursor-pointer">
-              <div>게시물</div>
-              <div>{user.posts.length}</div>
-            </li>
-            <li className="cursor-pointer">
-              <div>팔로워</div>
-              <div>{user.followers.length}</div>
-            </li>
-            <li className="cursor-pointer">
-              <div>팔로잉</div>
-              <div>{user.following.length}</div>
-            </li>
-          </ul>
-        </div>
-        <div className="grid grid-cols-3 gap-3 mt-5 max-w-xl">
-          {user?.posts.length === 0 ? (
-            <div className="mt-10 col-start-2">
-              <div>작성하신 리뷰가 없습니다.</div>
-            </div>
-          ) : (
-            user.posts.map((post): ReactNode => {
-              const id = post._id;
-              const channel = categoryName.filter(
-                (category) => category.id === post.channel
-              );
-              const categoryPathName = `category/${channel[0]?.name}`;
-              return (
-                <Link
-                  key={post._id}
-                  className="h-40 border-HOVER cursor-pointer relative overflow-hidden"
-                  to={`/${categoryPathName}/detail`}
-                  state={{ id }}
-                >
-                  {post.image ? (
-                    <Figure>
-                      <img
-                        className="object-fill object-center w-52 h-52"
-                        src={post.image}
-                      />
-                      <figcaption className="flex items-center justify-around">
-                        <div className="flex gap-2 items-center">
-                          <AiFillHeart />
-                          {post.likes.length}
-                        </div>
-                        <div className="flex gap-2 items-center">
-                          <FaComment /> {post.comments.length}
-                        </div>
-                      </figcaption>
-                    </Figure>
-                  ) : (
-                    <Figure>
-                      <img
-                        className="object-cover"
-                        src="https://cdn-icons-png.flaticon.com/512/261/261283.png"
-                      />
-                      <figcaption className="flex items-center justify-around">
-                        <div className="flex gap-2 items-center">
-                          <AiFillHeart />
-                          {post.likes.length}
-                        </div>
-                        <div className="flex gap-2 items-center">
-                          <FaComment /> {post.comments.length}
-                        </div>
-                      </figcaption>
-                    </Figure>
-                  )}
-                </Link>
-              );
-            })
-          )}
-        </div>
+        <ReviewAndFollow user={user} />
+        <ProfileBottom user={user} />
       </div>
     </div>
   );
