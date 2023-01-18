@@ -22,14 +22,16 @@ const AlarmContainer = () => {
 
   return (
     <>
-      {loading ? (
-        <div>Loading..</div>
-      ) : (
-        <section className="flex flex-col p-5 border-2 border-GRAY_100 rounded max-md:border-none gap-5">
-          <NewAlarmList />
-          <ReadAlarmList />
-        </section>
-      )}
+      <section className="flex flex-col p-5 border-2 border-GRAY_100 rounded gap-5 h-screen w-5/12 max-md:border-none max-md:w-full max-md:p-5">
+        {loading ? (
+          <div>Loading..</div>
+        ) : (
+          <>
+            <NewAlarmList />
+            <ReadAlarmList />
+          </>
+        )}
+      </section>
     </>
   );
 };

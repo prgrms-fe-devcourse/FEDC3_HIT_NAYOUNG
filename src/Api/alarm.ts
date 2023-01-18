@@ -18,5 +18,16 @@ const getAllAlarmList = async () => {
 };
 
 // 알림 읽음처리
+const updateAlarmSeenState = () => {
+  try {
+    api.put('/notifications/seen', null, {
+      headers: {
+        Authorization: `bearer ${localStorage.getItem('login-token')}`,
+      },
+    });
+  } catch (error) {
+    throw new Error('알람 읽음처리 api에서 에러발생');
+  }
+};
 
-export { getAllAlarmList };
+export { getAllAlarmList, updateAlarmSeenState };
