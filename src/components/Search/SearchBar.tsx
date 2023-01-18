@@ -1,16 +1,12 @@
 import {
-  SubmitHandler,
   UseFormRegister,
-  UseFormHandleSubmit,
   FieldValues,
   FieldErrors,
-  UseFormResetField,
+  UseFormHandleSubmit,
 } from 'react-hook-form';
 import { MdCancel as CancelIcon } from 'react-icons/md';
 
 import Input from '@/components/common/Input';
-
-import api from '@/Api/api';
 
 type SearchFormData = {
   searchWord: string;
@@ -20,30 +16,18 @@ type SearchBarProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
   handleSubmit: UseFormHandleSubmit<T>;
-  resetFormData: UseFormResetField<T>;
+  onSubmitSearchBar: ({ searchWord }: SearchFormData) => Promise<void>;
 };
 
 const SearchBar = ({
   register,
   errors,
   handleSubmit,
-  resetFormData,
+  onSubmitSearchBar,
 }: SearchBarProps<SearchFormData>) => {
-  const submitSearchBarHandler: SubmitHandler<SearchFormData> = async ({
-    searchWord,
-  }) => {
-    const result = await api.get(`/search/all/${searchWord}`);
-    resetFormData('searchWord');
-    console.log(result.data);
-  };
-
-  const onClearFormData = () => {
-    resetFormData('searchWord');
-  };
-
   return (
     <div className="w-full px-10">
-      <form onSubmit={handleSubmit(submitSearchBarHandler)}>
+      <form onSubmit={handleSubmit(onSubmitSearchBar)}>
         <label className="relative">
           <Input
             type="text"
@@ -59,7 +43,6 @@ const SearchBar = ({
           <button
             type="button"
             className="absolute top-1/2 right-5 transform -translate-y-1/2"
-            onClick={onClearFormData}
           >
             <CancelIcon className="text-xl" />
           </button>

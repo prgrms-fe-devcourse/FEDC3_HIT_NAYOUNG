@@ -2,6 +2,9 @@ import { useForm } from 'react-hook-form';
 
 import SearchBar from '@/components/Search/SearchBar';
 
+import api from '@/Api/api';
+import { useState } from 'react';
+
 type SearchFormData = {
   searchWord: string;
 };
@@ -13,6 +16,15 @@ const Search = () => {
     formState: { errors },
     resetField,
   } = useForm<SearchFormData>();
+  const [search, setSearch] = useState<any[]>([]);
+
+  const onSubmitSearchBar = async ({ searchWord }: SearchFormData) => {
+    const { data } = await api.get(`search/all/${searchWord}`);
+
+    setSearch([...data]);
+
+    resetField('searchWord');
+  };
 
   return (
     <div className="h-full pt-10 bg-white">
@@ -20,7 +32,7 @@ const Search = () => {
         register={register}
         errors={errors}
         handleSubmit={handleSubmit}
-        resetFormData={resetField}
+        onSubmitSearchBar={onSubmitSearchBar}
       />
     </div>
   );
