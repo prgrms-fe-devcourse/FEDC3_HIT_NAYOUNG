@@ -2,17 +2,16 @@ import { useRecoilValue } from 'recoil';
 
 import { extractCategoryNameAndIdState } from '@/store/recoilCategoryState';
 
+import { InformLogOutModal } from '@/components/Modal';
 import ReviewCreateForm from '@/components/ReviewCreateForm';
 
 const ReviewCreate = () => {
-  const categoryNameAndId = useRecoilValue(extractCategoryNameAndIdState);
-
-  // 수화: 카테고리 이름, 아이디 전역 상태 관리 참조 방법
-  console.log(categoryNameAndId);
+  const categoryData = useRecoilValue(extractCategoryNameAndIdState);
 
   return (
     <div className="h-full pt-16">
-      <ReviewCreateForm />
+      <ReviewCreateForm categoryData={categoryData} />
+      <InformLogOutModal />
     </div>
   );
 };

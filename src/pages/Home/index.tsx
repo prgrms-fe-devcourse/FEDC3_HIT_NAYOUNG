@@ -1,15 +1,10 @@
-import { useRecoilState } from 'recoil';
-
-import { informLoginModalState } from '@/store/store';
-
 import useFetchHIT from '@/hooks/api/useFetchHIT';
 
-import { InformLoginModal } from '@/components/Modal';
+import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 import CategorySection from '@/components/Home/Category/CategorySection';
 import ReviewPosterSection from '@/components/Home/ReviewPoster/ReviewPosterSection';
 
 const Home = () => {
-  const [open, setOpen] = useRecoilState(informLoginModalState);
   const { data } = useFetchHIT();
   const titleClassName =
     'text-start sm:text-base md:text-lg lg:text-xl text-TEXT_BASE_BLACK font-semibold mb-2';
@@ -36,6 +31,7 @@ const Home = () => {
           </div>
         </section>
         <InformLoginModal />
+        <InformLogOutModal />
       </>
     );
   }
