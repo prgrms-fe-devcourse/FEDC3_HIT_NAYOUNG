@@ -10,6 +10,7 @@ import { VALID_CATEGORY_NAME } from '@/utils/constants';
 
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
+import { setCategoryNameAndIdStateToLocalStorage } from '@/utils/category';
 
 type HITAllDataType = {
   category: Category[];
@@ -49,6 +50,7 @@ const useFetchHIT = () => {
           specifiedPoster: extractReviewPosterCondition(reviewPosterResponse),
         });
         setCategory(categoryResponse as Category[]);
+        setCategoryNameAndIdStateToLocalStorage(categoryResponse as Category[]);
       } catch (error) {
         console.error(error);
       } finally {

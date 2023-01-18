@@ -37,3 +37,6 @@ export const VALID_CATEGORY_NAME = [
   '키보드',
   '휴대폰',
 ] as CategoryName[];
+
+// local storage key
+export const CATEGORY_ID_NAME = 'category-id-name';
