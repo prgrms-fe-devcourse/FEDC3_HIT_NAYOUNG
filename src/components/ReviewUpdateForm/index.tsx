@@ -10,8 +10,9 @@ import Button from '@/components/ReviewCreateForm/Button';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
-import InformCancelModal from '@/components/ReviewCreateForm/InformCancelModal';
-import InformCreateLoadingModal from '@/components/ReviewCreateForm/InformCreateLoadingModal';
+import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
+import { toast } from 'react-toastify';
+import { REVIEW_CRAETE } from '../Toast/ToastText';
 
 const ReviewUpdateForm = ({
   categoryData,
@@ -72,6 +73,7 @@ const ReviewUpdateForm = ({
         },
       });
       navigate(`/category/${name}`, { state: { id, name }, replace: true });
+      toast.success(REVIEW_CRAETE);
     } catch (error) {
       console.log(error);
     } finally {

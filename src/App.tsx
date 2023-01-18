@@ -21,6 +21,7 @@ import ReviewCreate from './pages/ReviewCreate';
 import ReviewUpdate from './pages/ReviewUpdate';
 import Navigation from './components/Navigation';
 import EditMyProfile from './pages/EditMyProfile';
+import Toast from './components/Toast';
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
         <Route path={REVIEW_DETAIL_PAGE} element={<ReviewDetail />} />
         <Route path={NOT_FOUND_PAGE} element={<NotFound />} />
       </Routes>
+      <Toast />
     </>
   );
 };
