@@ -1,4 +1,5 @@
 import api from '@/Api/api';
+import { UserList } from '@/types/userList';
 
 const getAxiosHeader = () => {
   const token = localStorage.getItem('login-token');
@@ -59,4 +60,19 @@ const getUserId = async () => {
   }
 };
 
-export { checkAuthUser, getUserInformation, getUserId, getAxiosHeader };
+const getUserNameList = async () => {
+  try {
+    const response = await api.get(`/users/get-users`);
+    if (response) {
+      const userList = response.data.slice(0, 6);
+      const userNameList = userList.map((userList: UserList) => {
+        return userList.fullName;
+      });
+      return userNameList;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export { getAxiosHeader, checkAuthUser, getUserInformation, getUserId, getUserNameList };
