@@ -1,4 +1,4 @@
-import { informLogOutModalState } from '@/store/store';
+import { informLogOutModalState } from '@/store/recoilModalState';
 import { removeLocalStorage } from '@/utils/storage';
 import { useRecoilState, useResetRecoilState } from 'recoil';
 import { HOME_PAGE } from '@/utils/constants';
@@ -11,7 +11,6 @@ const InformLogOutModal = () => {
   const onClickLogOut = () => {
     removeLocalStorage('login-token');
     useResetRecoilState(informLogOutModalState);
-    alert('로그아웃 되었습니다.');
   };
 
   return (

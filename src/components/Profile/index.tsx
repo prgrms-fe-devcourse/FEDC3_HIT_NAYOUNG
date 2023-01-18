@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { checkAuthUser, getUserId } from '@/Api/user';
 import { EDIT_MY_PAGE } from '@/utils/constants';
 import { useSetRecoilState } from 'recoil';
-import { informLogOutModalState } from '@/store/store';
+import { informLogOutModalState } from '@/store/recoilModalState';
 
 type UserData = {
   fullName: string;

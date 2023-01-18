@@ -3,7 +3,7 @@ import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
-import { reviewDetailState } from '@/store/recoilReviewDetailState';
+import { reviewDetailState } from '@/store/recoilReviewState';
 import { LIKE } from '@/utils/constants';
 import { useState, useEffect, useCallback } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';

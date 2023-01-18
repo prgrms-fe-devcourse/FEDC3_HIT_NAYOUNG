@@ -1,7 +1,7 @@
 import { callCreateCommentAPI } from '@/Api/comment';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import { commentState } from '@/store/recoilCommentState';
-import { reviewDetailState } from '@/store/recoilReviewDetailState';
+import { reviewDetailState } from '@/store/recoilReviewState';
 import { COMMENT } from '@/utils/constants';
 import { useState, useEffect } from 'react';
 import { BsChat } from 'react-icons/bs';

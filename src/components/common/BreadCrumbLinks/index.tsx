@@ -1,4 +1,4 @@
-import { reviewDetailState } from '@/store/recoilReviewDetailState';
+import { reviewDetailState } from '@/store/recoilReviewState';
 import { HOME_PAGE } from '@/utils/constants';
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
