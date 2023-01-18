@@ -1,11 +1,11 @@
 import { UserDataProps } from '@/types';
 
-type AvatarProp = {
+type AvatarProps = {
   size: number;
   user: UserDataProps;
 };
 
-const Avatar = ({ user, size }: AvatarProp) => {
+const Avatar = ({ user, size }: AvatarProps) => {
   return (
     <div className="avatar mt-10">
       <div className={`w-${size} rounded-full`}>
