@@ -19,7 +19,7 @@ const Feed = ({
 }: FeedPropsType) => {
   return (
     <Link
-      className="border-HOVER cursor-pointer relative overflow-hidden w-1/3 h-44"
+      className="border-HOVER cursor-pointer relative overflow-hidden w-1/3 h-10/12"
       to={categoryName}
       state={{ id: _id }}
     >

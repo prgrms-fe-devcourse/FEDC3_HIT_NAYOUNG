@@ -13,8 +13,8 @@ const SearchUserFeed = ({ searchedUser }: { searchedUser: ExtractUserDataType[] 
         categoryName={MY_PAGE}
         image={image}
         _id={_id}
-        firstFeedInformation={posts}
-        lastFeedInformation={followers}
+        firstFeedInformationCount={posts.length}
+        lastFeedInformationCount={followers.length}
         key={aSearchedUser._id}
       />
     );

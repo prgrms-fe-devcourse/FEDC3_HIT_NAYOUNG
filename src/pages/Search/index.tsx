@@ -50,7 +50,7 @@ const Search = () => {
     }
   };
 
-  function SearchFeedSection() {
+  const SearchFeedSection = () => {
     if (searchedPost && searchedPost.length) {
       return <SearchPostFeed searchedPost={searchedPost} />;
     }
@@ -60,10 +60,10 @@ const Search = () => {
     }
 
     return null;
-  }
+  };
 
   return (
-    <div className="h-full pt-10 bg-white mx-20">
+    <div className="h-full pt-10 bg-white  md:mx-16 lg:mx-20">
       <SearchBar
         register={register}
         errors={errors}
