@@ -1,5 +1,5 @@
 import { getUserInformation, getUserNameList } from '@/Api/user';
-import { USER_PAGE } from '@/utils/constants';
+import { MY_PAGE, USER_PAGE } from '@/utils/constants';
 import { BiUserCircle } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
 import { useEffect, useState } from 'react';
@@ -38,6 +38,8 @@ const UserComponent = ({ userName, id }: UserComponentProps) => {
 };
 
 const UserList = () => {
+  const navigate = useNavigate();
+
   const [myName, setMyName] = useState();
   const [userNameList, setUserNameList] = useState<UserNameList>();
 
@@ -56,9 +58,16 @@ const UserList = () => {
     callgetUserNameList();
   }, []);
 
+  const moveMyProfile = () => {
+    navigate(MY_PAGE);
+  };
+
   return (
     <div className="w-48 border border-BASE rounded-md shadow-sm pb-1">
-      <div className="flex hover:bg-slate-50 cursor-pointer mt-1 p-1 px-2 ">
+      <div
+        className="flex hover:bg-slate-50 cursor-pointer mt-1 p-1 px-2"
+        onClick={moveMyProfile}
+      >
         <BiUserCircle size={24} className="mr-1" />
         <div className="ml-1">{myName}</div>
       </div>

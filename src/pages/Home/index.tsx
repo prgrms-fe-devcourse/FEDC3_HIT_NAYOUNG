@@ -28,7 +28,7 @@ const Home = () => {
             <CategorySection category={category} titleStyle={titleClassName} />
           </div>
         </section>
-        <section className="max-xl:hidden absolute top-14 right-10">
+        <section className="max-xl:hidden absolute top-16 right-10">
           <div className="">
             <UserList />
           </div>
