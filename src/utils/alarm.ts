@@ -17,3 +17,12 @@ export const separateAlarmSeenState = (alarms: AlarmItemType[]) => {
 
   return { newAlarms, readAlarms };
 };
+
+export const getReviewContent = (titleAndContent: string): string => {
+  const { contents } = JSON.parse(titleAndContent) as {
+    title: string;
+    contents: string;
+  };
+
+  return contents;
+};

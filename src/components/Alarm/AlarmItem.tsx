@@ -1,8 +1,9 @@
 import { AlarmItemType } from '@/types';
+import { getReviewContent } from '@/utils/alarm';
 import { getCategoryNameToMatchingId } from '@/utils/category';
 import { Link } from 'react-router-dom';
 
-// 동일한 UI인데..참조할 곳만 다름(알림타입에 따라) -> 공통 인터페이스 가지는 UI구현(AlarmItemUI)
+// 유사한 UI인데 참조할 곳만 다름(알림타입에 따라) -> 공통 인터페이스 가지는 UI구현(AlarmItemUI)
 const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
   return (
     <>
@@ -10,7 +11,7 @@ const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
         <AlarmItemUI
           imageUrl={alarmItem.like.post.image}
           title={`${alarmItem.author.fullName}님이 회원님의 게시물을 좋아합니다`}
-          contents={alarmItem.like.post.title}
+          contents={getReviewContent(alarmItem.like.post.title)}
           link={`/category/${getCategoryNameToMatchingId(
             alarmItem.like.post.channel
           )}/detail`}
@@ -20,7 +21,7 @@ const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
         <AlarmItemUI
           imageUrl={alarmItem.comment.post.image}
           title={`${alarmItem.author.fullName}님이 회원님의 게시물에 댓글을 남겼습니다`}
-          contents={alarmItem.comment.comment}
+          contents={getReviewContent(alarmItem.comment.post.title)}
           link={`/category/${getCategoryNameToMatchingId(
             alarmItem.comment.post.channel
           )}/detail`}
