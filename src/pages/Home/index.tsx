@@ -17,7 +17,7 @@ const Home = () => {
     const userId = '63c651e0eec0e34ad830a161';
     navigate('/user-page', {
       state: {
-        userId,
+        id: userId,
       },
     });
   };
