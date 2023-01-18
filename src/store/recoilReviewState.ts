@@ -21,3 +21,9 @@ export const reviewDetailState = atom<ReviewContentProps>({
     },
   },
 });
+
+// 리뷰 삭제
+export const reviewDeleteState = atom<boolean>({
+  key: 'reviewDeleteState',
+  default: false,
+});
