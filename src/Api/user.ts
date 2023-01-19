@@ -1,4 +1,5 @@
 import api from '@/Api/api';
+import { UserList } from '@/types/userList';
 
 const getAxiosHeader = () => {
   const token = localStorage.getItem('login-token');
@@ -59,6 +60,21 @@ const getUserId = async () => {
   }
 };
 
+const getUserNameList = async () => {
+  try {
+    const { data } = await api.get(`/users/get-users`);
+    if (data) {
+      const userList = data.slice(0, 6);
+      const userNameList = userList.map((userList: UserList) => {
+        return { name: userList.fullName, id: userList._id };
+      });
+      return userNameList;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const getOpponentUserId = async (userId: string) => {
   try {
     const response = await api.get(`/users/${userId}`)
@@ -70,4 +86,4 @@ const getOpponentUserId = async (userId: string) => {
   }
 }
 
-export { checkAuthUser, getUserInformation, getUserId, getAxiosHeader, getOpponentUserId };
+export { getAxiosHeader, checkAuthUser, getUserInformation, getUserId, getUserNameList, getOpponentUserId };
