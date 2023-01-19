@@ -45,6 +45,8 @@ const useFetchHIT = () => {
     };
 
     run();
+
+    console.log(data?.specifiedPoster);
   }, []);
 
   return { data, loading };

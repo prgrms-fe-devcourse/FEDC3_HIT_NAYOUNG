@@ -1,8 +1,8 @@
-import { UserDataProps } from '@/types';
+import { User } from '@/types';
 
 type AvatarProps = {
   size: number;
-  user: UserDataProps;
+  user: User;
 };
 
 const Avatar = ({ user, size }: AvatarProps) => {

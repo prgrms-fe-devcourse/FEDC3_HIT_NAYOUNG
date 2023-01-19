@@ -1,5 +1,7 @@
+import { UserPost } from '.';
+
 export type ExtractPostDataType = Pick<
-  Post,
+  UserPost,
   'likes' | 'comments' | 'channel' | '_id' | 'image'
 > & {
   type?: 'post';

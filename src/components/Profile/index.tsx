@@ -1,9 +1,9 @@
-import { UserDataProps } from '@/types';
+import { User } from '@/types';
 import { useEffect, useState } from 'react';
 import { checkAuthUser, getUserId } from '@/Api/user';
 import { EDIT_MY_PAGE } from '@/utils/constants';
 import { useSetRecoilState } from 'recoil';
-import { informLogOutModalState } from '@/store/store';
+import { informLogOutModalState } from '@/store/recoilModalState';
 import { Link } from 'react-router-dom';
 import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
@@ -19,7 +19,7 @@ const Profile = () => {
       if (isLogIn) setLogOutModalOpened(true);
     })();
   };
-  const [user, setUser] = useState<UserDataProps>();
+  const [user, setUser] = useState<User>();
 
   useEffect(() => {
     const userIdData = async () => {

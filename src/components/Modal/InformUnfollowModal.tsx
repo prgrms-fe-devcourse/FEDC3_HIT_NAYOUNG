@@ -1,19 +1,17 @@
 import { getUnfollowUser } from '@/Api/follow';
 import { getOpponentUserId, getUserId } from '@/Api/user';
 import { getUserState, userState } from '@/store/recoilUserState';
-import { informUnfollowModalState } from '@/store/store';
-import { FollowProps, UserDataProps } from '@/types';
+
+import { FollowProps } from '@/types';
 import { useLocation } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import ModalPortal from './ModalPortal';
 
 const InformUnfollowModal = () => {
-  const [open, setOpen] = useRecoilState<boolean>(informUnfollowModalState);
   const [user, setUser] = useRecoilState(userState);
   const { state } = useLocation();
 
   const onClickUnfollow = async () => {
-    setOpen(false);
     // const opponentUser = await getOpponentUserId(state.id);
     // const { _id } = await getUserId();
     // const followData = opponentUser.followers.filter(
@@ -27,7 +25,7 @@ const InformUnfollowModal = () => {
     <ModalPortal>
       <input
         readOnly
-        checked={open}
+        checked={false}
         type="checkbox"
         id="my-modal-6"
         className="modal-toggle"
@@ -45,7 +43,7 @@ const InformUnfollowModal = () => {
           </div>
           <center>
             <label
-              onClick={() => setOpen(false)}
+              // onClick={() => setOpen(false)}
               htmlFor="my-modal-6"
               className="text-sm hover:cursor-pointer"
             >

@@ -1,17 +1,13 @@
 import { ExtractPostDataType } from '@/types/search';
 
+import { getCategoryNameToMatchingId } from '@/utils/category';
+
 import Feed from '@/components/common/Feed';
-import { useRecoilValue } from 'recoil';
-import { categoryState } from '@/store/recoilCategoryState';
-import { DEFAULT_CATEGORY_INFORMATION } from '@/utils/constants';
 
 const SearchFeedSection = ({ searchedPost }: { searchedPost: ExtractPostDataType[] }) => {
-  const categoryNameAndIdList = useRecoilValue(categoryState);
   const PostFeedComponent = searchedPost.map((aSearchedPost) => {
     const { channel, likes, comments, image, _id } = aSearchedPost;
-    const { name } =
-      categoryNameAndIdList.find(({ id }) => id === channel) ??
-      DEFAULT_CATEGORY_INFORMATION;
+    const name = getCategoryNameToMatchingId(channel);
 
     return (
       <Feed

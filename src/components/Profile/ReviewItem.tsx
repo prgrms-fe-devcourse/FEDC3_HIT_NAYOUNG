@@ -1,11 +1,11 @@
-import { Post } from '@/types';
+import { UserPost } from '@/types';
 import { Link } from 'react-router-dom';
 import Figure from './Figure';
 import { AiFillHeart } from 'react-icons/ai';
 import { FaComment } from 'react-icons/fa';
 
 type ReviewItemProps = {
-  post: Post;
+  post: UserPost;
   categoryPathName: string;
   id: string;
 };

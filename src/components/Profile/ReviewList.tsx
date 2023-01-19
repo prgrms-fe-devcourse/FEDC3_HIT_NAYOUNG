@@ -1,5 +1,5 @@
-import { Post, UserDataProps } from '@/types';
-import { ReactNode } from 'react';
+import { User } from '@/types';
+
 import ReviewItem from './ReviewItem';
 
 // localstorage getItem 할 것
@@ -31,7 +31,7 @@ const categoryName = [
 ];
 
 type ReviewListProps = {
-  user: UserDataProps;
+  user: User;
 };
 
 const ReviewList = ({ user }: ReviewListProps) => {
@@ -42,7 +42,7 @@ const ReviewList = ({ user }: ReviewListProps) => {
           <div>작성하신 리뷰가 없습니다.</div>
         </div>
       ) : (
-        user.posts.map((post: Post): ReactNode => {
+        user.posts.map((post) => {
           const id = post._id;
           const channel = categoryName.filter((category) => category.id === post.channel);
           const categoryPathName = `category/${channel[0]?.name}`;
