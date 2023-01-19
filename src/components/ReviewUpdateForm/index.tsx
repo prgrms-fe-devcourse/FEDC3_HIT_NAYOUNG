@@ -1,19 +1,20 @@
 import api from '@/Api/api';
-import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
+
 import { CategoryType, ReviewFormData } from '@/types';
-import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
+
+import { useCallback, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Button from '@/components/ReviewCreateForm/Button';
-import { useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
-import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
+import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
+import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
+import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { toast } from 'react-toastify';
-import { REVIEW_CRAETE } from '../Toast/ToastText';
+import { REVIEW_UPDATE } from '../Toast/ToastText';
 
-// FIXME: 비동기 로직, 컴포넌트랑 분리
-
-const ReviewCreateForm = ({
+const ReviewUpdateForm = ({
   categoryData,
 }: {
   categoryData: Readonly<CategoryType[]>;
@@ -23,6 +24,12 @@ const ReviewCreateForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm<ReviewFormData>();
+
+  const {
+    state: { postId, channel, title },
+  } = useLocation();
+
+  const review = useMemo(() => JSON.parse(title), []);
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -54,19 +61,20 @@ const ReviewCreateForm = ({
       .pop() as CategoryType;
 
     const formData = new FormData();
+    formData.append('postId', postId);
     formData.append('title', JSON.stringify(titleAndContent));
-    formData.append('image', image[0]);
+    formData.append('image', image);
     formData.append('channelId', id);
 
     try {
-      await api.post('/posts/create', formData, {
+      await api.put('/posts/update', formData, {
         headers: {
           Authorization: `bearer ${localStorage.getItem('login-token')}`,
           'Content-Type': 'multipart/form-data',
         },
       });
       navigate(`/category/${name}`, { state: { id, name }, replace: true });
-      toast.success(REVIEW_CRAETE);
+      toast.success(REVIEW_UPDATE);
     } catch (error) {
       console.log(error);
     } finally {
@@ -78,7 +86,7 @@ const ReviewCreateForm = ({
     <>
       <div className="flex justify-center text-TEXT_BASE_BLACK">
         <div className="flex flex-col w-5/12 max-md:w-9/12">
-          <h1 className="text-xl pb-2.5 self-start">리뷰 작성</h1>
+          <h1 className="text-xl pb-2.5 self-start">리뷰 수정</h1>
           <form className="flex flex-col">
             <RegisterInput
               type="text"
@@ -87,6 +95,7 @@ const ReviewCreateForm = ({
                 container: 'mb-4 flex flex-col',
                 input: 'input w-full bg-GRAY_100',
               }}
+              value={review.title}
               register={register}
               registerName="title"
               registerRules={{ required: '제목을 입력해 주세요.' }}
@@ -94,11 +103,12 @@ const ReviewCreateForm = ({
             />
             <RegisterTextarea
               rows={10}
-              placeholder="사용후기를 남겨주세요."
+              placeholder="사용후기를 남겨주세요"
               style={{
                 container: 'flex flex-col mb-4',
                 textarea: 'textarea bg-GRAY_100 text-sm',
               }}
+              value={review.contents}
               register={register}
               registerName="contents"
               registerRules={{ required: '내용을 입력해 주세요.' }}
@@ -122,7 +132,7 @@ const ReviewCreateForm = ({
                   <label
                     key={id}
                     className="flex mr-4 rounded-xl cursor-pointer hover:text-[#BE3555]"
-                    htmlFor={name}
+                    htmlFor={channel.name}
                   >
                     <RegisterInput
                       id={name}
@@ -149,7 +159,7 @@ const ReviewCreateForm = ({
                 clickHandler={onClickCancelButton}
               />
               <Button
-                name="리뷰남기기"
+                name="리뷰 수정하기"
                 style="bg-BASE p-2.5 flex-1 rounded-xl hover:bg-HOVER"
                 clickHandler={handleSubmit(onSubmitReview)}
               />
@@ -163,4 +173,4 @@ const ReviewCreateForm = ({
   );
 };
 
-export default ReviewCreateForm;
+export default ReviewUpdateForm;

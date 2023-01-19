@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
+import { toast } from 'react-toastify';
+import { LOGIN_SUCCESS } from '../Toast/ToastText';
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -41,6 +43,7 @@ const Login = () => {
       const token = response.data.token;
       localStorage.setItem('login-token', token);
       navigate(HOME_PAGE);
+      toast.success(LOGIN_SUCCESS);
     } catch {
       setError('password', {
         message: '아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.',

@@ -9,7 +9,8 @@ export const ALARM_PAGE = '/alarm';
 export const MY_PAGE = '/my-page';
 export const USER_PAGE = '/user-page';
 export const EDIT_MY_PAGE = '/edit-my-page';
-export const CREATE_REVIEW_PAGE = '/create';
+export const CREATE_REVIEW_PAGE = '/create-review';
+export const UPDATE_REVIEW_PAGE = '/update-review';
 export const REVIEW_LIST_PAGE = '/category/:category';
 export const REVIEW_DETAIL_PAGE = '/category/:category/detail';
 export const NOT_FOUND_PAGE = '*';
@@ -40,3 +41,4 @@ export const VALID_CATEGORY_NAME = [
 
 // local storage key
 export const CATEGORY_ID_NAME = 'category-id-name';
+export const LOGIN_TOKEN = 'login-token';

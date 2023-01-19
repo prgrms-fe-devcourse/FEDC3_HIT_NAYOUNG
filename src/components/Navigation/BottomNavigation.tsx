@@ -2,7 +2,7 @@ import { BottomNavigationItem } from './NavigationItem';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { checkAuthUser } from '@/Api/user';
 import { useSetRecoilState } from 'recoil';
-import { informLoginModalState } from '@/store/store';
+import { informLoginModalState } from '@/store/recoilModalState';
 
 const BottomNavigation = () => {
   const setLogInModalOpened = useSetRecoilState(informLoginModalState);

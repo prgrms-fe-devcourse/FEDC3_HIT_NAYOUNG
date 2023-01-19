@@ -103,6 +103,7 @@ export type RegisterTextareaProps<RegisterData> = {
     container?: string;
     textarea?: string;
   };
+  value?: string;
 } & RegisterType<RegisterData>;
 
 export type ReviewFormData = {

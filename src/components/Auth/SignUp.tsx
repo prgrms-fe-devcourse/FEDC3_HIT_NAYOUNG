@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { HOME_PAGE } from '@/utils/constants';
+import { toast } from 'react-toastify';
+import { SIGNUP_SUCCESS } from '../Toast/ToastText';
 
 type FormData = {
   errors: {
@@ -55,6 +57,7 @@ const SignupForm = () => {
       });
       localStorage.setItem('login-token', response.data.token);
       navigate(HOME_PAGE);
+      toast.success(SIGNUP_SUCCESS);
     } catch (error) {
       setError('email', {
         type: 'server',
