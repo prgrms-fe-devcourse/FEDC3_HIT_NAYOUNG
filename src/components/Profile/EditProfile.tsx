@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import WarningLabel from '../Auth/WarningLabel';
+import Button from '../ReviewCreateForm/Button';
 import EditProfileInput from './EditProfileInput';
 
 type EditUserData = {
@@ -163,12 +164,11 @@ const EditProfile = () => {
               ref={inputRef}
               onChange={onUpLoadImage}
             />
-            <button
-              className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-              onClick={onUploadImageButtonClick}
-            >
-              프로필 이미지 변경
-            </button>
+            <Button
+              name="프로필 이미지 변경"
+              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              clickHandler={onUploadImageButtonClick}
+            />
           </div>
           <EditProfileInput
             name="FullName"
