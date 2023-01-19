@@ -24,18 +24,27 @@ export type User = {
 };
 
 // - 게시글 모델
-export type Post = {
+type Post = {
   likes: Like[];
   comments: CommentType[];
   _id: string;
   image: Optional<string>;
   imagePublicId: Optional<string>;
   title: string;
-  channel: Channel; // FIXME: Channel이 어떤 거? 알람쪽은 channelId인 string임
   author: User;
   createdAt: string;
   updatedAt: string;
 };
+
+export type ReviewPost = {
+  // 명재오빠(리뷰페이지 리스트)
+  channel: Category;
+} & Post;
+
+export type UserPost = {
+  // 건오오빠(프로필)
+  channel: string;
+} & Post;
 
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
