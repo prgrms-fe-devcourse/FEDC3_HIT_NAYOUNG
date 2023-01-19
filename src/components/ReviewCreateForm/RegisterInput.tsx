@@ -20,7 +20,7 @@ const RegisterInput = ({
         className={style?.input}
         placeholder={placeholder}
         type={type}
-        value={value}
+        defaultValue={value}
         {...(register && register(registerName, registerRules))}
         {...props}
       />

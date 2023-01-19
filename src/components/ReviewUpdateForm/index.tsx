@@ -26,7 +26,7 @@ const ReviewUpdateForm = ({
   } = useForm<ReviewFormData>();
 
   const {
-    state: { channelId, title },
+    state: { postId, channel, title },
   } = useLocation();
 
   const review = useMemo(() => JSON.parse(title), []);
@@ -59,14 +59,16 @@ const ReviewUpdateForm = ({
     const { id, name } = categoryData
       .filter(({ name }) => name === category)
       .pop() as CategoryType;
+    console.log(id);
 
     const formData = new FormData();
+    formData.append('postId', postId);
     formData.append('title', JSON.stringify(titleAndContent));
-    formData.append('image', image[0]);
+    formData.append('image', image);
     formData.append('channelId', id);
 
     try {
-      await api.post('/posts/create', formData, {
+      await api.put('/posts/update', formData, {
         headers: {
           Authorization: `bearer ${localStorage.getItem('login-token')}`,
           'Content-Type': 'multipart/form-data',
@@ -131,7 +133,7 @@ const ReviewUpdateForm = ({
                   <label
                     key={id}
                     className="flex mr-4 rounded-xl cursor-pointer hover:text-[#BE3555]"
-                    htmlFor={name}
+                    htmlFor={channel.name}
                   >
                     <RegisterInput
                       id={name}

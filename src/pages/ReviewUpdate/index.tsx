@@ -1,9 +1,9 @@
 import ReviewUpdateForm from '@/components/ReviewUpdateForm';
-import { categoryState } from '@/store/recoilCategoryState';
+import { extractCategoryNameAndIdState } from '@/store/recoilCategoryState';
 import { useRecoilValue } from 'recoil';
 
 const ReviewUpdate = () => {
-  const categoryData = useRecoilValue(categoryState);
+  const categoryData = useRecoilValue(extractCategoryNameAndIdState);
 
   return (
     <div className="h-full pt-16">

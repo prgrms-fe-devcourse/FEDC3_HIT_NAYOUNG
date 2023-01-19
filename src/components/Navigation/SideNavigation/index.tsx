@@ -4,7 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { informLoginModalState, informLogOutModalState } from '@/store/recoilModalState';
 import { checkAuthUser } from '@/Api/user';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Logo from './Logo.svg';
 import LoginLogoutIcon from './AuthButton';
 import { LOGIN_PAGE } from '@/utils/constants';
@@ -54,14 +54,15 @@ const SideNavigation = () => {
   const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
   const [authState, setAuthState] = useState(false);
 
-  const onHandlerAuthModal = () => {
+  const onHandlerAuthModal = useCallback(() => {
     if (authState) setLogOutModalOpened(true);
     else navigate(LOGIN_PAGE);
-  };
+  }, []);
 
   useEffect(() => {
     (async () => {
       const isLogIn = await checkAuthUser();
+
       if (isLogIn) setAuthState(true);
       else setAuthState(false);
     })();

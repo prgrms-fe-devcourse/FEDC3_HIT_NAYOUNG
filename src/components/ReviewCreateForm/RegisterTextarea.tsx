@@ -20,7 +20,7 @@ const RegisterTextarea = ({
         rows={rows}
         className={style?.textarea}
         placeholder={placeholder}
-        value={value}
+        defaultValue={value}
         {...(register && register(registerName, registerRules))}
         {...props}
       />

@@ -24,12 +24,6 @@ const ContentHandler = () => {
   const [isDeleteReview, setIsDeleteReview] = useRecoilState(reviewDeleteState);
   const setOpen = useSetRecoilState<boolean>(confirmDeleteReviewModalState);
 
-  const updateBodyProp = {
-    title,
-    image,
-    channelId: channel._id,
-  };
-
   useEffect(() => {
     (async () => {
       if (isDeleteReview) {
@@ -45,6 +39,13 @@ const ContentHandler = () => {
   }, [isDeleteReview]);
 
   const onMovePage = async (page: 'userPage' | 'reviewUpdate' | 'reviewDelete') => {
+    const updateBodyProp = {
+      postId: id,
+      title,
+      image,
+      channel: channel,
+    };
+
     switch (page) {
       case 'userPage':
         navigate(USER_PAGE, { state: { id: author._id } });
@@ -65,10 +66,10 @@ const ContentHandler = () => {
           onClick={() => onMovePage('userPage')}
           className="avatar hover:cursor-pointer hover:text-TEXT_BASE_BLACK items-center gap-2"
         >
-          <div className={`rounded-full`}>
+          <div className={'rounded-full'}>
             <img
               className="max-w-[36px]"
-              src={author.image ? author.image : 'https://placeimg.com/200/200/arch'}
+              src={author.image || 'https://placeimg.com/200/200/arch'}
             />
           </div>
           <span>{author.fullName}</span>
