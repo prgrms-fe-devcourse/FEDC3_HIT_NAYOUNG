@@ -6,30 +6,18 @@ import { ExtractedReviewPosterType } from '@/types/review';
 
 import { categoryState } from '@/store/recoilCategoryState';
 
-import { VALID_CATEGORY_NAME } from '@/utils/constants';
-
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
+import {
+  extractValidCategory,
+  setCategoryNameAndIdStateToLocalStorage,
+} from '@/utils/category';
+import { extractRecommendReviewPoster } from '@/utils/review';
 
 type HITAllDataType = {
   category: Category[];
   specifiedPoster: Omit<ExtractedReviewPosterType, '_id'>[];
 };
-
-// 공통화 어떻게 하면 좋을까요?
-function extractCategoryCondition(categories: Category[]) {
-  return categories.filter((category) => VALID_CATEGORY_NAME.includes(category.name));
-}
-
-function extractReviewPosterCondition(reviews: ExtractedReviewPosterType[]) {
-  const result = reviews.map(({ _id, title, image }) => ({
-    id: _id as string,
-    title,
-    image,
-  }));
-
-  return result.slice(0, 2);
-}
 
 const useFetchHIT = () => {
   const [data, setData] = useState<HITAllDataType | null>(null);
@@ -45,10 +33,10 @@ const useFetchHIT = () => {
         ]);
 
         setData({
-          category: extractCategoryCondition(categoryResponse),
-          specifiedPoster: extractReviewPosterCondition(reviewPosterResponse),
+          category: extractValidCategory(categoryResponse),
+          specifiedPoster: extractRecommendReviewPoster(reviewPosterResponse),
         });
-        setCategory(categoryResponse as Category[]);
+        setCategoryNameAndIdStateToLocalStorage(categoryResponse as Category[]);
       } catch (error) {
         console.error(error);
       } finally {

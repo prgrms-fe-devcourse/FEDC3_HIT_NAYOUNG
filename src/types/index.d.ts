@@ -5,6 +5,47 @@ import {
   FieldError,
 } from 'react-hook-form';
 
+// 기본모델
+// - 사용자 모델
+export type User = {
+  coverImage: string; // 커버 이미지
+  image: string; // 프로필 이미지
+  role: string;
+  isOnline: boolean;
+  posts: Post[];
+  likes: Like[];
+  comments: string[];
+  notifications: AlarmItemType[];
+  _id: string;
+  fullName: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+// - 게시글 모델
+type Post = {
+  likes: Like[];
+  comments: CommentType[];
+  _id: string;
+  image: Optional<string>;
+  imagePublicId: Optional<string>;
+  title: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ReviewPost = {
+  // 명재오빠(리뷰페이지 리스트)
+  channel: Category;
+} & Post;
+
+export type UserPost = {
+  // 건오오빠(프로필)
+  channel: string;
+} & Post;
+
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
 export type navigationItem = {
@@ -18,6 +59,12 @@ export type navigationItem = {
 // 카테고리 타입
 export type CategoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
 export type CategoryNameAndIcon = Record<categoryName, IconType>;
+export type CategoryType = {
+  name: CategoryName;
+  id: string;
+};
+
+// - 채널(카테고리) 모델
 export type Category = {
   authRequired: boolean;
   posts: string[];
@@ -29,23 +76,6 @@ export type Category = {
   __v: number;
 };
 
-export type CategoryType = {
-  name: CategoryName;
-  id: string;
-};
-
-export type Post = {
-  likes: Like[];
-  comments: Comment[];
-  _id: string;
-  image: Optional<string>;
-  imagePublicId: Optional<string>;
-  title: string;
-  channel: Channel;
-  author: User;
-  createdAt: string;
-  updatedAt: string;
-};
 // React-hook-forms
 export type RegisterType<RegisterData extends FieldValues> = {
   register: UseFormRegister<RegisterData>;
@@ -73,6 +103,7 @@ export type RegisterTextareaProps<RegisterData> = {
     container?: string;
     textarea?: string;
   };
+  value?: string;
 } & RegisterType<RegisterData>;
 
 export type ReviewFormData = {
@@ -98,10 +129,7 @@ export type ReviewContentType = {
 
 // 리뷰 게시글 댓글 타입
 export type CommentType = {
-  author: {
-    fullName: string;
-    _id: string;
-  };
+  author: User;
   comment: string;
   createdAt: string;
   post: string;
@@ -126,6 +154,28 @@ export type LikeProps = {
   likes: Like[];
 };
 
+// 알림 타입
+type AlarmItemType = {
+  seen: boolean;
+  _id: string;
+  author: User;
+  user: User;
+  post: string;
+  like?: {
+    _id: string;
+    post: Post;
+  };
+  comment?: {
+    _id: string;
+    comment: string;
+    post: Post;
+  };
+  follow?: {
+    _id: string;
+    user: string;
+  };
+};
+
 // BreadCrumb, ReviewHandler에서 사용
 export type ReviewContentProps = {
   userId: string;
@@ -142,3 +192,24 @@ export type ReviewContentProps = {
     _id: string;
   };
 };
+
+export type FollowProps = {
+  _id: string;
+  user: string;
+  follower: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type UserDataProps = {
+  posts: Post[];
+  likes: Like[];
+  comments: string[];
+  following: FollowProps[];
+  followers: FollowProps[];
+  image: string;
+  fullName: string;
+  username: string;
+  _id: string;
+  email: string;
+}

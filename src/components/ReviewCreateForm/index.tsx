@@ -6,9 +6,10 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from '@/components/ReviewCreateForm/Button';
 import { useNavigate } from 'react-router-dom';
 import { useCallback, useState } from 'react';
-import InformCreateLoadingModal from '@/components/ReviewCreateForm/InformCreateLoadingModal';
-import InformCancelModal from '@/components/ReviewCreateForm/InformCancelModal';
+import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
+import { toast } from 'react-toastify';
+import { REVIEW_CRAETE } from '../Toast/ToastText';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 
@@ -65,6 +66,7 @@ const ReviewCreateForm = ({
         },
       });
       navigate(`/category/${name}`, { state: { id, name }, replace: true });
+      toast.success(REVIEW_CRAETE);
     } catch (error) {
       console.log(error);
     } finally {
@@ -76,7 +78,7 @@ const ReviewCreateForm = ({
     <>
       <div className="flex justify-center text-TEXT_BASE_BLACK">
         <div className="flex flex-col w-5/12 max-md:w-9/12">
-          <h1 className="text-xl pb-2.5 self-start">리뷰작성</h1>
+          <h1 className="text-xl pb-2.5 self-start">리뷰 작성</h1>
           <form className="flex flex-col">
             <RegisterInput
               type="text"
@@ -87,19 +89,19 @@ const ReviewCreateForm = ({
               }}
               register={register}
               registerName="title"
-              registerRules={{ required: '제목을 입력해주세요' }}
+              registerRules={{ required: '제목을 입력해 주세요.' }}
               errors={errors.title}
             />
             <RegisterTextarea
               rows={10}
-              placeholder="사용후기를 남겨주세요"
+              placeholder="사용후기를 남겨주세요."
               style={{
                 container: 'flex flex-col mb-4',
                 textarea: 'textarea bg-GRAY_100 text-sm',
               }}
               register={register}
               registerName="contents"
-              registerRules={{ required: '내용을 입력해주세요' }}
+              registerRules={{ required: '내용을 입력해 주세요.' }}
               errors={errors.contents}
             />
             <RegisterInput
@@ -110,7 +112,7 @@ const ReviewCreateForm = ({
               accept="image/*"
               register={register}
               registerName="image"
-              registerRules={{ required: '1장의 이미지를 올려주세요' }}
+              registerRules={{ required: '1장의 이미지를 올려주세요.' }}
               errors={errors.image}
             />
             <h2 className="text-lg pb-2.5 self-start font-bold">작성할 카테고리</h2>
@@ -132,7 +134,7 @@ const ReviewCreateForm = ({
                       value={name}
                       register={register}
                       registerName="category"
-                      registerRules={{ required: '카테고리를 골라주세요' }}
+                      registerRules={{ required: '카테고리를 골라주세요.' }}
                     />
                     {name}
                   </label>

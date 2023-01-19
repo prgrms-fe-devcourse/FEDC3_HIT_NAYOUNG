@@ -13,7 +13,6 @@ const Home = () => {
     return <div>Error</div>;
   } else {
     const { category, specifiedPoster } = data;
-
     return (
       <>
         <h1 className="md:hidden absolute top-5 left-1/2 -translate-x-1/2 text-5xl text-BASE font-extrabold">
