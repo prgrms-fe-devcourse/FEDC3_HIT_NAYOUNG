@@ -17,6 +17,7 @@ type SearchBarProps<T extends FieldValues> = {
   errors: FieldErrors<T>;
   handleSubmit: UseFormHandleSubmit<T>;
   onSubmitSearchBar: ({ searchWord }: SearchFormData) => Promise<void>;
+  removeSearchWordHandler: () => void;
 };
 
 const SearchBar = ({
@@ -24,6 +25,7 @@ const SearchBar = ({
   errors,
   handleSubmit,
   onSubmitSearchBar,
+  removeSearchWordHandler,
 }: SearchBarProps<SearchFormData>) => {
   return (
     <section className="w-full px-10">
@@ -43,6 +45,7 @@ const SearchBar = ({
           <button
             type="button"
             className="absolute top-1/2 right-5 transform -translate-y-1/2"
+            onClick={removeSearchWordHandler}
           >
             <CancelIcon className="text-xl" />
           </button>

@@ -5,7 +5,7 @@ import Feed from '@/components/common/Feed';
 import { MY_PAGE } from '@/utils/constants';
 
 const SearchUserFeed = ({ searchedUser }: { searchedUser: ExtractUserDataType[] }) => {
-  const AddPropsFeedComponent = searchedUser.map((aSearchedUser) => {
+  const UserFeedComponent = searchedUser.map((aSearchedUser) => {
     const { posts, followers, image, _id } = aSearchedUser;
 
     return (
@@ -20,9 +20,7 @@ const SearchUserFeed = ({ searchedUser }: { searchedUser: ExtractUserDataType[] 
     );
   });
 
-  return (
-    <section className="flex flex-wrap pt-1 bg-white">{AddPropsFeedComponent}</section>
-  );
+  return <section className="flex flex-wrap pt-1 bg-white">{UserFeedComponent}</section>;
 };
 
 export default SearchUserFeed;

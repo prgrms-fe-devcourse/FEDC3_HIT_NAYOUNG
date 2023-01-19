@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRecoilValue } from 'recoil';
 
 import { ExtractPostDataType, ExtractUserDataType } from '@/types/search';
 
-import SearchBar from '@/components/Search/SearchBar';
-import SearchTab from '@/components/Search/SearchTab';
-import SearchPostFeed from '@/components/Search/SearchPostFeed';
-
 import { SearchState } from '@/store/recoilSearchState';
 
 import { getSearchByType } from '@/Api/search';
+
+import SearchBar from '@/components/Search/SearchBar';
+import SearchTab from '@/components/Search/SearchTab';
+import SearchPostFeed from '@/components/Search/SearchPostFeed';
 import SearchUserFeed from '@/components/Search/SearchUserFeed';
 
 type SearchFormData = {
@@ -30,14 +30,16 @@ const Search = () => {
 
   const onSubmitSearchBar = async ({ searchWord }: SearchFormData) => {
     try {
-      if (searchType === 'all') {
-        const result = await getSearchByType<'post'>(searchType, searchWord);
+      if (searchType === 'post') {
+        const result = await getSearchByType<'post'>('all', searchWord);
         const extractPostInformation = result.filter((piece) => 'channel' in piece);
 
         setSearchedPost([...extractPostInformation]);
         setSearchedUser([]);
-      } else {
-        const result = await getSearchByType<'user'>(searchType, searchWord);
+      }
+
+      if (searchType === 'user') {
+        const result = await getSearchByType<'user'>('users', searchWord);
         const extractPostInformation = result.filter((piece) => 'posts' in piece);
 
         setSearchedUser([...extractPostInformation]);
@@ -49,6 +51,10 @@ const Search = () => {
       console.error(error);
     }
   };
+
+  const onRemoveSearchWord = useCallback(() => {
+    resetField('searchWord');
+  }, []);
 
   const SearchFeedSection = () => {
     if (searchedPost && searchedPost.length) {
@@ -69,6 +75,7 @@ const Search = () => {
         errors={errors}
         handleSubmit={handleSubmit}
         onSubmitSearchBar={onSubmitSearchBar}
+        removeSearchWordHandler={onRemoveSearchWord}
       />
       <SearchTab />
       <SearchFeedSection />

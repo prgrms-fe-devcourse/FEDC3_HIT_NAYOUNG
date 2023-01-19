@@ -7,7 +7,7 @@ import { DEFAULT_CATEGORY_INFORMATION } from '@/utils/constants';
 
 const SearchFeedSection = ({ searchedPost }: { searchedPost: ExtractPostDataType[] }) => {
   const categoryNameAndIdList = useRecoilValue(categoryState);
-  const AddPropsFeedComponent = searchedPost.map((aSearchedPost) => {
+  const PostFeedComponent = searchedPost.map((aSearchedPost) => {
     const { channel, likes, comments, image, _id } = aSearchedPost;
     const { name } =
       categoryNameAndIdList.find(({ id }) => id === channel) ??
@@ -25,9 +25,7 @@ const SearchFeedSection = ({ searchedPost }: { searchedPost: ExtractPostDataType
     );
   });
 
-  return (
-    <section className="flex flex-wrap pt-1 bg-white">{AddPropsFeedComponent}</section>
-  );
+  return <section className="flex flex-wrap pt-1 bg-white">{PostFeedComponent}</section>;
 };
 
 export default SearchFeedSection;

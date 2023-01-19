@@ -15,8 +15,8 @@ const SearchTab = () => {
     <section className="flex pt-4">
       <div className="w-1/2 text-center">
         <button
-          name="all"
-          className={`${buttonStyle}  ${searchType === 'all' && selectedButtonType}`}
+          name="post"
+          className={`${buttonStyle} ${searchType === 'post' && selectedButtonType}`}
           onClick={onClickTab}
         >
           피드 검색
@@ -24,8 +24,8 @@ const SearchTab = () => {
       </div>
       <div className="w-1/2 text-center">
         <button
-          name="users"
-          className={`${buttonStyle} ${searchType === 'users' && selectedButtonType}`}
+          name="user"
+          className={`${buttonStyle} ${searchType === 'user' && selectedButtonType}`}
           onClick={onClickTab}
         >
           사용자 검색
