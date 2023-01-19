@@ -1,4 +1,4 @@
-import { Comment, LikeProps } from '@/types';
+import { CommentType, LikeProps } from '@/types';
 import { atom, selector } from 'recoil';
 
 export const textState = atom({
@@ -21,8 +21,14 @@ export const informLoginModalState = atom<boolean>({
   default: false,
 });
 
+// 로그아웃 확인 모달창
+export const informLogOutModalState = atom<boolean>({
+  key: 'informLogOutModalState',
+  default: false,
+});
+
 // 댓글 생성
-export const createCommentState = atom<Comment | null>({
+export const createCommentState = atom<CommentType | null>({
   key: 'createCommentState',
   default: null,
 });

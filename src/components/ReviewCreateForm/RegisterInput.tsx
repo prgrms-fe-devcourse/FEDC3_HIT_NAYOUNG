@@ -1,7 +1,7 @@
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import { RegisterInputProps, ReviewFormData } from '@/types';
 
-type RegisterReviewTitle = RegisterInputProps<ReviewFormData>;
+type RegisterInputPropsType = RegisterInputProps<ReviewFormData>;
 
 const RegisterInput = ({
   type,
@@ -12,7 +12,7 @@ const RegisterInput = ({
   style,
   errors,
   ...props
-}: RegisterReviewTitle) => {
+}: RegisterInputPropsType) => {
   return (
     <div className={style?.container}>
       <input

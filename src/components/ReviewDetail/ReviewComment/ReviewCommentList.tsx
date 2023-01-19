@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { CommentType } from '@/types';
-import { createCommentState } from '@/store/store';
+import { commentState } from '@/store/recoilCommentState';
 import { getUserInformation } from '@/Api/user';
 import { callCommentDeleteAPI } from '@/Api/comment';
-import Comment from '@/components/ReviewComment/Comment';
+import Comment from '@/components/ReviewDetail/ReviewComment/Comment';
 
 type ReviewCommentListProps = {
   commentList: CommentType[];
 };
 
 const ReviewCommentList = ({ commentList }: ReviewCommentListProps) => {
-  const [userId, setUserId] = useState();
-  const setDeleteComment = useSetRecoilState(createCommentState);
+  const [userId, setUserId] = useState('');
+  const setDeleteComment = useSetRecoilState(commentState);
 
   useEffect(() => {
     const getUser = async () => {
@@ -39,7 +39,7 @@ const ReviewCommentList = ({ commentList }: ReviewCommentListProps) => {
               return (
                 <Comment
                   key={comment._id}
-                  userId
+                  userId={userId}
                   comment={comment}
                   clickHandler={onDeleteComment}
                 />

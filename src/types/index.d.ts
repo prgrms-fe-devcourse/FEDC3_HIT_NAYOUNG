@@ -91,7 +91,9 @@ export type RegisterInputProps<RegisterData> = {
     container?: string;
     input?: string;
   };
+  value?: string;
   accept?: string;
+  id?: string;
 } & RegisterType<RegisterData>;
 
 export type RegisterTextareaProps<RegisterData> = {
@@ -107,12 +109,19 @@ export type ReviewFormData = {
   title: string;
   contents: string;
   image: string;
+  category: CategoryName;
 };
 
-// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생한느 이유를 모르겠습니다.
+// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생하는 이유를 모르겠습니다.
 export type ReviewPosterType = {
   _id?: string;
   id: string;
+  title: string;
+  image: string;
+};
+
+// 리뷰 게시글 상세페이지 타입
+export type ReviewContentType = {
   title: string;
   image: string;
 };
@@ -163,5 +172,22 @@ type AlarmItemType = {
   follow?: {
     _id: string;
     user: string;
+  };
+};
+
+// BreadCrumb, ReviewHandler에서 사용
+export type ReviewContentProps = {
+  userId: string;
+  author: {
+    _id: string;
+    fullName: string;
+    image: string;
+  };
+  title: string;
+  image: string;
+  createdAt: string;
+  channel: {
+    name: string;
+    _id: string;
   };
 };
