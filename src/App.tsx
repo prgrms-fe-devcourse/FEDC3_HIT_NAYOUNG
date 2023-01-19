@@ -1,4 +1,12 @@
-import { Home, Login, Signup, ReviewList, ReviewDetail, NotFound } from './pages';
+import {
+  Home,
+  Login,
+  Signup,
+  ReviewList,
+  ReviewDetail,
+  NotFound,
+  UserPage,
+} from './pages';
 import { Route, Routes } from 'react-router-dom';
 import {
   HOME_PAGE,
@@ -12,10 +20,11 @@ import {
   MY_PAGE,
   EDIT_MY_PAGE,
   CREATE_REVIEW_PAGE,
+  USER_PAGE,
 } from '@/utils/constants';
 import Search from './pages/Search';
 import Alarm from './pages/Alarm';
-import MyInfo from './pages/MyInformation';
+import MyPage from './pages/MyPage';
 import ReviewCreate from './pages/ReviewCreate';
 import Navigation from './components/Navigation';
 import EditMyProfile from './pages/EditMyProfile';
@@ -30,7 +39,8 @@ const App = () => {
         <Route path={SIGNUP_PAGE} element={<Signup />} />
         <Route path={SEARCH_PAGE} element={<Search />} />
         <Route path={ALARM_PAGE} element={<Alarm />} />
-        <Route path={MY_PAGE} element={<MyInfo />} />
+        <Route path={MY_PAGE} element={<MyPage />} />
+        <Route path={USER_PAGE} element={<UserPage />} />
         <Route path={EDIT_MY_PAGE} element={<EditMyProfile />} />
         <Route path={CREATE_REVIEW_PAGE} element={<ReviewCreate />} />
         <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />

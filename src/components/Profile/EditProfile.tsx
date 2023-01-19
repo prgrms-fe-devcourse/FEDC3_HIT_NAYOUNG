@@ -1,7 +1,12 @@
 import api from '@/Api/api';
 import { FILE_SIZE_MAX_LIMIT, MY_PAGE } from '@/utils/constants';
+import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import WarningLabel from '../Auth/WarningLabel';
+import Button from '../ReviewCreateForm/Button';
+import EditProfileInput from './EditProfileInput';
 
 type EditUserData = {
   image: string;
@@ -18,7 +23,8 @@ const EditProfile = () => {
     password: '',
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const token = localStorage.getItem('login-token');
+  const token = getLocalStorage('login-token');
+  const navigate = useNavigate();
 
   const onUpLoadImage = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -114,11 +120,36 @@ const EditProfile = () => {
         },
       }
     );
+    navigate(MY_PAGE);
   };
 
+  type FormData = {
+    fullName: string;
+    password: string;
+    username: string;
+  };
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors, isDirty, isValid },
+  } = useForm<FormData>({ mode: 'onChange' });
+
+  const onCheckPassword = (data: FormData) => {
+    if (data.password === '') {
+      setError(
+        'password',
+        { message: '비밀번호를 입력해주세요.' },
+        { shouldFocus: true }
+      );
+    }
+  };
+
+  if (!user) return <div>로그인 유저 정보를 불러오지 못하였습니다</div>;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
-      {user && (
+      <form onSubmit={handleSubmit(onCheckPassword)}>
         <div className="flex flex-col items-center">
           <div className="avatar mt-10">
             <div className="w-36 rounded-full">
@@ -133,51 +164,53 @@ const EditProfile = () => {
               ref={inputRef}
               onChange={onUpLoadImage}
             />
-            <button
-              className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-              onClick={onUploadImageButtonClick}
-            >
-              프로필 이미지 변경
-            </button>
-          </div>
-          <div>
-            <span>FullName: </span>
-            <input
-              className="input input-bordered text-center mt-5"
-              name="fullName"
-              value={userInformation.fullName || ''}
-              onChange={onChangeInputValue}
+            <Button
+              name="프로필 이미지 변경"
+              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              clickHandler={onUploadImageButtonClick}
             />
           </div>
-          <div>
-            <span>UserName: </span>
-            <input
-              className="input input-bordered text-center mt-5"
-              name="username"
-              value={userInformation.username || ''}
-              onChange={onChangeInputValue}
-            />
-          </div>
+          <EditProfileInput
+            name="FullName"
+            data={userInformation.fullName}
+            onChangeEditInputValue={onChangeInputValue}
+          />
+          <EditProfileInput
+            name="Username"
+            data={userInformation.username}
+            onChangeEditInputValue={onChangeInputValue}
+          />
           <div>
             <span>Password: </span>
             <input
+              {...register('password', {
+                onChange: onChangeInputValue,
+                required: '비밀번호를 입력해 주세요.',
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
+                  message:
+                    '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
+                },
+              })}
+              type="password"
+              autoComplete="off"
+              placeholder="비밀번호를 입력해 주세요."
               className="input input-bordered text-center mt-5"
-              name="password"
-              value={userInformation.password || ''}
-              onChange={onChangeInputValue}
             />
           </div>
-          <Link to={MY_PAGE}>
-            <button
-              type="submit"
-              className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-              onClick={onClickSaveButton}
-            >
-              저장
-            </button>
-          </Link>
+          {errors?.password && <WarningLabel message={errors.password.message} />}
+          <br />
+          <button
+            type="submit"
+            disabled={!isDirty || !isValid}
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            onClick={onClickSaveButton}
+          >
+            저장
+          </button>
         </div>
-      )}
+      </form>
     </div>
   );
 };

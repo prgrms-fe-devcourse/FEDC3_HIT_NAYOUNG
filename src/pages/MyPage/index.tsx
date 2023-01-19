@@ -1,8 +1,7 @@
 import { InformLogOutModal } from '@/components/Modal';
 import Profile from '@/components/Profile';
-import styled from '@emotion/styled';
 
-const MyInformation = () => {
+const MyPage = () => {
   return (
     <div>
       <Profile />
@@ -11,4 +10,4 @@ const MyInformation = () => {
   );
 };
 
-export default MyInformation;
+export default MyPage;

@@ -5,7 +5,7 @@ type CreateAlarmType = {
   notificationType: string;
   notificationTypeId: string;
   userId: string;
-  postId: string;
+  postId: string | null;
 };
 
 const callCreateAlarmAPI = async (createAlarmAPIBody: CreateAlarmType) => {

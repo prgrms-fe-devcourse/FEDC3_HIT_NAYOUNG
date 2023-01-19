@@ -59,4 +59,15 @@ const getUserId = async () => {
   }
 };
 
-export { checkAuthUser, getUserInformation, getUserId, getAxiosHeader };
+const getOpponentUserId = async (userId: string) => {
+  try {
+    const response = await api.get(`/users/${userId}`)
+    if (response) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export { checkAuthUser, getUserInformation, getUserId, getAxiosHeader, getOpponentUserId };
