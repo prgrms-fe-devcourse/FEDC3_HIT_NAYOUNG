@@ -38,3 +38,9 @@ export const likePropState = atom<LikeProps | null>({
   key: 'likePropState',
   default: null,
 });
+
+// 팔로우 취소 모달창
+export const informUnfollowModalState = atom<boolean>({
+  key: 'informUnfollowModalState',
+  default: false,
+});

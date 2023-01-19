@@ -8,9 +8,14 @@ import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
 import ReviewList from './ReviewList';
 import { callCreateAlarmAPI } from '@/Api/notification';
+import Button from '../ReviewCreateForm/Button';
+import { informUnfollowModalState } from '@/store/store';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { userState } from '@/store/recoilUserState';
 
 const UserProfile = () => {
-  const [user, setUser] = useState<UserDataProps>();
+  const [user, setUser] = useRecoilState<UserDataProps>(userState);
+  // const [user, setUser] = useState<UserDataProps>();
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isFollow, setIsFollow] = useState(false);
@@ -19,15 +24,18 @@ const UserProfile = () => {
     const opponentUser = await getOpponentUserId(state.id);
     const followData = await getFollowUser(opponentUser._id);
 
-    const createAlarmAPIBody = {
+    const AlarmAPIBody = {
       notificationType: FOLLOW,
       notificationTypeId: followData._id,
       userId: opponentUser._id,
       postId: null,
     };
-    await callCreateAlarmAPI(createAlarmAPIBody);
-    await opponentUserIdData(); // 낙관적 업데이트로 변경해야하는데..
+    await callCreateAlarmAPI(AlarmAPIBody);
+    await opponentUserIdData();
   };
+
+  // 추후 모달창 리팩토링
+  // const setUnfollowModalOpened = useSetRecoilState(informUnfollowModalState);
 
   const onClickUnFollowButton = async () => {
     if (confirm('팔로우를 취소하시겠습니까?')) {
@@ -50,9 +58,10 @@ const UserProfile = () => {
       // opponentUser에 id가 없음 (유저가 없으면)
       navigate(MY_PAGE);
     }
-    const followingUserIdArr: string[] = []; // 팔로워 배열
-    opponentUser.followers.map((user: { follower: string }) =>
-      followingUserIdArr.push(user.follower)
+    const followingUserIdArr = opponentUser.followers.map(
+      (user: { follower: string }) => {
+        return user.follower;
+      }
     );
     if (followingUserIdArr.includes(loginUser._id)) {
       setIsFollow(true);
@@ -65,6 +74,7 @@ const UserProfile = () => {
   useEffect(() => {
     opponentUserIdData();
   }, []);
+
   if (!user) {
     return (
       <div className="flex justify-center pt-10 text-xl">해당 사용자가 없습니다.</div>
@@ -83,19 +93,17 @@ const UserProfile = () => {
         </div>
         <div className="flex flex-col">
           {isFollow ? (
-            <button
-              className="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
-              onClick={onClickUnFollowButton}
-            >
-              팔로우 취소
-            </button>
+            <Button
+              name="팔로우 취소"
+              style="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+              clickHandler={onClickUnFollowButton}
+            />
           ) : (
-            <button
-              className="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
-              onClick={onClickFollowButton}
-            >
-              팔로우
-            </button>
+            <Button
+              name="팔로우"
+              style="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+              clickHandler={onClickFollowButton}
+            />
           )}
         </div>
         {/* user recoil에 넣어야할듯 */}
