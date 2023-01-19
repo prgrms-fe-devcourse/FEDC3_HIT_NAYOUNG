@@ -28,14 +28,14 @@ const NewAlarmList = () => {
           {!isEmptyNewAlarms && (
             <Button
               type="button"
-              name="전체읽음"
+              name="전체 읽음"
               style="bg-BASE p-2.5 rounded-xl hover:bg-HOVER"
               clickHandler={onClickAllAlarmSeen}
             />
           )}
         </section>
         {isEmptyNewAlarms ? (
-          <div className="text-TEXT_SUB_GRAY text-sm pt-2">새로운 알람이 없습니다</div>
+          <div className="text-TEXT_SUB_GRAY text-sm pt-2">새로운 알람이 없습니다.</div>
         ) : (
           <>
             {newAlarms.map((alarmItem) => (

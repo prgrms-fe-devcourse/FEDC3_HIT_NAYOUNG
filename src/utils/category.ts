@@ -1,4 +1,4 @@
-import { CategoryType } from '@/store/recoilCategoryState';
+import { CategoryType } from '@/types';
 
 // FIXME: utils > storage 받으면, 로컬스토리지 로직 대체하기
 export const getCategoryNameToMatchingId = (categoryId: string): string => {

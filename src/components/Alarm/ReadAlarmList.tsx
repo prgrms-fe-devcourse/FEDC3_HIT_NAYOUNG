@@ -14,7 +14,7 @@ const ReadAlarmList = () => {
     <div>
       <h2 className="text-xl mb-2">읽은 알람</h2>
       {isEmptyReadAlarms ? (
-        <div className="text-TEXT_SUB_GRAY text-sm pt-2">새로운 알람이 없습니다</div>
+        <div className="text-TEXT_SUB_GRAY text-sm pt-2">새로운 알람이 없습니다.</div>
       ) : (
         <>
           {readAlarms.map((alarmItem) => (

@@ -10,7 +10,7 @@ const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
       {alarmItem.like ? (
         <AlarmItemUI
           imageUrl={alarmItem.like.post.image}
-          title={`${alarmItem.author.fullName}님이 회원님의 게시물을 좋아합니다`}
+          title={`${alarmItem.author.fullName}님이 회원님의 게시물을 좋아합니다.`}
           contents={getReviewContent(alarmItem.like.post.title)}
           link={`/category/${getCategoryNameToMatchingId(
             alarmItem.like.post.channel
@@ -20,7 +20,7 @@ const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
       ) : alarmItem.comment ? (
         <AlarmItemUI
           imageUrl={alarmItem.comment.post.image}
-          title={`${alarmItem.author.fullName}님이 회원님의 게시물에 댓글을 남겼습니다`}
+          title={`${alarmItem.author.fullName}님이 회원님의 게시물에 댓글을 남겼습니다.`}
           contents={getReviewContent(alarmItem.comment.post.title)}
           link={`/category/${getCategoryNameToMatchingId(
             alarmItem.comment.post.channel
@@ -30,7 +30,7 @@ const AlarmItem = ({ alarmItem }: { alarmItem: AlarmItemType }) => {
       ) : alarmItem.follow ? (
         <AlarmItemUI
           imageUrl={alarmItem.author.image}
-          title={`${alarmItem.author.fullName}님이 회원님을 팔로우 합니다`}
+          title={`${alarmItem.author.fullName}님이 회원님을 팔로우 합니다.`}
           contents={`${alarmItem.author.fullName}님을 알아보시려면 클릭하세요. 회원님의 프로필로 이동합니다`}
           link={`/user-page`}
           linkState={{ id: alarmItem.author._id }}
