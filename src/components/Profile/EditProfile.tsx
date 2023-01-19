@@ -3,8 +3,9 @@ import { FILE_SIZE_MAX_LIMIT, MY_PAGE } from '@/utils/constants';
 import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import WarningLabel from '../Auth/WarningLabel';
+import EditProfileInput from './EditProfileInput';
 
 type EditUserData = {
   image: string;
@@ -22,6 +23,7 @@ const EditProfile = () => {
   });
   const inputRef = useRef<HTMLInputElement | null>(null);
   const token = getLocalStorage('login-token');
+  const navigate = useNavigate();
 
   const onUpLoadImage = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     const target = e.currentTarget;
@@ -117,6 +119,7 @@ const EditProfile = () => {
         },
       }
     );
+    navigate(MY_PAGE);
   };
 
   type FormData = {
@@ -127,72 +130,77 @@ const EditProfile = () => {
 
   const {
     register,
+    handleSubmit,
+    setError,
     formState: { errors, isDirty, isValid },
   } = useForm<FormData>({ mode: 'onChange' });
+
+  const onCheckPassword = (data: FormData) => {
+    if (data.password === '') {
+      setError(
+        'password',
+        { message: '비밀번호를 입력해주세요.' },
+        { shouldFocus: true }
+      );
+    }
+  };
 
   if (!user) return false;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
-      <div className="flex flex-col items-center">
-        <div className="avatar mt-10">
-          <div className="w-36 rounded-full">
-            <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
+      <form onSubmit={handleSubmit(onCheckPassword)}>
+        <div className="flex flex-col items-center">
+          <div className="avatar mt-10">
+            <div className="w-36 rounded-full">
+              <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
+            </div>
           </div>
-        </div>
-        <div>
-          <input
-            className="hidden"
-            type="file"
-            accept="image/*"
-            ref={inputRef}
-            onChange={onUpLoadImage}
+          <div>
+            <input
+              className="hidden"
+              type="file"
+              accept="image/*"
+              ref={inputRef}
+              onChange={onUpLoadImage}
+            />
+            <button
+              className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              onClick={onUploadImageButtonClick}
+            >
+              프로필 이미지 변경
+            </button>
+          </div>
+          <EditProfileInput
+            name="FullName"
+            data={userInformation.fullName}
+            onChangeEditInputValue={onChangeInputValue}
           />
-          <button
-            className="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
-            onClick={onUploadImageButtonClick}
-          >
-            프로필 이미지 변경
-          </button>
-        </div>
-        <div>
-          <span>FullName: </span>
-          <input
-            className="input input-bordered text-center mt-5"
-            name="fullName"
-            value={userInformation.fullName || ''}
-            onChange={onChangeInputValue}
+          <EditProfileInput
+            name="Username"
+            data={userInformation.username}
+            onChangeEditInputValue={onChangeInputValue}
           />
-        </div>
-        <div>
-          <span>UserName: </span>
-          <input
-            className="input input-bordered text-center mt-5"
-            name="username"
-            value={userInformation.username || ''}
-            onChange={onChangeInputValue}
-          />
-        </div>
-        <div>
-          <span>Password: </span>
-          <input
-            {...register('password', {
-              required: '비밀번호를 입력해 주세요.',
-              pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
-                message:
-                  '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
-              },
-            })}
-            type="password"
-            autoComplete="off"
-            placeholder="비밀번호를 입력해 주세요."
-            className="input input-bordered text-center mt-5"
-          />
-        </div>
-        {errors?.password && <WarningLabel message={errors.password.message} />}
-        <br />
-        <Link to={MY_PAGE}>
+          <div>
+            <span>Password: </span>
+            <input
+              {...register('password', {
+                onChange: onChangeInputValue,
+                required: '비밀번호를 입력해 주세요.',
+                pattern: {
+                  value:
+                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
+                  message:
+                    '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
+                },
+              })}
+              type="password"
+              autoComplete="off"
+              placeholder="비밀번호를 입력해 주세요."
+              className="input input-bordered text-center mt-5"
+            />
+          </div>
+          {errors?.password && <WarningLabel message={errors.password.message} />}
+          <br />
           <button
             type="submit"
             disabled={!isDirty || !isValid}
@@ -201,8 +209,8 @@ const EditProfile = () => {
           >
             저장
           </button>
-        </Link>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
