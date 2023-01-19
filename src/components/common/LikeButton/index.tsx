@@ -49,7 +49,7 @@ const LikeButton = () => {
   };
 
   const delayFunc = () => {
-    console.log('딜레이');
+    // console.log('딜레이');
   };
 
   const onToggleLikeButton = async () => {
