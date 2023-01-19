@@ -1,6 +1,6 @@
 const getLocalStorage = (key: string) => {
   try {
-    localStorage.getItem(key);
+    return localStorage.getItem(key);
   } catch (error) {
     console.error(error);
   }
