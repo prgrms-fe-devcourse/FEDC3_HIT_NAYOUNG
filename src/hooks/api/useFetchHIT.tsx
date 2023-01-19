@@ -13,7 +13,6 @@ import {
   setCategoryNameAndIdStateToLocalStorage,
 } from '@/utils/category';
 import { extractRecommendReviewPoster } from '@/utils/review';
-import { CategoryType } from '@/types';
 
 type HITAllDataType = {
   category: Category[];
@@ -23,6 +22,7 @@ type HITAllDataType = {
 const useFetchHIT = () => {
   const [data, setData] = useState<HITAllDataType | null>(null);
   const [loading, setLoading] = useState(false);
+  const setCategory = useSetRecoilState(categoryState);
 
   useEffect(() => {
     const run = async () => {
