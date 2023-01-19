@@ -7,18 +7,37 @@ import {
 
 // 기본모델
 // - 사용자 모델
+// export type User = {
+//   coverImage: string; // 커버 이미지
+//   image: string; // 프로필 이미지
+//   role: string;
+//   isOnline: boolean;
+//   posts: Post[];
+//   likes: Like[];
+//   comments: string[];
+//   notifications: AlarmItemType[];
+//   _id: string;
+//   fullName: string;
+//   email: string;
+//   createdAt: string;
+//   updatedAt: string;
+// };
+
 export type User = {
-  coverImage: string; // 커버 이미지
-  image: string; // 프로필 이미지
-  role: string;
-  isOnline: boolean;
-  posts: Post[];
+  posts: UserPost[];
   likes: Like[];
   comments: string[];
-  notifications: AlarmItemType[];
-  _id: string;
+  following: FollowProps[];
+  followers: FollowProps[];
+  image: string;
   fullName: string;
+  username: string;
+  _id: string;
   email: string;
+  coverImage: string; // 커버 이미지
+  role: string;
+  isOnline: boolean;
+  notifications: AlarmItemType[];
   createdAt: string;
   updatedAt: string;
 };
@@ -163,12 +182,12 @@ type AlarmItemType = {
   post: string;
   like?: {
     _id: string;
-    post: Post;
+    post: UserPost;
   };
   comment?: {
     _id: string;
     comment: string;
-    post: Post;
+    post: UserPost;
   };
   follow?: {
     _id: string;
@@ -199,17 +218,4 @@ export type FollowProps = {
   follower: string;
   createdAt: string;
   updatedAt: string;
-}
-
-export type UserDataProps = {
-  posts: Post[];
-  likes: Like[];
-  comments: string[];
-  following: FollowProps[];
-  followers: FollowProps[];
-  image: string;
-  fullName: string;
-  username: string;
-  _id: string;
-  email: string;
-}
+};

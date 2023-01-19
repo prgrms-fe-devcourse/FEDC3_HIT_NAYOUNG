@@ -23,6 +23,11 @@ export const DESKTOP_SCREEN = '1280px';
 // image size
 export const FILE_SIZE_MAX_LIMIT = 5 * 1024 * 1024; // 5MB
 
+// 카테고리 기본 정보
+export const DEFAULT_CATEGORY_INFORMATION = {
+  name: '노트북',
+  id: '63bd045193836272216d31bc',
+};
 // notification Type
 export const COMMENT = 'COMMENT';
 export const FOLLOW = 'FOLLOW';

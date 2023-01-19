@@ -1,7 +1,7 @@
-import { UserDataProps } from '@/types';
+import { User } from '@/types';
 
 type ReviewAndFollowProps = {
-  user: UserDataProps;
+  user: User;
 };
 
 const ReviewAndFollow = ({ user }: ReviewAndFollowProps) => {
