@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import Avatar from '../common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
 import ReviewList from './ReviewList';
+import Button from '../ReviewCreateForm/Button';
 
 const Profile = () => {
   const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
@@ -41,12 +42,13 @@ const Profile = () => {
           </button>
         </Link>
         <div>
-          <button
-            className="btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
-            onClick={onHandlerLogout}
-          >
-            로그아웃
-          </button>
+          <Button
+            name={'로그아웃'}
+            style={
+              'btn w-2/5 min-w-[300px] mt-5 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER'
+            }
+            clickHandler={onHandlerLogout}
+          />
         </div>
         <ReviewAndFollow user={user} />
         <ReviewList user={user} />

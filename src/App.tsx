@@ -1,4 +1,12 @@
-import { Home, Login, Signup, ReviewList, ReviewDetail, NotFound } from './pages';
+import {
+  Home,
+  Login,
+  Signup,
+  ReviewList,
+  ReviewDetail,
+  NotFound,
+  UserPage,
+} from './pages';
 import { Route, Routes } from 'react-router-dom';
 import {
   HOME_PAGE,
@@ -20,7 +28,6 @@ import MyPage from './pages/MyPage';
 import ReviewCreate from './pages/ReviewCreate';
 import Navigation from './components/Navigation';
 import EditMyProfile from './pages/EditMyProfile';
-import UserProfile from './components/Profile/UserProfile';
 
 const App = () => {
   return (
@@ -33,7 +40,7 @@ const App = () => {
         <Route path={SEARCH_PAGE} element={<Search />} />
         <Route path={ALARM_PAGE} element={<Alarm />} />
         <Route path={MY_PAGE} element={<MyPage />} />
-        <Route path={USER_PAGE} element={<UserProfile />} />
+        <Route path={USER_PAGE} element={<UserPage />} />
         <Route path={EDIT_MY_PAGE} element={<EditMyProfile />} />
         <Route path={CREATE_REVIEW_PAGE} element={<ReviewCreate />} />
         <Route path={REVIEW_LIST_PAGE} element={<ReviewList />} />

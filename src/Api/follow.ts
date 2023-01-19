@@ -5,11 +5,11 @@ const getFollowUser = async (userId: string) => {
   try {
     const headers = getAxiosHeader();
     if (!headers) return false;
-    const followResponse = await api.post('/follow/create',
+    const {data} = await api.post('/follow/create',
       { userId },
       { headers }
     );
-    return followResponse.data
+    return data
   } catch (error) {
     console.error(error)
   }
