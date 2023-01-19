@@ -21,7 +21,7 @@ const UserComponent = ({ userName, id }: UserComponentProps) => {
   const navigate = useNavigate();
 
   const moveUserProfile = () => {
-    navigate(USER_PAGE, { state: id });
+    navigate(USER_PAGE, { state: { id: id } });
   };
 
   return (
