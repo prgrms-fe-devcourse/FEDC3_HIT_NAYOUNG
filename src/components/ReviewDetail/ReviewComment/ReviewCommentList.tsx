@@ -44,7 +44,10 @@ const ReviewCommentList = ({ commentList }: ReviewCommentListProps) => {
         {commentList.length !== 0 ? (
           <>
             {commentList
-              .sort((a, b) => +new Date(b.createdAt) - +new Date(a.createdAt))
+              .sort(
+                (oldComment, recentComment) =>
+                  +new Date(recentComment.createdAt) - +new Date(oldComment.createdAt)
+              )
               .map((comment) => {
                 return (
                   <Comment

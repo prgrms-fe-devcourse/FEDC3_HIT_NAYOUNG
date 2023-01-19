@@ -13,16 +13,21 @@ type ReviewCommentProps = {
 
 const Comment = ({ comment, userId, clickHandler }: ReviewCommentProps) => {
   const setOpen = useSetRecoilState<boolean>(confirmDeleteCommentModalState);
+  const {
+    _id: id,
+    author: { _id: authorId, fullName },
+    createdAt,
+  } = comment;
 
   return (
     <>
-      <li key={comment._id} className="bg-GRAY_100 mb-4 rounded-2xl p-6 ">
+      <li key={id} className="bg-GRAY_100 mb-4 rounded-2xl p-6 ">
         <div className="flex items-center justify-between mb-4 text-TEXT_BASE_BLACK">
           <p>{comment.comment}</p>
-          {comment.author._id === userId && (
+          {authorId === userId && (
             <button
               onClick={() => {
-                setOpen(true), clickHandler(comment._id);
+                setOpen(true), clickHandler(id);
               }}
             >
               <BsTrash />
@@ -30,10 +35,8 @@ const Comment = ({ comment, userId, clickHandler }: ReviewCommentProps) => {
           )}
         </div>
         <div className="flex justify-between">
-          <span className="text-TEXT_SUB_GRAY text-sm">{comment.author.fullName}</span>
-          <span className="text-TEXT_SUB_GRAY text-sm">
-            {formatDateTime(comment.createdAt)}
-          </span>
+          <span className="text-TEXT_SUB_GRAY text-sm">{fullName}</span>
+          <span className="text-TEXT_SUB_GRAY text-sm">{formatDateTime(createdAt)}</span>
         </div>
       </li>
 

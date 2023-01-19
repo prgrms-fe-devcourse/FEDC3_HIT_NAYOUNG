@@ -41,3 +41,4 @@ export const VALID_CATEGORY_NAME = [
 
 // local storage key
 export const CATEGORY_ID_NAME = 'category-id-name';
+export const LOGIN_TOKEN = 'login-token';

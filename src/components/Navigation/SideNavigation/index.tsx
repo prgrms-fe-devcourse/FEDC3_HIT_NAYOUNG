@@ -7,7 +7,8 @@ import { checkAuthUser } from '@/Api/user';
 import React, { useCallback, useEffect, useState } from 'react';
 import Logo from './Logo.svg';
 import LoginLogoutIcon from './AuthButton';
-import { LOGIN_PAGE } from '@/utils/constants';
+import { LOGIN_PAGE, LOGIN_TOKEN } from '@/utils/constants';
+import { getLocalStorage } from '@/utils/storage';
 
 type NavigationItemProps = {
   item: navigationItem;
@@ -61,7 +62,7 @@ const SideNavigation = () => {
 
   useEffect(() => {
     (async () => {
-      const isLogIn = await checkAuthUser();
+      const isLogIn = getLocalStorage(LOGIN_TOKEN);
 
       if (isLogIn) setAuthState(true);
       else setAuthState(false);

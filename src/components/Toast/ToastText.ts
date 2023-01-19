@@ -16,4 +16,5 @@ export const COMMENT_DELETE = '댓글을 삭제했습니다.';
 
 // 리뷰
 export const REVIEW_CRAETE = '리뷰가 정상적으로 등록 되었습니다.';
+export const REVIEW_UPDATE = '리뷰가 정상적으로 수정 되었습니다.';
 export const REVIEW_DELETE = '리뷰가 정상적으로 삭제 되었습니다.';

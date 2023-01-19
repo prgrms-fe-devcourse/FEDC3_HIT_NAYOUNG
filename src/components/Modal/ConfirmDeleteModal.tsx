@@ -13,10 +13,10 @@ type ConfirmDeleteModalType = {
 };
 
 const ConfirmDeleteModal = ({ target, text }: ConfirmDeleteModalType) => {
-  const [commentDeleteOpen, setCommentDeleteOpen] = useRecoilState<boolean>(
+  const [commentDeleteOpen, setCommentDeleteOpen] = useRecoilState(
     confirmDeleteCommentModalState
   );
-  const [reviewDeleteOpen, setReviewDeleteOpen] = useRecoilState<boolean>(
+  const [reviewDeleteOpen, setReviewDeleteOpen] = useRecoilState(
     confirmDeleteReviewModalState
   );
   const isDeleteComment = useSetRecoilState(commentDeleteState);
@@ -26,7 +26,9 @@ const ConfirmDeleteModal = ({ target, text }: ConfirmDeleteModalType) => {
     if (target === 'review') {
       isDeleteReview(true);
       setReviewDeleteOpen(false);
-    } else if (target === 'comment') {
+    }
+
+    if (target === 'comment') {
       isDeleteComment(true);
       setCommentDeleteOpen(false);
     }
