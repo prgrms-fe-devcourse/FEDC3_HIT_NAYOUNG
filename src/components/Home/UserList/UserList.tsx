@@ -1,9 +1,12 @@
-import { getUserInformation, getUserNameList } from '@/Api/user';
-import { MY_PAGE, USER_PAGE } from '@/utils/constants';
-import { BiUserCircle } from 'react-icons/bi';
-import { IoIosArrowForward } from 'react-icons/io';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { MY_PAGE } from '@/utils/constants';
+
+import { getUserInformation, getUserNameList } from '@/Api/user';
+
+import { BiUserCircle } from 'react-icons/bi';
+import { UserItem } from './UserItem';
 
 type UserNameListProps = {
   name: string;
@@ -11,31 +14,6 @@ type UserNameListProps = {
 };
 
 type UserNameList = UserNameListProps[];
-
-type UserComponentProps = {
-  userName: string;
-  id: string;
-};
-
-const UserComponent = ({ userName, id }: UserComponentProps) => {
-  const navigate = useNavigate();
-
-  const moveUserProfile = () => {
-    navigate(USER_PAGE, { state: { id: id } });
-  };
-
-  return (
-    <div
-      className="flex justify-between hover:bg-slate-50 cursor-pointer mt-1 p-2 py-1"
-      key={id}
-      onClick={moveUserProfile}
-    >
-      <BiUserCircle size={24} className="mr-1" />
-      <div className="text-sm mt-0.5">{userName}</div>
-      <IoIosArrowForward size={24} className="pl-1" />
-    </div>
-  );
-};
 
 const UserList = () => {
   const navigate = useNavigate();
@@ -58,9 +36,9 @@ const UserList = () => {
     callgetUserNameList();
   }, []);
 
-  const moveMyProfile = () => {
+  const moveMyProfile = useCallback(() => {
     navigate(MY_PAGE);
-  };
+  }, []);
 
   return (
     <div className="w-48 border border-BASE rounded-md shadow-sm pb-1">
@@ -74,7 +52,7 @@ const UserList = () => {
       <div className="border border-t-BASE border-b-white mt-1"></div>
       {userNameList &&
         userNameList.map((user: UserNameListProps) => {
-          return <UserComponent userName={user.name} id={user.id} key={user.id} />;
+          return <UserItem userName={user.name} id={user.id} key={user.id} />;
         })}
     </div>
   );

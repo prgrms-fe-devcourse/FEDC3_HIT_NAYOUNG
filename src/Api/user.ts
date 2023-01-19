@@ -62,9 +62,9 @@ const getUserId = async () => {
 
 const getUserNameList = async () => {
   try {
-    const response = await api.get(`/users/get-users`);
-    if (response) {
-      const userList = response.data.slice(0, 6);
+    const { data } = await api.get(`/users/get-users`);
+    if (data) {
+      const userList = data.slice(0, 6);
       const userNameList = userList.map((userList: UserList) => {
         return { name: userList.fullName, id: userList._id };
       });

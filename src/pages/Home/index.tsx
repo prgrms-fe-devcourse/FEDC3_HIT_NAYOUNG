@@ -2,7 +2,7 @@ import useFetchHIT from '@/hooks/api/useFetchHIT';
 import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 import CategorySection from '@/components/Home/Category/CategorySection';
 import ReviewPosterSection from '@/components/Home/ReviewPoster/ReviewPosterSection';
-import UserList from '@/components/Home/UserList';
+import UserList from '@/components/Home/UserList/UserList';
 
 const Home = () => {
   const { data } = useFetchHIT();
@@ -29,9 +29,7 @@ const Home = () => {
           </div>
         </section>
         <section className="max-xl:hidden absolute top-16 right-10">
-          <div className="">
-            <UserList />
-          </div>
+          <UserList />
         </section>
         <InformLoginModal />
         <InformLogOutModal />
