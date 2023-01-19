@@ -1,7 +1,7 @@
-import { CategoryType } from '@/types';
 import { atom } from 'recoil';
+import { CategoryType } from '@/types';
 
 export const categoryState = atom<Readonly<CategoryType[]>>({
-  key: 'categoryState',
+  key: 'CATEGORY_STATE',
   default: [],
 });

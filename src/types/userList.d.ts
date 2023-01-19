@@ -1,0 +1,22 @@
+export type UserList = {
+  role: string;
+  emailVerified: boolean;
+  banned: boolean;
+  isOnline: boolean;
+  posts: string[];
+  likes: string[];
+  comments: string[];
+  followers: [];
+  following: [];
+  notifications: string[];
+  messages: [];
+  _id: string;
+  fullName: string;
+  username: string;
+  email: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  image: string;
+  imagePublicId: string;
+};

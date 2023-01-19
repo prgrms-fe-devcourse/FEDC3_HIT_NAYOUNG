@@ -1,13 +1,23 @@
+import { useMemo } from 'react';
+import { InformLogOutModal } from '@/components/Modal';
 import ReviewCreateForm from '@/components/ReviewCreateForm';
-import { categoryState } from '@/store/recoilCategoryState';
-import { useRecoilValue } from 'recoil';
+import { getLocalStorage } from '@/utils/storage';
+import { CATEGORY_ID_NAME } from '@/utils/constants';
+import { CategoryType } from '@/types';
 
 const ReviewCreate = () => {
-  const categoryData = useRecoilValue(categoryState);
+  const categoryData: Readonly<CategoryType[]> = useMemo(() => {
+    const category = getLocalStorage(CATEGORY_ID_NAME);
+    if (!category) return [];
+    else {
+      return JSON.parse(category);
+    }
+  }, []);
 
   return (
     <div className="h-full pt-16">
       <ReviewCreateForm categoryData={categoryData} />
+      <InformLogOutModal />
     </div>
   );
 };

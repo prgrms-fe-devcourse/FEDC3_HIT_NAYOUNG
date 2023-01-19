@@ -34,6 +34,8 @@ const Search = () => {
         const result = await getSearchByType<'post'>('all', searchWord);
         const extractPostInformation = result.filter((piece) => 'channel' in piece);
 
+        console.log(result);
+
         setSearchedPost([...extractPostInformation]);
         setSearchedUser([]);
       }

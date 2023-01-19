@@ -1,11 +1,11 @@
-import { modalState } from '@/store/recoilModalState';
+import { informLoginModalState } from '@/store/recoilModalState';
+import { useRecoilState } from 'recoil';
 import { LOGIN_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
 import ModalPortal from './ModalPortal';
 
 const InformLoginModal = () => {
-  const [open, setOpen] = useRecoilState<boolean>(modalState);
+  const [open, setOpen] = useRecoilState<boolean>(informLoginModalState);
 
   return (
     <ModalPortal>
@@ -38,7 +38,9 @@ const InformLoginModal = () => {
           </div>
           <center>
             <label
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setOpen(false);
+              }}
               htmlFor="my-modal-6"
               className="text-sm hover:cursor-pointer"
             >

@@ -5,6 +5,66 @@ import {
   FieldError,
 } from 'react-hook-form';
 
+// 기본모델
+// - 사용자 모델
+// export type User = {
+//   coverImage: string; // 커버 이미지
+//   image: string; // 프로필 이미지
+//   role: string;
+//   isOnline: boolean;
+//   posts: Post[];
+//   likes: Like[];
+//   comments: string[];
+//   notifications: AlarmItemType[];
+//   _id: string;
+//   fullName: string;
+//   email: string;
+//   createdAt: string;
+//   updatedAt: string;
+// };
+
+export type User = {
+  posts: UserPost[];
+  likes: Like[];
+  comments: string[];
+  following: FollowProps[];
+  followers: FollowProps[];
+  image: string;
+  fullName: string;
+  username: string;
+  _id: string;
+  email: string;
+  coverImage: string; // 커버 이미지
+  role: string;
+  isOnline: boolean;
+  notifications: AlarmItemType[];
+  createdAt: string;
+  updatedAt: string;
+};
+
+// - 게시글 모델
+type Post = {
+  likes: Like[];
+  comments: CommentType[];
+  _id: string;
+  image: Optional<string>;
+  imagePublicId: Optional<string>;
+  title: string;
+  author: User;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type ReviewPost = {
+  // 명재오빠(리뷰페이지 리스트)
+  channel: Category;
+} & Post;
+
+export type UserPost = {
+  // 건오오빠(프로필)
+  channel: string;
+} & Post;
+
 export type navigationName = '홈' | '검색' | '알림' | '만들기' | '내 정보' | '로그아웃';
 export type navigationNameAndIcon = Record<navigationName, ReactElement>;
 export type navigationItem = {
@@ -18,6 +78,12 @@ export type navigationItem = {
 // 카테고리 타입
 export type CategoryName = '노트북' | '키보드' | '휴대폰' | '모니터' | '오디오' | '시계';
 export type CategoryNameAndIcon = Record<categoryName, IconType>;
+export type CategoryType = {
+  name: CategoryName;
+  id: string;
+};
+
+// - 채널(카테고리) 모델
 export type Category = {
   authRequired: boolean;
   posts: string[];
@@ -27,47 +93,6 @@ export type Category = {
   createdAt: string;
   updatedAt: string;
   __v: number;
-};
-
-export type CategoryType = {
-  name: CategoryName;
-  id: string;
-};
-
-export type Post = {
-  likes: Like[];
-  comments: Comment[];
-  _id: string;
-  image: Optional<string>;
-  imagePublicId: Optional<string>;
-  title: string;
-  channel: Channel;
-  author: User;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type User = {
-  image: Optional<string>;
-  likes: Like[];
-  comments: string[];
-  createdAt: string;
-  banned: boolean;
-  email: string;
-  emailVerified: string;
-  _id: string;
-  fullName: string;
-  imagePublicId: string;
-  role: string;
-  updatedAt: string;
-  username: string;
-  _v: number;
-  posts: string[];
-  notifications: string[];
-  message: string[];
-  followers: string[];
-  following: string[];
-  isOnline: boolean;
 };
 
 // React-hook-forms
@@ -97,6 +122,7 @@ export type RegisterTextareaProps<RegisterData> = {
     container?: string;
     textarea?: string;
   };
+  value?: string;
 } & RegisterType<RegisterData>;
 
 export type ReviewFormData = {
@@ -106,7 +132,7 @@ export type ReviewFormData = {
   category: CategoryName;
 };
 
-// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생한느 이유를 모르겠습니다.
+// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생하는 이유를 모르겠습니다.
 export type ReviewPosterType = {
   _id?: string;
   id: string;
@@ -122,10 +148,7 @@ export type ReviewContentType = {
 
 // 리뷰 게시글 댓글 타입
 export type CommentType = {
-  author: {
-    fullName: string;
-    _id: string;
-  };
+  author: User;
   comment: string;
   createdAt: string;
   post: string;
@@ -150,6 +173,28 @@ export type LikeProps = {
   likes: Like[];
 };
 
+// 알림 타입
+type AlarmItemType = {
+  seen: boolean;
+  _id: string;
+  author: User;
+  user: User;
+  post: string;
+  like?: {
+    _id: string;
+    post: UserPost;
+  };
+  comment?: {
+    _id: string;
+    comment: string;
+    post: UserPost;
+  };
+  follow?: {
+    _id: string;
+    user: string;
+  };
+};
+
 // BreadCrumb, ReviewHandler에서 사용
 export type ReviewContentProps = {
   userId: string;
@@ -165,4 +210,12 @@ export type ReviewContentProps = {
     name: string;
     _id: string;
   };
+};
+
+export type FollowProps = {
+  _id: string;
+  user: string;
+  follower: string;
+  createdAt: string;
+  updatedAt: string;
 };
