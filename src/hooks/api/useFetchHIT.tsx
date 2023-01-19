@@ -36,7 +36,6 @@ const useFetchHIT = () => {
           category: extractValidCategory(categoryResponse),
           specifiedPoster: extractRecommendReviewPoster(reviewPosterResponse),
         });
-        setCategory(categoryResponse as Category[]);
         setCategoryNameAndIdStateToLocalStorage(categoryResponse as Category[]);
       } catch (error) {
         console.error(error);
