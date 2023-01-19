@@ -5,24 +5,6 @@ import {
   FieldError,
 } from 'react-hook-form';
 
-// 기본모델
-// - 사용자 모델
-// export type User = {
-//   coverImage: string; // 커버 이미지
-//   image: string; // 프로필 이미지
-//   role: string;
-//   isOnline: boolean;
-//   posts: Post[];
-//   likes: Like[];
-//   comments: string[];
-//   notifications: AlarmItemType[];
-//   _id: string;
-//   fullName: string;
-//   email: string;
-//   createdAt: string;
-//   updatedAt: string;
-// };
-
 export type User = {
   posts: UserPost[];
   likes: Like[];

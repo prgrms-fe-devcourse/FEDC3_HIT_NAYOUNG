@@ -1,4 +1,4 @@
-import { FollowProps, UserDataProps } from '@/types';
+import { FollowProps, User } from '@/types';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getFollowUser, getUnfollowUser } from '@/Api/follow';
@@ -9,13 +9,10 @@ import ReviewAndFollow from './ReviewAndFollow';
 import ReviewList from './ReviewList';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import Button from '../ReviewCreateForm/Button';
-import { informUnfollowModalState } from '@/store/store';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userState } from '@/store/recoilUserState';
 
 const UserProfile = () => {
-  const [user, setUser] = useRecoilState<UserDataProps>(userState);
-  // const [user, setUser] = useState<UserDataProps>();
+  // const [user, setUser] = useRecoilState<User>(userState);
+  const [user, setUser] = useState<User>();
   const navigate = useNavigate();
   const { state } = useLocation();
   const [isFollow, setIsFollow] = useState(false);
