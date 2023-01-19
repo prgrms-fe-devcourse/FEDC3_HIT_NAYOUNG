@@ -146,7 +146,7 @@ const EditProfile = () => {
     }
   };
 
-  if (!user) return false;
+  if (!user) return <div>로그인 유저 정보를 불러오지 못하였습니다</div>;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       <form onSubmit={handleSubmit(onCheckPassword)}>

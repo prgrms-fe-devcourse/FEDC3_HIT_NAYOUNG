@@ -29,7 +29,7 @@ const Profile = () => {
     userIdData();
   }, []);
 
-  if (!user) return false;
+  if (!user) return <div>로그인 유저 토큰이 없습니다!</div>;
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       <div className="flex flex-col items-center">
