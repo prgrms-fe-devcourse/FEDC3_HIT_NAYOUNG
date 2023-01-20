@@ -28,8 +28,6 @@ const useFetchHIT = () => {
           getSpecifiedReviewPoster(),
         ]);
 
-        console.log(reviewPosterResponse);
-
         setData({
           category: extractValidCategory(categoryResponse),
           specifiedPoster: extractRecommendReviewPoster(reviewPosterResponse),
