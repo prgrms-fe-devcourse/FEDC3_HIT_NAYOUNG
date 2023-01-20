@@ -20,23 +20,22 @@ const Login = () => {
   const togglePasswordVisibility = () => {
     setIsShowPassword(!isShowPassword);
   };
-  const [account, setAccount] = useState({
-    email: '',
-    password: '',
-  });
 
-  const onChangeInputValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = target;
-    setAccount({
-      ...account,
-      [name]: value,
-    });
-  };
+  const {
+    register,
+    handleSubmit,
+    setError,
+    watch,
+    formState: { errors },
+  } = useForm<FormState>({ mode: 'onChange' });
+
+  const email = watch('email');
+  const password = watch('password');
 
   const onClickLoginButton = async () => {
     const loginBody = {
-      email: account.email,
-      password: account.password,
+      email: email,
+      password: password,
     };
     try {
       const response = await api.post(`/login`, loginBody, {
@@ -44,10 +43,12 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
       });
-      const token = response.data.token;
-      setLocalStorage('login-token', token);
-      navigate(HOME_PAGE);
-      toast.success(LOGIN_SUCCESS);
+      if (response) {
+        const token = response.data.token;
+        setLocalStorage('login-token', token);
+        navigate(HOME_PAGE);
+        toast.success(LOGIN_SUCCESS);
+      }
     } catch {
       setError('password', {
         message: '아이디 또는 비밀번호가 일치하지 않습니다. 다시 입력해 주세요.',
@@ -59,13 +60,6 @@ const Login = () => {
     email: string;
     password: string;
   };
-
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<FormState>();
 
   return (
     <div className="overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
@@ -84,11 +78,8 @@ const Login = () => {
               },
             })}
             type="text"
-            name="email"
-            value={account.email}
             placeholder="이메일을 입력해 주세요."
             className="input input-bordered text-center bg-white border-INPUT_BORDER"
-            onChange={onChangeInputValue}
           />
         </div>
         <span className="label-text-alt text-red-500">{errors?.email?.message}</span>
@@ -104,12 +95,9 @@ const Login = () => {
               },
             })}
             type={isShowPassword ? 'text' : 'password'}
-            autoComplete="off"
-            name="password"
-            value={account.password}
             placeholder="비밀번호를 입력해 주세요."
+            autoComplete="off"
             className="input input-bordered text-center bg-white border-INPUT_BORDER"
-            onChange={onChangeInputValue}
           />
           <i
             className="absolute top-10 right-5 cursor-pointer"
