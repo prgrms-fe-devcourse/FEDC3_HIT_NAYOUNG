@@ -12,6 +12,7 @@ import SearchBar from '@/components/Search/SearchBar';
 import SearchTab from '@/components/Search/SearchTab';
 import SearchPostFeed from '@/components/Search/SearchPostFeed';
 import SearchUserFeed from '@/components/Search/SearchUserFeed';
+import { InformLoginModal, InformLogOutModal } from '@/components/Modal';
 
 type SearchFormData = {
   searchWord: string;
@@ -79,6 +80,8 @@ const Search = () => {
       />
       <SearchTab />
       <SearchFeedSection />
+      <InformLoginModal />
+      <InformLogOutModal />
     </div>
   );
 };

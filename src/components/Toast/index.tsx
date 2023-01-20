@@ -8,7 +8,7 @@ const Toast = () => {
       <ToastContainer
         className="text-sm text-TEXT_BASE_BLACK"
         position="top-right"
-        autoClose={2000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
