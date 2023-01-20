@@ -8,7 +8,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ReviewList = () => {
-  const [reviews, setReviews] = useState<ReviewPosterType[]>([]);
+  const [reviews, setReviews] = useState<Omit<ReviewPosterType, '_id'>[]>([]);
   const [error, setError] = useState<Error | null>(null);
   const [loading, setLoading] = useState(false);
   const {
@@ -22,11 +22,12 @@ const ReviewList = () => {
       try {
         setLoading(true);
         const response = await getAllReviewPoster(channelId);
-        const reviewListData = response.data.map(
-          ({ _id, title, image }: Omit<ReviewPosterType, 'id'>) => ({
-            id: _id,
+        const reviewListData = response.map(
+          ({ _id, title, image, author }: Omit<ReviewPosterType, 'id'>) => ({
+            id: _id as string,
             title,
             image,
+            author,
           })
         );
 

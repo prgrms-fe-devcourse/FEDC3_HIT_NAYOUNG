@@ -13,7 +13,7 @@ const EditProfileInput = ({
     <div>
       <span>{name}: </span>
       <input
-        className="input input-bordered text-center mt-5"
+        className="input input-bordered text-center mt-5 bg-white"
         name="username"
         value={data || ''}
         onChange={onChangeEditInputValue}

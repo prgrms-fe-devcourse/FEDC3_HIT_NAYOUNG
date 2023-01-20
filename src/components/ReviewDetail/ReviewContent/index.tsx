@@ -25,7 +25,7 @@ const ReviewContent = ({ title, image }: ReviewContentType) => {
           <LikeButton />
         </div>
         <ContentHandler />
-        <p className="mb-4 overflow-hidden text-ellipsis whitespace-pre-wrap text-TEXT_BASE_BLACK">
+        <p className="mb-4 truncate whitespace-pre-wrap text-TEXT_BASE_BLACK">
           {reviewContentData.contents}
         </p>
         <hr className="bg-GRAY_200 h-0.5" />
