@@ -16,8 +16,8 @@ const InformLoginModal = () => {
         id="my-modal-6"
         className="modal-toggle"
       />
-      <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+      <div className="modal modal-bottom  sm:modal-middle">
+        <div className="modal-box bg-GRAY_100 text-TEXT_BASE_BLACK">
           <h3 className="font-bold text-xl">
             지금 로그인해서 <br /> 더 많은 리뷰를 구경하세요
           </h3>

@@ -165,7 +165,7 @@ const EditProfile = () => {
             />
             <Button
               name="프로필 이미지 변경"
-              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4 text-TEXT_SUB_GRAY"
               clickHandler={onUploadImageButtonClick}
             />
           </div>
@@ -207,7 +207,7 @@ const EditProfile = () => {
           <button
             type="submit"
             disabled={!isDirty || !isValid}
-            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-TEXT_BASE_BLACK"
             onClick={onClickSaveButton}
           >
             저장

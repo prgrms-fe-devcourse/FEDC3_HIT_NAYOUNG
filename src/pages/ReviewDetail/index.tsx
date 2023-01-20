@@ -54,7 +54,7 @@ const ReviewDetail = () => {
   }, [createdComment]);
 
   return (
-    <div className="max-w-xl w-full my-0 mx-auto h-full px-8 pt-8">
+    <div className="max-w-xl w-full my-0 mx-auto h-full px-8 pt-10">
       {reviewContent && (
         <>
           <ReviewContent title={reviewContent.title} image={reviewContent.image} />
