@@ -1,34 +1,7 @@
 import { User } from '@/types';
+import { getCategoryNameToMatchingId } from '@/utils/category';
 
 import ReviewItem from './ReviewItem';
-
-// localstorage getItem 할 것
-const categoryName = [
-  {
-    name: '노트북',
-    id: '63bd045193836272216d31bc',
-  },
-  {
-    name: '키보드',
-    id: '63bd140193836272216d323e',
-  },
-  {
-    name: '휴대폰',
-    id: '63bd140b93836272216d3242',
-  },
-  {
-    name: '모니터',
-    id: '63bd141693836272216d3246',
-  },
-  {
-    name: '오디오',
-    id: '63bd141d93836272216d324a',
-  },
-  {
-    name: '시계',
-    id: '63bd143493836272216d324e',
-  },
-];
 
 type ReviewListProps = {
   user: User;
@@ -43,15 +16,13 @@ const ReviewList = ({ user }: ReviewListProps) => {
         </div>
       ) : (
         user.posts.map((post) => {
-          const id = post._id;
-          const channel = categoryName.filter((category) => category.id === post.channel);
-          const categoryPathName = `category/${channel[0]?.name}`;
+          const channel = getCategoryNameToMatchingId(post.channel);
           return (
             <ReviewItem
-              key={id}
+              key={post._id}
               post={post}
-              categoryPathName={categoryPathName}
-              id={id}
+              categoryPathName={`category/${channel}`}
+              id={post._id}
             />
           );
         })
