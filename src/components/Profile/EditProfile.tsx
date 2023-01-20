@@ -168,7 +168,7 @@ const EditProfile = () => {
             />
             <Button
               name="프로필 이미지 변경"
-              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4 text-TEXT_SUB_GRAY"
               clickHandler={onUploadImageButtonClick}
             />
           </div>
@@ -198,7 +198,7 @@ const EditProfile = () => {
               type="password"
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
-              className="input input-bordered text-center mt-5"
+              className="input input-bordered text-center mt-5 bg-white"
             />
           </div>
           {errors?.password && <WarningLabel message={errors.password.message} />}
@@ -206,7 +206,7 @@ const EditProfile = () => {
           <button
             type="submit"
             disabled={!isDirty || !isValid}
-            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-TEXT_BASE_BLACK"
             onClick={onClickSaveButton}
           >
             저장

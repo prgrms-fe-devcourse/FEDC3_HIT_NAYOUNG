@@ -19,7 +19,7 @@ const Home = () => {
         <h1 className="md:hidden absolute top-5 left-1/2 -translate-x-1/2 text-5xl text-BASE font-extrabold">
           HIT
         </h1>
-        <section className="flex flex-col items-center md:items-start lg:items-start max-w-xl w-full mx-auto pt-24 lg:pt-10 md:pt-10">
+        <section className="flex flex-col items-center md:items-start lg:items-start max-w-2xl w-full mx-auto pt-24 lg:pt-10 md:pt-10">
           <div className="w-11/12 h-full">
             <ReviewPosterSection
               specifiedPoster={specifiedPoster}
@@ -28,7 +28,7 @@ const Home = () => {
             <CategorySection category={category} titleStyle={titleClassName} />
           </div>
         </section>
-        <section className="max-xl:hidden absolute top-16 right-10">
+        <section className="max-xl:hidden absolute top-16 right-20">
           <UserList />
         </section>
         <InformLoginModal />
