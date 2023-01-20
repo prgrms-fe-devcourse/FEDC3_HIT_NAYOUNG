@@ -9,7 +9,7 @@ const NotFound = ({ message }: { message?: string }) => {
       </div>
       <div className="text-xl mt-10">
         죄송합니다.
-        <p>{message ? message : '페이지를 찾을 수 없습니다.'}</p>
+        <p>{message || '페이지를 찾을 수 없습니다.'}</p>
       </div>
       <Link to={HOME_PAGE}>
         <button className="btn mt-10 w-72 bg-white border-BASE text-BASE hover:bg-white hover:border-HOVER hover:text-HOVER">
