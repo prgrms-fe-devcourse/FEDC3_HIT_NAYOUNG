@@ -12,6 +12,7 @@ import { REVIEW_DELETE } from '@/components/Toast/ToastText';
 import { ConfirmDeleteModal } from '@/components/Modal';
 import { useEffect } from 'react';
 import { confirmDeleteReviewModalState } from '@/store/recoilModalState';
+import Avatar from '@/components/common/Avatar';
 
 const ContentHandler = () => {
   const {
@@ -66,12 +67,7 @@ const ContentHandler = () => {
           onClick={() => onMovePage('userPage')}
           className="avatar hover:cursor-pointer hover:text-TEXT_BASE_BLACK items-center gap-2"
         >
-          <div className={'rounded-full'}>
-            <img
-              className="max-w-[36px]"
-              src={author.image || 'https://placeimg.com/200/200/arch'}
-            />
-          </div>
+          <Avatar image={author.image} size={9} style={'max-w-[36px]'} />
           <span>{author.fullName}</span>
         </div>
         <div className="flex items-center gap-2 text-TEXT_BASE_BLACK">
