@@ -4,6 +4,7 @@ import { USER_PAGE } from '@/utils/constants';
 
 import { BiUserCircle } from 'react-icons/bi';
 import { IoIosArrowForward } from 'react-icons/io';
+import Avatar from '@/components/common/Avatar';
 
 type UserComponentProps = {
   userName: string;
@@ -23,7 +24,7 @@ export const UserItem = ({ userName, id }: UserComponentProps) => {
       key={id}
       onClick={moveUserProfile}
     >
-      <BiUserCircle size={24} className="mr-1" />
+      <Avatar size={24} style={'w-6 h-6'} image={userName} />
       <div className="text-sm mt-0.5">{userName}</div>
       <IoIosArrowForward size={24} className="pl-1" />
     </div>
