@@ -82,7 +82,7 @@ const UserProfile = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       <div className="flex flex-col items-center">
-        <Avatar image={user.image} size={36} style="mt-10" />
+        <Avatar image={user.image} size={36} style="mt-10 max-w-[144px]" />
         <div className="text-2xl mt-5">{user.fullName || '해당 사용자가 없습니다.'}</div>
         <div>안녕하세요 {user.fullName}입니다.</div>
         <div onClick={() => toast.warning(MESSAGE_FAIL)}>
