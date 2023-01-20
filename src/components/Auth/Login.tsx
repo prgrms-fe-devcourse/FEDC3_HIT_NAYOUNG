@@ -64,7 +64,7 @@ const Login = () => {
   } = useForm<FormState>();
 
   return (
-    <div className="overflow-hidden flex flex-col items-center justify-center text-center pb-20 text-TEXT_BASE_BLACK">
+    <div className="overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onClickLoginButton)}>
         <div className="mt-20">
           <Logo logoText="로그인" />
@@ -100,6 +100,7 @@ const Login = () => {
               },
             })}
             type={isShowPassword ? 'text' : 'password'}
+            autoComplete="off"
             name="password"
             value={account.password}
             placeholder="비밀번호를 입력해 주세요."
