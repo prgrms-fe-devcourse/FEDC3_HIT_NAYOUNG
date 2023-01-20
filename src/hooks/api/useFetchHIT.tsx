@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useSetRecoilState } from 'recoil';
 
 import { Category } from '@/types/category';
 import { ExtractedReviewPosterType } from '@/types/review';
-
-import { categoryState } from '@/store/recoilCategoryState';
 
 import { getCategory } from '@/Api/category';
 import { getSpecifiedReviewPoster } from '@/Api/reviewPoster';
@@ -22,7 +19,6 @@ type HITAllDataType = {
 const useFetchHIT = () => {
   const [data, setData] = useState<HITAllDataType | null>(null);
   const [loading, setLoading] = useState(false);
-  const setCategory = useSetRecoilState(categoryState);
 
   useEffect(() => {
     const run = async () => {
