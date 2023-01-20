@@ -12,8 +12,8 @@ const ReviewListSection = ({
   if (reviewCount) {
     return (
       <ul className="">
-        {reviews.map(({ id, title, image }) => (
-          <ReviewPoster key={id} id={id} title={title} image={image} />
+        {reviews.map(({ id, title, image, author }) => (
+          <ReviewPoster key={id} id={id} title={title} image={image} author={author} />
         ))}
       </ul>
     );

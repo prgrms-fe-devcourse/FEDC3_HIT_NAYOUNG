@@ -1,9 +1,9 @@
-import { ExtractedReviewPosterType } from '@/types/review';
+import { ReviewPosterType } from '@/types';
 
 import ReviewPoster from './ReviewPoster';
 
 type ReviewPosterSectionPropsType = {
-  specifiedPoster: Omit<ExtractedReviewPosterType, '_id'>[];
+  specifiedPoster: Omit<ReviewPosterType, '_id'>[];
   titleStyle: string;
 };
 
@@ -20,11 +20,13 @@ const ReviewPosterSection = ({
         id={firstSpecifiedPoster.id}
         title={firstSpecifiedPoster.title}
         image={firstSpecifiedPoster.image}
+        author={firstSpecifiedPoster.author}
       />
       <ReviewPoster
         id={lastSpecifiedPoster.id}
         title={lastSpecifiedPoster.title}
         image={lastSpecifiedPoster.image}
+        author={lastSpecifiedPoster.author}
       />
     </>
   );

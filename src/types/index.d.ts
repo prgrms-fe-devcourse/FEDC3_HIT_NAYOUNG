@@ -114,12 +114,12 @@ export type ReviewFormData = {
   category: CategoryName;
 };
 
-// 타입 별칭 이름을 ReviewPoster로 작성하면 error가 발생하는 이유를 모르겠습니다.
 export type ReviewPosterType = {
   _id?: string;
   id: string;
   title: string;
   image: string;
+  author: User;
 };
 
 // 리뷰 게시글 상세페이지 타입
@@ -130,7 +130,7 @@ export type ReviewContentType = {
 
 // 리뷰 게시글 댓글 타입
 export type CommentType = {
-  author: User;
+  author: author;
   comment: string;
   createdAt: string;
   post: string;
