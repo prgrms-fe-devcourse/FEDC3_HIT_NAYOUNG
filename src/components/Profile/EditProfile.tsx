@@ -4,11 +4,12 @@ import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import WarningLabel from '../Auth/WarningLabel';
-import Button from '../ReviewCreateForm/Button';
+import WarningLabel from '@/components/Auth/WarningLabel';
+import Button from '@/components/ReviewCreateForm/Button';
 import EditProfileInput from './EditProfileInput';
 import { toast } from 'react-toastify';
-import { IMAGE_SIZE_WARNING } from '../Toast/ToastText';
+import { IMAGE_SIZE_WARNING } from '@/components/Toast/ToastText';
+import Avatar from '@/components/common/Avatar';
 
 type EditUserData = {
   image: string;
@@ -150,11 +151,7 @@ const EditProfile = () => {
     <div className="max-w-xl w-full my-0 mx-auto">
       <form onSubmit={handleSubmit(onCheckPassword)}>
         <div className="flex flex-col items-center">
-          <div className="avatar mt-10">
-            <div className="w-36 rounded-full">
-              <img src={user.image ? user.image : 'https://placeimg.com/200/200/arch'} />
-            </div>
-          </div>
+          <Avatar image={user.image} size={36} style={'mt-10'} />
           <div>
             <input
               className="hidden"

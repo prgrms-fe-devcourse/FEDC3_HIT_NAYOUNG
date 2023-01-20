@@ -9,7 +9,7 @@ import { useCallback, useState } from 'react';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import { toast } from 'react-toastify';
-import { REVIEW_CRAETE } from '../Toast/ToastText';
+import { REVIEW_CRAETE } from '@/components/Toast/ToastText';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 

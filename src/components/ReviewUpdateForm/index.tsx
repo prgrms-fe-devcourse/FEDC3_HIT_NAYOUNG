@@ -12,7 +12,7 @@ import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { toast } from 'react-toastify';
-import { REVIEW_UPDATE } from '../Toast/ToastText';
+import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
 
 const ReviewUpdateForm = ({
   categoryData,
