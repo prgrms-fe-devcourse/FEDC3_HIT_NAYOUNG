@@ -2,7 +2,7 @@ import { ReviewPosterType } from '@/types';
 
 import api from './api';
 
-const SPECIFIED_CATEGORY_ID = '63bd141d93836272216d324a';
+const SPECIFIED_CATEGORY_ID = '63ca15bf0e665f5ec7433177';
 
 export const getSpecifiedReviewPoster = async (): Promise<ReviewPosterType[]> => {
   const { data } = await api.get<ReviewPosterType[]>(
