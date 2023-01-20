@@ -28,7 +28,7 @@ const FeedItem = ({
   children,
 }: FeedItemPropsType) => {
   return (
-    <Figure className="w-100%">
+    <Figure className="w-100% h-40">
       {children}
       <figcaption className="flex w-full h-full items-center justify-around">
         <div className="flex gap-2 items-center">
