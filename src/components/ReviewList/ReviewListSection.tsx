@@ -1,6 +1,7 @@
 import { ReviewPosterType } from '@/types';
 
 import ReviewPoster from '@/components/Home/ReviewPoster/ReviewPoster';
+import { NotFound } from '@/pages';
 
 const ReviewListSection = ({
   reviews,
@@ -18,11 +19,7 @@ const ReviewListSection = ({
       </ul>
     );
   } else {
-    return (
-      <div>
-        404 페이지로 이동(404 페이지에서 text만 리뷰 게시글이 없다고 알려주면 좋을 듯)
-      </div>
-    );
+    return <NotFound message="리뷰 게시글 목록이 없습니다." />;
   }
 };
 
