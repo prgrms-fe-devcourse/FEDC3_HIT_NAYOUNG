@@ -1,12 +1,12 @@
 import { ReviewPosterType } from '@/types';
 
-import api from './api';
+import { CATEGORY_DEFAULT_NOTEBOOK_ID } from '@/utils/constants';
 
-const SPECIFIED_CATEGORY_ID = '63ca15bf0e665f5ec7433177';
+import api from './api';
 
 export const getSpecifiedReviewPoster = async (): Promise<ReviewPosterType[]> => {
   const { data } = await api.get<ReviewPosterType[]>(
-    `/posts/channel/${SPECIFIED_CATEGORY_ID}`
+    `/posts/channel/${CATEGORY_DEFAULT_NOTEBOOK_ID}`
   );
 
   return data;
