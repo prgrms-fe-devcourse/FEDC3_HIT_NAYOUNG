@@ -14,7 +14,7 @@ const ReviewUpdate = () => {
   }, []);
 
   return (
-    <div className="h-full pt-16">
+    <div className="h-full pt-20">
       <ReviewUpdateForm categoryData={categoryData} />
     </div>
   );

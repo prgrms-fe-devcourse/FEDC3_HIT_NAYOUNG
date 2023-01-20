@@ -23,7 +23,7 @@ const InformLogOutModal = () => {
         className="modal-toggle"
       />
       <div className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
+        <div className="modal-box bg-GRAY_100 text-TEXT_BASE_BLACK">
           <h3 className="font-bold text-xl">정말 로그아웃 하시겠습니까?</h3>
           <div className="modal-action mt-4 mb-4">
             <Link

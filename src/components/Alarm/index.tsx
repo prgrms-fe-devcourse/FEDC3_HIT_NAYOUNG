@@ -22,7 +22,7 @@ const AlarmContainer = () => {
 
   return (
     <>
-      <section className="flex flex-col p-5 border-2 border-GRAY_100 rounded gap-5 w-5/12 max-md:border-none max-md:w-full max-md:p-5">
+      <section className="flex flex-col p-5 border-2 border-GRAY_100 rounded gap-5 max-md:border-none max-md:w-full max-md:p-5 max-w-2xl mx-auto my-0">
         {loading ? (
           <div>Loading..</div>
         ) : (

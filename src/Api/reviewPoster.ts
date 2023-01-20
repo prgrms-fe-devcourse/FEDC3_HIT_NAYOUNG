@@ -4,7 +4,7 @@ import { CATEGORY_DEFAULT_NOTEBOOK_ID } from '@/utils/constants';
 
 import api from './api';
 
-export const getSpecifiedReviewPoster = async (): Promise<ReviewPosterType[]> => {
+export const getSpecifiedReviewPoster = async () => {
   const { data } = await api.get<ReviewPosterType[]>(
     `/posts/channel/${CATEGORY_DEFAULT_NOTEBOOK_ID}`
   );
@@ -12,5 +12,8 @@ export const getSpecifiedReviewPoster = async (): Promise<ReviewPosterType[]> =>
   return data;
 };
 
-export const getAllReviewPoster = (channelId: string) =>
-  api.get(`/posts/channel/${channelId}`);
+export const getAllReviewPoster = async (channelId: string) => {
+  const { data } = await api.get<ReviewPosterType[]>(`/posts/channel/${channelId}`);
+
+  return data;
+};
