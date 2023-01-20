@@ -84,8 +84,8 @@ const ReviewUpdateForm = ({
 
   return (
     <>
-      <div className="flex justify-center text-TEXT_BASE_BLACK">
-        <div className="flex flex-col w-5/12 max-md:w-9/12">
+      <div>
+        <div className="flex flex-col max-w-2xl mx-auto my-0 px-8">
           <h1 className="text-xl pb-2.5 self-start">리뷰 수정</h1>
           <form className="flex flex-col">
             <RegisterInput
@@ -102,7 +102,7 @@ const ReviewUpdateForm = ({
               errors={errors.title}
             />
             <RegisterTextarea
-              rows={10}
+              rows={20}
               placeholder="사용후기를 남겨주세요"
               style={{
                 container: 'flex flex-col mb-4',
@@ -126,7 +126,7 @@ const ReviewUpdateForm = ({
               errors={errors.image}
             />
             <h2 className="text-lg pb-2.5 self-start font-bold">작성할 카테고리</h2>
-            <fieldset className="flex flex-wrap ">
+            <fieldset className="flex flex-wrap justify-start flex-col pb-8 md:justify-around md:flex-row">
               {categoryData.map(({ id, name }) => {
                 return (
                   <label

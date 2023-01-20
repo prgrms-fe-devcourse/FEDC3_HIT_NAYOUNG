@@ -54,8 +54,7 @@ const EditProfile = () => {
             },
           }
         );
-        // 사진 변경시 바로 적용하기 위한 함수 호출
-        // 뭔가 좋지 않은 코드 같음
+
         getUser();
       } catch (error) {
         console.error(error);
@@ -80,8 +79,6 @@ const EditProfile = () => {
     const { _id } = response.data;
     const { data } = await api.get(`/users/${_id}`);
     setUser(data);
-    // fullname, username, password 다 적지 않고 한번에 하는 방법이 있나요?
-    // [dataName]: data.[dataName] 처럼?
     setUserInformation({
       ...userInformation,
       fullName: data.fullName,
@@ -168,22 +165,26 @@ const EditProfile = () => {
             />
             <Button
               name="프로필 이미지 변경"
-              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4"
+              style="btn w-70 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER mt-4 text-TEXT_SUB_GRAY"
               clickHandler={onUploadImageButtonClick}
             />
           </div>
           <EditProfileInput
-            name="FullName"
+            label="Fullname"
+            name="fullName"
             data={userInformation.fullName}
             onChangeEditInputValue={onChangeInputValue}
           />
           <EditProfileInput
-            name="Username"
+            label="UserName"
+            name="username"
             data={userInformation.username}
             onChangeEditInputValue={onChangeInputValue}
           />
-          <div>
-            <span>Password: </span>
+          <div className="form-control w-full max-w-xs">
+            <label className="label">
+              <span className="label-text">Password</span>
+            </label>
             <input
               {...register('password', {
                 onChange: onChangeInputValue,
@@ -198,7 +199,7 @@ const EditProfile = () => {
               type="password"
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
-              className="input input-bordered text-center mt-5"
+              className="input input-bordered w-full max-w-xs"
             />
           </div>
           {errors?.password && <WarningLabel message={errors.password.message} />}
@@ -206,7 +207,7 @@ const EditProfile = () => {
           <button
             type="submit"
             disabled={!isDirty || !isValid}
-            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER"
+            className="btn w-80 bg-BASE border-BASE hover:bg-HOVER hover:border-HOVER text-TEXT_BASE_BLACK"
             onClick={onClickSaveButton}
           >
             저장

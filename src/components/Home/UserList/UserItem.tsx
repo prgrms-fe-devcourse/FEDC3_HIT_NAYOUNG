@@ -2,9 +2,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { USER_PAGE } from '@/utils/constants';
 
-import { BiUserCircle } from 'react-icons/bi';
+import { getOpponentUserId } from '@/Api/user';
+
 import { IoIosArrowForward } from 'react-icons/io';
 import Avatar from '@/components/common/Avatar';
+import { useEffect, useState } from 'react';
 
 type UserComponentProps = {
   userName: string;
@@ -14,9 +16,19 @@ type UserComponentProps = {
 export const UserItem = ({ userName, id }: UserComponentProps) => {
   const navigate = useNavigate();
 
+  const [image, setImage] = useState();
+
   const moveUserProfile = () => {
     navigate(USER_PAGE, { state: { id: id } });
   };
+
+  useEffect(() => {
+    const getUserImage = async () => {
+      const { image } = await getOpponentUserId(id);
+      setImage(image);
+    };
+    getUserImage();
+  }, []);
 
   return (
     <div
@@ -24,7 +36,7 @@ export const UserItem = ({ userName, id }: UserComponentProps) => {
       key={id}
       onClick={moveUserProfile}
     >
-      <Avatar size={24} style={'w-6 h-6'} image={userName} />
+      <Avatar size={24} style={'w-6 h-6'} image={image} />
       <div className="text-sm mt-0.5">{userName}</div>
       <IoIosArrowForward size={24} className="pl-1" />
     </div>

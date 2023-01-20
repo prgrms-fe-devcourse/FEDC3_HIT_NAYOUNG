@@ -79,7 +79,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="pt-11 overflow-hidden flex flex-col items-center justify-center text-center text-TEXT_BASE_BLACK">
+    <div className="pt-11 overflow-hidden flex flex-col items-center justify-center text-center pb-20 text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
         <div className="form-control w-80 max-w-xs mt-7">

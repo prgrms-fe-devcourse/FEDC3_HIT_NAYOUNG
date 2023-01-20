@@ -33,7 +33,7 @@ const ReviewPoster = ({ id, title, image, author }: Omit<ReviewPosterType, '_id'
       </div>
 
       <div className="flex justify-between items-center pt-2 text-base">
-        <h3 className="w-3/4 truncate text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK ">
+        <h3 className="text-base md:text-lg w-11/12 lg:text-xl font-semibold text-TEXT_BASE_BLACK truncate">
           <span>{content.title}</span>
         </h3>
         <span className="font-medium text-TEXT_SUB_GRAY">{author.fullName}</span>
