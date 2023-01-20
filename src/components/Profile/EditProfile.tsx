@@ -92,7 +92,6 @@ const EditProfile = () => {
   }, []);
 
   const onChangeInputValue = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(target);
     const { name, value } = target;
     setUserInformation({
       ...userInformation,
