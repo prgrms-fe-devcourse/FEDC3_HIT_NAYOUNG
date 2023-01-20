@@ -1,17 +1,18 @@
-import api from '@/Api/api';
-
-import { CategoryType, ReviewFormData } from '@/types';
-
 import { useCallback, useMemo, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { CategoryType, ReviewFormData } from '@/types';
+
+import api from '@/Api/api';
 
 import Button from '@/components/ReviewCreateForm/Button';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
-import { toast } from 'react-toastify';
+import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
 
 const ReviewUpdateForm = ({
@@ -69,7 +70,7 @@ const ReviewUpdateForm = ({
     try {
       await api.put('/posts/update', formData, {
         headers: {
-          Authorization: `bearer ${localStorage.getItem('login-token')}`,
+          Authorization: `bearer ${getLocalStorage('login-token')}`,
           'Content-Type': 'multipart/form-data',
         },
       });

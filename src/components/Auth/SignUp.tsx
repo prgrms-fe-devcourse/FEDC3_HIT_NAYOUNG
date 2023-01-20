@@ -1,12 +1,16 @@
-import api from '@/Api/api';
-import Logo from '@/components/Auth/Logo';
-import WarningLabel from './WarningLabel';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { HOME_PAGE } from '@/utils/constants';
 import { toast } from 'react-toastify';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+
+import { HOME_PAGE } from '@/utils/constants';
+import { setLocalStorage } from '@/utils/storage';
+
+import api from '@/Api/api';
+
+import WarningLabel from './WarningLabel';
+import Logo from '@/components/Auth/Logo';
 import { SIGNUP_SUCCESS } from '@/components/Toast/ToastText';
 
 type FormData = {
@@ -55,7 +59,7 @@ const SignupForm = () => {
           'Content-Type': 'application/json',
         },
       });
-      localStorage.setItem('login-token', response.data.token);
+      setLocalStorage('login-token', response.data.token);
       navigate(HOME_PAGE);
       toast.success(SIGNUP_SUCCESS);
     } catch (error) {

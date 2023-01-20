@@ -1,8 +1,11 @@
-import api from '@/Api/api';
 import { UserList } from '@/types/userList';
 
+import { getLocalStorage } from '@/utils/storage';
+
+import api from '@/Api/api';
+
 const getAxiosHeader = () => {
-  const token = localStorage.getItem('login-token');
+  const token = getLocalStorage('login-token');
   if (!token) return false;
   return {
     Authorization: `bearer ${token}`,
