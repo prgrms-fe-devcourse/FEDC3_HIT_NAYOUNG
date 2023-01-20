@@ -34,8 +34,7 @@ const Profile = () => {
     <div className="max-w-xl w-full my-0 mx-auto">
       <div className="flex flex-col items-center">
         <Avatar image={user.image} size={36} style="mt-10" />
-        <div>{user.fullName}</div>
-        <div>안녕하세요 월 수화 목금입니다.</div>
+        <div className="text-2xl mt-5">{user.fullName}</div>
         <Link to={EDIT_MY_PAGE}>
           <button className="btn w-2/5 min-w-[300px] mt-5 bg-white text-BASE border-BASE hover:text-white hover:bg-HOVER hover:border-HOVER">
             프로필 편집
