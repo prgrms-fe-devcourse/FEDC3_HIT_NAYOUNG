@@ -8,8 +8,8 @@ type AvatarProps = {
 
 const Avatar = ({ image, size, style }: AvatarProps) => {
   return (
-    <div className={`avatar ${style}`}>
-      <div className={`w-${size} rounded-full`}>
+    <div className={`avatar ${style} w-${size}`}>
+      <div className={`w-${size} rounded-full max-h-${size} max-w-${size}`}>
         <img src={image || defaultProfileImage} />
       </div>
     </div>
