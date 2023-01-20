@@ -1,15 +1,14 @@
-import { User } from '@/types';
-
 type AvatarProps = {
   size: number;
-  user: User;
+  image?: string;
+  style?: string;
 };
 
-const Avatar = ({ user, size }: AvatarProps) => {
+const Avatar = ({ image, size, style }: AvatarProps) => {
   return (
-    <div className="avatar mt-10">
+    <div className={`avatar ${style}`}>
       <div className={`w-${size} rounded-full`}>
-        <img src={user?.image || 'https://placeimg.com/200/200/arch'} />
+        <img src={image || 'https://placeimg.com/200/200/arch'} />
       </div>
     </div>
   );

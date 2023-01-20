@@ -80,7 +80,7 @@ const UserProfile = () => {
   return (
     <div className="max-w-xl w-full my-0 mx-auto">
       <div className="flex flex-col items-center">
-        <Avatar user={user} size={36} />
+        <Avatar image={user.image} size={36} style="mt-10" />
         <div>{user.fullName || '해당 사용자가 없습니다.'}</div>
         <div>안녕하세요 월 수화 목금입니다.</div>
         <div onClick={() => alert('메세지를 보낼 수 없습니다')}>
