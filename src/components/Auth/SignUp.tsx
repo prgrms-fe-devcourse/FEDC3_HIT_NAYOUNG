@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { HOME_PAGE } from '@/utils/constants';
 import { toast } from 'react-toastify';
-import { SIGNUP_SUCCESS } from '../Toast/ToastText';
+import { SIGNUP_SUCCESS } from '@/components/Toast/ToastText';
 
 type FormData = {
   errors: {

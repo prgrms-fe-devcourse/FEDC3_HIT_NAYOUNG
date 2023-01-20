@@ -5,10 +5,10 @@ import { EDIT_MY_PAGE } from '@/utils/constants';
 import { useSetRecoilState } from 'recoil';
 import { informLogOutModalState } from '@/store/recoilModalState';
 import { Link } from 'react-router-dom';
-import Avatar from '../common/Avatar';
+import Avatar from '@/components/common/Avatar';
 import ReviewAndFollow from './ReviewAndFollow';
 import ReviewList from './ReviewList';
-import Button from '../ReviewCreateForm/Button';
+import Button from '@/components/ReviewCreateForm/Button';
 
 const Profile = () => {
   const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
@@ -35,7 +35,7 @@ const Profile = () => {
       <div className="flex flex-col items-center">
         <Avatar image={user.image} size={36} style="mt-10" />
         <div className="text-2xl mt-5">{user.fullName}</div>
-        <div>안녕하세요 월 수화 목금입니다.</div>
+        <div>안녕하세요 {user.fullName}입니다.</div>
         <Link to={EDIT_MY_PAGE}>
           <button className="btn w-2/5 min-w-[300px] mt-5 bg-white text-BASE border-BASE hover:text-white hover:bg-HOVER hover:border-HOVER">
             프로필 편집

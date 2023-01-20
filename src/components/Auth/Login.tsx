@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import { toast } from 'react-toastify';
-import { LOGIN_SUCCESS } from '../Toast/ToastText';
+import { LOGIN_SUCCESS } from '@/components/Toast/ToastText';
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);

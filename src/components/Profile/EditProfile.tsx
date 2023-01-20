@@ -4,12 +4,12 @@ import { getLocalStorage } from '@/utils/storage';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import WarningLabel from '../Auth/WarningLabel';
-import Button from '../ReviewCreateForm/Button';
+import WarningLabel from '@/components/Auth/WarningLabel';
+import Button from '@/components/ReviewCreateForm/Button';
 import EditProfileInput from './EditProfileInput';
 import { toast } from 'react-toastify';
-import { IMAGE_SIZE_WARNING } from '../Toast/ToastText';
-import Avatar from '../common/Avatar';
+import { IMAGE_SIZE_WARNING } from '@/components/Toast/ToastText';
+import Avatar from '@/components/common/Avatar';
 
 type EditUserData = {
   image: string;
