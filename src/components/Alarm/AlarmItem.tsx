@@ -1,3 +1,4 @@
+import Avatar from '@/components/common/Avatar';
 import { AlarmItemType } from '@/types';
 import { getReviewContent } from '@/utils/alarm';
 import { getCategoryNameToMatchingId } from '@/utils/category';
@@ -56,12 +57,11 @@ const AlarmItemUI = ({
   linkState: { id: string };
   avatar?: boolean;
 }) => {
-  // FIXME: avatar 있을 때 보여주는 컴포넌트, 프로필 avatar 이미지 컴포넌트로 수정하기
   return (
     <Link to={link} state={linkState}>
       <div className="flex px-2 py-2 items-center justify-center">
         {avatar ? (
-          <img src={imageUrl} alt="유저이미지" className="mr-2 w-16 h-16 rounded-full" />
+          <Avatar image={imageUrl} size={16} style="mr-2" />
         ) : (
           <img src={imageUrl} alt="리뷰이미지" className="mr-2 w-16 h-16 rounded" />
         )}
