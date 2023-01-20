@@ -70,7 +70,7 @@ const Search = () => {
   };
 
   return (
-    <div className="h-full pt-10 bg-white  md:mx-16 lg:mx-20">
+    <div className="h-full pt-10 bg-white max-w-2xl my-0 mx-auto">
       <SearchBar
         register={register}
         errors={errors}

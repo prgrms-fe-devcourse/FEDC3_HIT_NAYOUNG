@@ -27,7 +27,7 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
       </div>
 
       <div className="flex justify-between items-center pt-2 text-base">
-        <h3 className="text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK">
+        <h3 className="text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK overflow-hidden text-ellipsis whitespace-pre">
           <span>{title}</span>
         </h3>
         <span className="font-medium text-TEXT_SUB_GRAY">User Name</span>
