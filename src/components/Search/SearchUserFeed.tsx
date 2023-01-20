@@ -2,7 +2,7 @@ import { ExtractUserDataType } from '@/types/search';
 
 import Feed from '@/components/common/Feed';
 
-import { MY_PAGE } from '@/utils/constants';
+import { USER_PAGE } from '@/utils/constants';
 
 const SearchUserFeed = ({ searchedUser }: { searchedUser: ExtractUserDataType[] }) => {
   const UserFeedComponent = searchedUser.map((aSearchedUser) => {
@@ -10,7 +10,7 @@ const SearchUserFeed = ({ searchedUser }: { searchedUser: ExtractUserDataType[] 
 
     return (
       <Feed
-        categoryName={MY_PAGE}
+        categoryName={USER_PAGE}
         image={image}
         _id={_id}
         firstFeedInformationCount={posts.length}
