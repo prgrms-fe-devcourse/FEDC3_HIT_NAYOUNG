@@ -27,8 +27,10 @@ const checkAuthUser = async () => {
   }
 };
 
-// getUserInformation -> 유저 정보 반환, 없는 경우 false 반환
+// getUserInformation -> 자신 정보 반환, 없는 경우 false 반환
 // 호출할 때 async await로 받아줘야 합니다!
+// 다른 유저 정보 받는 함수랑 헷갈려서 이름 변경 필요할 듯
+// getUserInformation -> getMyInformation ?
 const getUserInformation = async () => {
   try {
     const headers = getAxiosHeader();
@@ -60,11 +62,23 @@ const getUserId = async () => {
   }
 };
 
+// 사용자 목록 6명까지 받는 함수. 자기 자신과 admin은 제외
 const getUserNameList = async () => {
   try {
     const { data } = await api.get(`/users/get-users`);
     if (data) {
-      const userList = data.slice(0, 6);
+      const getMyName = async () => {
+        const { fullName } = await getUserInformation();
+        return fullName;
+      };
+      const myName = await getMyName();
+
+      const userList = data
+        .filter((data: UserList) => {
+          return data.fullName !== myName && data.fullName !== 'Admin';
+        })
+        .slice(0, 6);
+
       const userNameList = userList.map((userList: UserList) => {
         return { name: userList.fullName, id: userList._id };
       });
