@@ -1,13 +1,17 @@
-import api from '@/Api/api';
-import Logo from './Logo';
-import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
-import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import { toast } from 'react-toastify';
+
+import { setLocalStorage } from '@/utils/storage';
+import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
+
+import api from '@/Api/api';
+
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { LOGIN_SUCCESS } from '../Toast/ToastText';
+import Logo from './Logo';
 
 const Login = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -41,7 +45,7 @@ const Login = () => {
         },
       });
       const token = response.data.token;
-      localStorage.setItem('login-token', token);
+      setLocalStorage('login-token', token);
       navigate(HOME_PAGE);
       toast.success(LOGIN_SUCCESS);
     } catch {

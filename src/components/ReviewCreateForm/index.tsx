@@ -10,6 +10,7 @@ import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal'
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import { toast } from 'react-toastify';
 import { REVIEW_CRAETE } from '../Toast/ToastText';
+import { getLocalStorage } from '@/utils/storage';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 
@@ -61,7 +62,7 @@ const ReviewCreateForm = ({
     try {
       await api.post('/posts/create', formData, {
         headers: {
-          Authorization: `bearer ${localStorage.getItem('login-token')}`,
+          Authorization: `bearer ${getLocalStorage('login-token')}`,
           'Content-Type': 'multipart/form-data',
         },
       });

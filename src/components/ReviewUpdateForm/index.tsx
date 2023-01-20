@@ -13,6 +13,7 @@ import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { toast } from 'react-toastify';
 import { REVIEW_UPDATE } from '../Toast/ToastText';
+import { getLocalStorage } from '@/utils/storage';
 
 const ReviewUpdateForm = ({
   categoryData,
@@ -69,7 +70,7 @@ const ReviewUpdateForm = ({
     try {
       await api.put('/posts/update', formData, {
         headers: {
-          Authorization: `bearer ${localStorage.getItem('login-token')}`,
+          Authorization: `bearer ${getLocalStorage('login-token')}`,
           'Content-Type': 'multipart/form-data',
         },
       });

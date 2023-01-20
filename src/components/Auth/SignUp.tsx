@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router';
 import { HOME_PAGE } from '@/utils/constants';
 import { toast } from 'react-toastify';
 import { SIGNUP_SUCCESS } from '../Toast/ToastText';
+import { setLocalStorage } from '@/utils/storage';
 
 type FormData = {
   errors: {
@@ -55,7 +56,7 @@ const SignupForm = () => {
           'Content-Type': 'application/json',
         },
       });
-      localStorage.setItem('login-token', response.data.token);
+      setLocalStorage('login-token', response.data.token);
       navigate(HOME_PAGE);
       toast.success(SIGNUP_SUCCESS);
     } catch (error) {
