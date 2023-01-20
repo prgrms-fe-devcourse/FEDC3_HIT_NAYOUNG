@@ -10,7 +10,7 @@ import { HOME_PAGE, SIGNUP_PAGE } from '@/utils/constants';
 import api from '@/Api/api';
 
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import { LOGIN_SUCCESS } from '../Toast/ToastText';
+import { LOGIN_SUCCESS } from '@/components/Toast/ToastText';
 import Logo from './Logo';
 
 const Login = () => {
