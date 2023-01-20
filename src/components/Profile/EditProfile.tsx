@@ -151,7 +151,7 @@ const EditProfile = () => {
     <div className="max-w-xl w-full my-0 mx-auto">
       <form onSubmit={handleSubmit(onCheckPassword)}>
         <div className="flex flex-col items-center">
-          <Avatar image={user.image} size={36} style={'mt-10'} />
+          <Avatar image={user.image} size={36} style={'mt-10 max-w-[144px]'} />
           <div>
             <input
               className="hidden"
