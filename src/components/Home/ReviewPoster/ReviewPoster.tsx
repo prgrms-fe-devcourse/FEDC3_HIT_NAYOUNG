@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ReviewPosterType } from '@/types';
 
 import { BASE_CATEGORY_ROUTER_NAME } from '@/utils/constants';
+import useOpenAuthModal from '@/hooks/api/useOpenAuthModal';
 
 // @param id - 선택한 포스터로 이동하기 위한 역할
 
@@ -12,9 +13,13 @@ const ReviewPoster = ({ id, title, image, author }: Omit<ReviewPosterType, '_id'
   const categoryPathName =
     pathname === '/' ? BASE_CATEGORY_ROUTER_NAME : pathname.slice(SLASH_NUMBER);
   const content = JSON.parse(title);
+  const { onOpenLogInModal } = useOpenAuthModal(`/${categoryPathName}/detail`, {
+    state: { id },
+  });
 
   return (
     <Link
+      onClick={onOpenLogInModal}
       className="flex flex-col justify-center w-full h-70 md:h-64 lg:h-72 group cursor-pointer mb-5"
       to={`/${categoryPathName}/detail`}
       state={{ id }}
