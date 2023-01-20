@@ -54,13 +54,12 @@ const UserList = () => {
 
   if (authState)
     return (
-      <div className="w-48 border border-BASE rounded-md shadow-sm pb-1">
+      <div className="w-52 border border-BASE rounded-md shadow-sm pb-1">
         <div
           className="flex hover:bg-slate-50 cursor-pointer mt-1 p-1 px-2"
           onClick={moveMyProfile}
         >
           <Avatar size={24} style={'w-6 h-6'} image={myImage} />
-
           <div className="ml-1">{myName}</div>
         </div>
         <div className="border border-t-BASE border-b-white mt-1"></div>
