@@ -55,10 +55,10 @@ const SideNavigation = () => {
   const setLogOutModalOpened = useSetRecoilState(informLogOutModalState);
   const [authState, setAuthState] = useState(false);
 
-  const onHandlerAuthModal = useCallback(() => {
+  const onHandlerAuthModal = () => {
     if (authState) setLogOutModalOpened(true);
     else navigate(LOGIN_PAGE);
-  }, []);
+  };
 
   useEffect(() => {
     (async () => {
