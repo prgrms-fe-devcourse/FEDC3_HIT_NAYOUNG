@@ -1,3 +1,4 @@
+import useOpenAuthModal from '@/hooks/api/useOpenAuthModal';
 import { Link } from 'react-router-dom';
 
 import FeedItem from './FeedItem';
@@ -17,8 +18,11 @@ const Feed = ({
   firstFeedInformationCount,
   lastFeedInformationCount,
 }: FeedPropsType) => {
+  const { onOpenLogInModal } = useOpenAuthModal(categoryName, { state: { id: _id } });
+
   return (
     <Link
+      onClick={onOpenLogInModal}
       className="border-HOVER cursor-pointer relative overflow-hidden w-1/3 h-10/12"
       to={categoryName}
       state={{ id: _id }}
