@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import WarningLabel from '../Auth/WarningLabel';
 import Button from '../ReviewCreateForm/Button';
 import EditProfileInput from './EditProfileInput';
+import { toast } from 'react-toastify';
+import { IMAGE_SIZE_WARNING } from '../Toast/ToastText';
 
 type EditUserData = {
   image: string;
@@ -36,7 +38,7 @@ const EditProfile = () => {
 
     if (files.size > FILE_SIZE_MAX_LIMIT) {
       target.value = '';
-      alert('업로드 가능한 최대 용량은 5MB입니다.');
+      toast.warning(IMAGE_SIZE_WARNING);
       return;
     }
 
