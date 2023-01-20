@@ -6,11 +6,12 @@ import { BASE_CATEGORY_ROUTER_NAME } from '@/utils/constants';
 
 // @param id - 선택한 포스터로 이동하기 위한 역할
 
-const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
+const ReviewPoster = ({ id, title, image, author }: Omit<ReviewPosterType, '_id'>) => {
   const { pathname } = useLocation();
   const SLASH_NUMBER = 1;
   const categoryPathName =
     pathname === '/' ? BASE_CATEGORY_ROUTER_NAME : pathname.slice(SLASH_NUMBER);
+  const content = JSON.parse(title);
 
   return (
     <Link
@@ -28,9 +29,9 @@ const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
 
       <div className="flex justify-between items-center pt-2 text-base">
         <h3 className="text-base md:text-lg lg:text-xl font-semibold text-TEXT_BASE_BLACK">
-          <span>{title}</span>
+          <span>{content.title}</span>
         </h3>
-        <span className="font-medium text-TEXT_SUB_GRAY">User Name</span>
+        <span className="font-medium text-TEXT_SUB_GRAY">{author.fullName}</span>
       </div>
     </Link>
   );
