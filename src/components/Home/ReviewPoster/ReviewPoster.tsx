@@ -1,11 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
+
 import { ReviewPosterType } from '@/types';
+
+import { BASE_CATEGORY_ROUTER_NAME } from '@/utils/constants';
 
 // @param id - 선택한 포스터로 이동하기 위한 역할
 
 const ReviewPoster = ({ id, title, image }: ReviewPosterType) => {
   const { pathname } = useLocation();
-  const BASE_CATEGORY_ROUTER_NAME = 'category/노트북';
   const SLASH_NUMBER = 1;
   const categoryPathName =
     pathname === '/' ? BASE_CATEGORY_ROUTER_NAME : pathname.slice(SLASH_NUMBER);

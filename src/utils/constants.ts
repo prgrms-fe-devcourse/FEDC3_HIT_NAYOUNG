@@ -47,3 +47,7 @@ export const VALID_CATEGORY_NAME = [
 // local storage key
 export const CATEGORY_ID_NAME = 'category-id-name';
 export const LOGIN_TOKEN = 'login-token';
+
+export const CATEGORY_DEFAULT_NOTEBOOK_ID = '63ca15bf0e665f5ec7433177';
+
+export const BASE_CATEGORY_ROUTER_NAME = 'category/노트북';
