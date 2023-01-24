@@ -13,7 +13,7 @@ import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
-import FormInput from '@/components/common/Input/FormInput';
+import FormInput from '@/components/common/ReactHookForm/FormInput';
 
 const ReviewUpdateForm = ({
   categoryData,

@@ -13,7 +13,7 @@ import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal'
 import Button from '@/components/ReviewCreateForm/Button';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-import FormInput from '@/components/common/Input/FormInput';
+import FormInput from '@/components/common/ReactHookForm/FormInput';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 

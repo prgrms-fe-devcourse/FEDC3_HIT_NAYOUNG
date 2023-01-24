@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import { MdCancel as CancelIcon } from 'react-icons/md';
 
-import FormInput from '@/components/common/Input/FormInput';
+import FormInput from '@/components/common/ReactHookForm/FormInput';
 
 type SearchFormData = {
   searchWord: string;
