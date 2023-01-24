@@ -1,13 +1,7 @@
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import { RegisterInputProps } from '@/types';
 
-type SearchFormData = {
-  searchWord: string;
-};
-
-type InputPropsType = RegisterInputProps<SearchFormData>;
-
-const Input = ({
+function FormInput<FormValues>({
   type,
   placeholder,
   register,
@@ -16,7 +10,7 @@ const Input = ({
   style,
   errors,
   ...props
-}: InputPropsType) => {
+}: RegisterInputProps<FormValues>) {
   return (
     <div className={style?.container}>
       <input
@@ -29,6 +23,6 @@ const Input = ({
       {errors && <ErrorMessage errors={errors} />}
     </div>
   );
-};
+}
 
-export default Input;
+export default FormInput;

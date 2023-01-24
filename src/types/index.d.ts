@@ -1,9 +1,4 @@
-import {
-  UseFormRegister,
-  FieldValues,
-  RegisterOptions,
-  FieldError,
-} from 'react-hook-form';
+import { UseFormRegister, RegisterOptions, FieldError, Path } from 'react-hook-form';
 
 export type User = {
   posts: UserPost[];
@@ -78,14 +73,14 @@ export type Category = {
 };
 
 // React-hook-forms
-export type RegisterType<RegisterData extends FieldValues> = {
-  register: UseFormRegister<RegisterData>;
-  registerName: keyof RegisterData;
+export type RegisterType<FormValues> = {
+  register: UseFormRegister<FormValues>;
+  registerName: Path<FormValues>;
   registerRules?: RegisterOptions;
   errors?: FieldError;
 };
 
-export type RegisterInputProps<RegisterData> = {
+export type RegisterInputProps<FormValues> = {
   type: string;
   placeholder?: string;
   style?: {
@@ -95,7 +90,7 @@ export type RegisterInputProps<RegisterData> = {
   value?: string;
   accept?: string;
   id?: string;
-} & RegisterType<RegisterData>;
+} & RegisterType<FormValues>;
 
 export type RegisterTextareaProps<RegisterData> = {
   rows: number;

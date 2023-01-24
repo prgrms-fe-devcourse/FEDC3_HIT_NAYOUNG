@@ -11,12 +11,9 @@ import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_CRAETE } from '@/components/Toast/ToastText';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import Button from '@/components/ReviewCreateForm/Button';
-import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-
-
-
+import FormInput from '@/components/common/Input/FormInput';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 
@@ -87,7 +84,7 @@ const ReviewCreateForm = ({
         <div className="flex flex-col max-w-2xl mx-auto my-0 px-8">
           <h1 className="text-xl pb-2.5 self-start">리뷰 작성</h1>
           <form className="flex flex-col">
-            <RegisterInput
+            <FormInput<ReviewFormData>
               type="text"
               placeholder="제목"
               style={{
@@ -111,7 +108,7 @@ const ReviewCreateForm = ({
               registerRules={{ required: '내용을 입력해 주세요.' }}
               errors={errors.contents}
             />
-            <RegisterInput
+            <FormInput<ReviewFormData>
               type="file"
               style={{
                 container: 'flex flex-col mb-4',
@@ -131,7 +128,7 @@ const ReviewCreateForm = ({
                     className="flex mr-4 rounded-xl cursor-pointer hover:text-[#BE3555]"
                     htmlFor={name}
                   >
-                    <RegisterInput
+                    <FormInput<ReviewFormData>
                       id={name}
                       type="radio"
                       style={{
