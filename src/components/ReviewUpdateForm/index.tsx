@@ -9,11 +9,11 @@ import api from '@/Api/api';
 
 import Button from '@/components/ReviewCreateForm/Button';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-import RegisterInput from '@/components/ReviewCreateForm/RegisterInput';
 import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
+import FormInput from '@/components/common/Input/FormInput';
 
 const ReviewUpdateForm = ({
   categoryData,
@@ -89,7 +89,7 @@ const ReviewUpdateForm = ({
         <div className="flex flex-col max-w-2xl mx-auto my-0 px-8">
           <h1 className="text-xl pb-2.5 self-start">리뷰 수정</h1>
           <form className="flex flex-col">
-            <RegisterInput
+            <FormInput<ReviewFormData>
               type="text"
               placeholder="제목"
               style={{
@@ -115,7 +115,7 @@ const ReviewUpdateForm = ({
               registerRules={{ required: '내용을 입력해 주세요.' }}
               errors={errors.contents}
             />
-            <RegisterInput
+            <FormInput<ReviewFormData>
               type="file"
               style={{
                 container: 'flex flex-col mb-4',
@@ -135,7 +135,7 @@ const ReviewUpdateForm = ({
                     className="flex mr-4 rounded-xl cursor-pointer hover:text-[#BE3555]"
                     htmlFor={channel.name}
                   >
-                    <RegisterInput
+                    <FormInput<ReviewFormData>
                       id={name}
                       type="radio"
                       style={{
