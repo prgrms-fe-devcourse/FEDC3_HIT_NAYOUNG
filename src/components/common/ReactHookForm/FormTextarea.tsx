@@ -1,9 +1,7 @@
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-import { RegisterTextareaProps, ReviewFormData } from '@/types';
+import { FormTextareaProps } from '@/types';
 
-type RegisterReviewContents = RegisterTextareaProps<ReviewFormData>;
-
-const RegisterTextarea = ({
+function FormTextarea<FormValues>({
   rows,
   placeholder,
   register,
@@ -13,7 +11,7 @@ const RegisterTextarea = ({
   style,
   errors,
   ...props
-}: RegisterReviewContents) => {
+}: FormTextareaProps<FormValues>) {
   return (
     <div className={style?.container}>
       <textarea
@@ -27,6 +25,6 @@ const RegisterTextarea = ({
       <ErrorMessage errors={errors} />
     </div>
   );
-};
+}
 
-export default RegisterTextarea;
+export default FormTextarea;

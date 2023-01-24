@@ -9,11 +9,11 @@ import api from '@/Api/api';
 
 import Button from '@/components/ReviewCreateForm/Button';
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-import RegisterTextarea from '@/components/ReviewCreateForm/RegisterTextarea';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
 import FormInput from '@/components/common/ReactHookForm/FormInput';
+import FormTextarea from '@/components/common/ReactHookForm/FormTextarea';
 
 const ReviewUpdateForm = ({
   categoryData,
@@ -102,7 +102,7 @@ const ReviewUpdateForm = ({
               registerRules={{ required: '제목을 입력해 주세요.' }}
               errors={errors.title}
             />
-            <RegisterTextarea
+            <FormTextarea<ReviewFormData>
               rows={20}
               placeholder="사용후기를 남겨주세요"
               style={{

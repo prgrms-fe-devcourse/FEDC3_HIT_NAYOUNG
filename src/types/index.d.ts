@@ -92,7 +92,7 @@ export type RegisterInputProps<FormValues> = {
   id?: string;
 } & RegisterType<FormValues>;
 
-export type RegisterTextareaProps<RegisterData> = {
+export type FormTextareaProps<FormValues> = {
   rows: number;
   placeholder: string;
   style?: {
@@ -100,7 +100,7 @@ export type RegisterTextareaProps<RegisterData> = {
     textarea?: string;
   };
   value?: string;
-} & RegisterType<RegisterData>;
+} & RegisterType<FormValues>;
 
 export type ReviewFormData = {
   title: string;
