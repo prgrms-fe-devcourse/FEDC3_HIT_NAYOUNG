@@ -1,3 +1,4 @@
+import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
 import { UseFormRegister, RegisterOptions, FieldError, Path } from 'react-hook-form';
 
 export type User = {
@@ -80,27 +81,22 @@ export type RegisterType<FormValues> = {
   errors?: FieldError;
 };
 
-export type RegisterInputProps<FormValues> = {
-  type: string;
-  placeholder?: string;
-  style?: {
-    container?: string;
-    input?: string;
+export type FormInputProps<FormValues> = RegisterType<FormValues> &
+  InputHTMLAttributes<HTMLInputElement> & {
+    style?: {
+      container?: string;
+      input?: string;
+    };
+    id?: string;
   };
-  value?: string;
-  accept?: string;
-  id?: string;
-} & RegisterType<FormValues>;
 
-export type FormTextareaProps<FormValues> = {
-  rows: number;
-  placeholder: string;
-  style?: {
-    container?: string;
-    textarea?: string;
+export type FormTextareaProps<FormValues> = RegisterType<FormValues> &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    style?: {
+      container?: string;
+      textarea?: string;
+    };
   };
-  value?: string;
-} & RegisterType<FormValues>;
 
 export type ReviewFormData = {
   title: string;

@@ -1,5 +1,5 @@
 import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
-import { RegisterInputProps } from '@/types';
+import { FormInputProps } from '@/types';
 
 function FormInput<FormValues>({
   type,
@@ -10,7 +10,7 @@ function FormInput<FormValues>({
   style,
   errors,
   ...props
-}: RegisterInputProps<FormValues>) {
+}: FormInputProps<FormValues>) {
   return (
     <div className={style?.container}>
       <input
