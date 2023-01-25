@@ -34,11 +34,11 @@
       <td align="center"><a href="https://github.com/live-small"><img src="https://avatars.githubusercontent.com/u/70274947?v=4" width="150px;" style="max-width: 100%;"/></a></td>
       </tr>
       <tr>
-      <td align="center"><a href="https://github.com/kmww">변건오</a></td>
-      <td align="center"><a href="https://github.com/Kal-MH">박명재</a></td>
-      <td align="center"><a href="https://github.com/glassk">주천욱</a></td>
-      <td align="center"><a href="https://github.com/tooooo1">최 별</a></td>
-      <td align="center"><a href="https://github.com/metacode22">한수화</a></td>
+      <td align="center"><a href="https://github.com/guno517">변건오</a></td>
+      <td align="center"><a href="https://github.com/park-moen">박명재</a></td>
+      <td align="center"><a href="https://github.com/chunwookJoo">주천욱</a></td>
+      <td align="center"><a href="https://github.com/choibyeol">최 별</a></td>
+      <td align="center"><a href="https://github.com/live-small">한수화</a></td>
       </tr>
       </tbody>
     </table>
