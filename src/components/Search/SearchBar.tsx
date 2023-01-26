@@ -6,7 +6,7 @@ import {
 } from 'react-hook-form';
 import { MdCancel as CancelIcon } from 'react-icons/md';
 
-import Input from '@/components/common/Input';
+import FormInput from '@/components/common/ReactHookForm/FormInput';
 
 type SearchFormData = {
   searchWord: string;
@@ -31,7 +31,7 @@ const SearchBar = ({
     <section className="w-full px-10">
       <form onSubmit={handleSubmit(onSubmitSearchBar)}>
         <label className="relative">
-          <Input
+          <FormInput<SearchFormData>
             type="text"
             placeholder="검색어를 입력하세요."
             style={{

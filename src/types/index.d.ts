@@ -1,9 +1,5 @@
-import {
-  UseFormRegister,
-  FieldValues,
-  RegisterOptions,
-  FieldError,
-} from 'react-hook-form';
+import { InputHTMLAttributes, TextareaHTMLAttributes } from 'react';
+import { UseFormRegister, RegisterOptions, FieldError, Path } from 'react-hook-form';
 
 export type User = {
   posts: UserPost[];
@@ -78,34 +74,31 @@ export type Category = {
 };
 
 // React-hook-forms
-export type RegisterType<RegisterData extends FieldValues> = {
-  register: UseFormRegister<RegisterData>;
-  registerName: keyof RegisterData;
+export type RegisterType<FormValues> = {
+  register: UseFormRegister<FormValues>;
+  registerName: Path<FormValues>;
   registerRules?: RegisterOptions;
   errors?: FieldError;
 };
 
-export type RegisterInputProps<RegisterData> = {
-  type: string;
-  placeholder?: string;
-  style?: {
-    container?: string;
-    input?: string;
+export type FormInputProps<FormValues> = RegisterType<FormValues> &
+  InputHTMLAttributes<HTMLInputElement> & {
+    style?: {
+      container?: string;
+      input?: string;
+      errors?: string;
+    };
+    id?: string;
   };
-  value?: string;
-  accept?: string;
-  id?: string;
-} & RegisterType<RegisterData>;
 
-export type RegisterTextareaProps<RegisterData> = {
-  rows: number;
-  placeholder: string;
-  style?: {
-    container?: string;
-    textarea?: string;
+export type FormTextareaProps<FormValues> = RegisterType<FormValues> &
+  TextareaHTMLAttributes<HTMLTextAreaElement> & {
+    style?: {
+      container?: string;
+      textarea?: string;
+      errors?: string;
+    };
   };
-  value?: string;
-} & RegisterType<RegisterData>;
 
 export type ReviewFormData = {
   title: string;
