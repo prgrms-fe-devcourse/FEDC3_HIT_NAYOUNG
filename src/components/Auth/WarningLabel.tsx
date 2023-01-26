@@ -1,11 +1,12 @@
 type InputProps = {
   message: string | undefined;
+  style?: string;
 };
 
-const WarningLabel = ({ message }: InputProps) => {
+const WarningLabel = ({ message, style }: InputProps) => {
   return (
     <label>
-      <span className="label-text-alt text-red-500">{message}</span>
+      <span className={style || 'label-text-alt text-red-500'}>{message}</span>
     </label>
   );
 };
