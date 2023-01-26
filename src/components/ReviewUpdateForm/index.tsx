@@ -8,12 +8,12 @@ import { CategoryType, ReviewFormData } from '@/types';
 import api from '@/Api/api';
 
 import Button from '@/components/ReviewCreateForm/Button';
-import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import { getLocalStorage } from '@/utils/storage';
 import { REVIEW_UPDATE } from '@/components/Toast/ToastText';
 import FormInput from '@/components/common/ReactHookForm/FormInput';
 import FormTextarea from '@/components/common/ReactHookForm/FormTextarea';
+import WarningLabel from '@/components/Auth/WarningLabel';
 
 const ReviewUpdateForm = ({
   categoryData,
@@ -151,7 +151,7 @@ const ReviewUpdateForm = ({
                   </label>
                 );
               })}
-              {errors.category && <ErrorMessage errors={errors.category} />}
+              {errors.category && <WarningLabel message={errors.category.message} />}
             </fieldset>
             <div className="action-buttons flex gap-4">
               <Button

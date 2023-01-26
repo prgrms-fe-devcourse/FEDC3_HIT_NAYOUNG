@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
+import WarningLabel from '@/components/Auth/WarningLabel';
 import { FormInputProps } from '@/types';
 
 /**
@@ -28,7 +28,7 @@ function FormInput<FormValues>({
         {...(register && register(registerName, registerRules))}
         {...props}
       />
-      {errors && <ErrorMessage errors={errors} />}
+      {errors && <WarningLabel message={errors.message} style={style?.errors} />}
     </div>
   );
 }

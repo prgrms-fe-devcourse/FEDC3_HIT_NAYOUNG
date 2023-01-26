@@ -86,6 +86,7 @@ export type FormInputProps<FormValues> = RegisterType<FormValues> &
     style?: {
       container?: string;
       input?: string;
+      errors?: string;
     };
     id?: string;
   };
@@ -95,6 +96,7 @@ export type FormTextareaProps<FormValues> = RegisterType<FormValues> &
     style?: {
       container?: string;
       textarea?: string;
+      errors?: string;
     };
   };
 

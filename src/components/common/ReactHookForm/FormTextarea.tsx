@@ -1,4 +1,4 @@
-import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
+import WarningLabel from '@/components/Auth/WarningLabel';
 import { FormTextareaProps } from '@/types';
 
 /**
@@ -30,7 +30,7 @@ function FormTextarea<FormValues>({
         {...(register && register(registerName, registerRules))}
         {...props}
       />
-      <ErrorMessage errors={errors} />
+      {errors && <WarningLabel message={errors.message} />}
     </div>
   );
 }

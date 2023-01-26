@@ -12,9 +12,9 @@ import { REVIEW_CRAETE } from '@/components/Toast/ToastText';
 import { InformCancelModal, InformCreateLoadingModal } from '@/components/Modal';
 import Button from '@/components/ReviewCreateForm/Button';
 
-import ErrorMessage from '@/components/ReviewCreateForm/ErrorMessage';
 import FormInput from '@/components/common/ReactHookForm/FormInput';
 import FormTextarea from '@/components/common/ReactHookForm/FormTextarea';
+import WarningLabel from '@/components/Auth/WarningLabel';
 
 // FIXME: 비동기 로직, 컴포넌트랑 분리
 
@@ -145,7 +145,7 @@ const ReviewCreateForm = ({
                   </label>
                 );
               })}
-              {errors.category && <ErrorMessage errors={errors.category} />}
+              {errors.category && <WarningLabel message={errors.category.message} />}
             </fieldset>
             <div className="action-buttons flex gap-4">
               <Button
