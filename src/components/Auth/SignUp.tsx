@@ -30,6 +30,11 @@ const SignupForm = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const navigate = useNavigate();
 
+  const emailRegex = /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$|\.co$/;
+  const passwordRegex =
+    // eslint-disable-next-line no-useless-escape
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=])[A-Za-z\d$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=]{8,20}$/g;
+
   const togglePasswordVisibility = () => {
     setIsShowPassword(!isShowPassword);
   };
@@ -108,7 +113,7 @@ const SignupForm = () => {
             {...register('email', {
               required: '이메일을 입력해 주세요.',
               pattern: {
-                value: /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$/,
+                value: emailRegex,
                 message: '정확한 이메일 주소를 넣어 주세요.',
               },
             })}
@@ -127,8 +132,7 @@ const SignupForm = () => {
               {...register('password', {
                 required: '비밀번호를 입력해 주세요.',
                 pattern: {
-                  value:
-                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&~^\-_+<>;:"'|])[A-Za-z\d$@$!%*#?&~^\-_+<>;:"'|]{8,20}$/,
+                  value: passwordRegex,
                   message:
                     '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
                 },
