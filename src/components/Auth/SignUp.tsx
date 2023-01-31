@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
-import { HOME_PAGE } from '@/utils/constants';
+import { EMAIL_REGEX, HOME_PAGE, PASSWORD_REGEX } from '@/utils/constants';
 import { setLocalStorage } from '@/utils/storage';
 
 import api from '@/Api/api';
@@ -70,6 +70,18 @@ const SignupForm = () => {
     }
   };
 
+  const blockSpaceBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (e.key === ' ') {
+      e.preventDefault();
+      target.classList.add('animate-shakeInput');
+
+      setTimeout(function () {
+        target.classList.remove('animate-shakeInput');
+      }, 300);
+    }
+  };
+
   const onCheckSamePassword = (data: FormData) => {
     if (data.password !== data.confirmPassword) {
       setError(
@@ -108,7 +120,7 @@ const SignupForm = () => {
             {...register('email', {
               required: '이메일을 입력해 주세요.',
               pattern: {
-                value: /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$/,
+                value: EMAIL_REGEX,
                 message: '정확한 이메일 주소를 넣어 주세요.',
               },
             })}
@@ -127,13 +139,14 @@ const SignupForm = () => {
               {...register('password', {
                 required: '비밀번호를 입력해 주세요.',
                 pattern: {
-                  value:
-                    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,20}$/,
+                  value: PASSWORD_REGEX,
                   message:
                     '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
                 },
               })}
               type={isShowPassword ? 'text' : 'password'}
+              maxLength={20}
+              onKeyDown={blockSpaceBar}
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
               className="input input-bordered text-center bg-white border-INPUT_BORDER"
