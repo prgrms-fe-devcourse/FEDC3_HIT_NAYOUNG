@@ -51,3 +51,8 @@ export const LOGIN_TOKEN = 'login-token';
 export const CATEGORY_DEFAULT_NOTEBOOK_ID = '63ca15bf0e665f5ec7433177';
 
 export const BASE_CATEGORY_ROUTER_NAME = 'category/노트북';
+
+// signup regex
+export const EMAIL_REGEX = /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$|\.co$/;
+// eslint-disable-next-line no-useless-escape
+export const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=])[A-Za-z\d$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=]{8,20}$/g;

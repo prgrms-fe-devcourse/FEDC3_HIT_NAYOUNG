@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
-import { HOME_PAGE } from '@/utils/constants';
+import { EMAIL_REGEX, HOME_PAGE, PASSWORD_REGEX } from '@/utils/constants';
 import { setLocalStorage } from '@/utils/storage';
 
 import api from '@/Api/api';
@@ -29,11 +29,6 @@ type FormData = {
 const SignupForm = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
   const navigate = useNavigate();
-
-  const emailRegex = /^[A-Za-z0-9+-_.]+@[A-Za-z]+\.com$|\.co.kr$|\.net$|\.kr$|\.co$/;
-  const passwordRegex =
-    // eslint-disable-next-line no-useless-escape
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=])[A-Za-z\d$@$!%*#?&~^\-_+<>;:"'|\[\]{}\()=]{8,20}$/g;
 
   const togglePasswordVisibility = () => {
     setIsShowPassword(!isShowPassword);
@@ -125,7 +120,7 @@ const SignupForm = () => {
             {...register('email', {
               required: '이메일을 입력해 주세요.',
               pattern: {
-                value: emailRegex,
+                value: EMAIL_REGEX,
                 message: '정확한 이메일 주소를 넣어 주세요.',
               },
             })}
@@ -144,7 +139,7 @@ const SignupForm = () => {
               {...register('password', {
                 required: '비밀번호를 입력해 주세요.',
                 pattern: {
-                  value: passwordRegex,
+                  value: PASSWORD_REGEX,
                   message:
                     '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
                 },
