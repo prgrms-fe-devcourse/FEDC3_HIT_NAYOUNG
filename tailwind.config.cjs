@@ -18,6 +18,16 @@ module.exports = {
       borderRadius: {
         404: '41% 59% 64% 36% / 39% 43% 57% 61%',
       },
+      animation: {
+        shakeInput: 'shake 0.2s ease-out',
+      },
+      keyframes: {
+        shake: {
+          '25%': { transform: 'translate(4px)' },
+          '50%': { transform: 'translate(-4px)' },
+          '75%': { transform: 'translate(4px)' },
+        },
+      },
     },
   },
   plugins: [require('daisyui')],

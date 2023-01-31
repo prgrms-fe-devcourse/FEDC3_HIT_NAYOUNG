@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
@@ -75,6 +75,18 @@ const SignupForm = () => {
     }
   };
 
+  const blockSpaceBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLDivElement;
+    if (e.key === ' ') {
+      e.preventDefault();
+      target.classList.add('animate-shakeInput');
+
+      setTimeout(function () {
+        target.classList.remove('animate-shakeInput');
+      }, 300);
+    }
+  };
+
   const onCheckSamePassword = (data: FormData) => {
     if (data.password !== data.confirmPassword) {
       setError(
@@ -139,6 +151,7 @@ const SignupForm = () => {
               })}
               type={isShowPassword ? 'text' : 'password'}
               maxLength={20}
+              onKeyDown={blockSpaceBar}
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
               className="input input-bordered text-center bg-white border-INPUT_BORDER"
