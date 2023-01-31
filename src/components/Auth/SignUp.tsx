@@ -138,6 +138,7 @@ const SignupForm = () => {
                 },
               })}
               type={isShowPassword ? 'text' : 'password'}
+              maxLength={20}
               autoComplete="off"
               placeholder="비밀번호를 입력해 주세요."
               className="input input-bordered text-center bg-white border-INPUT_BORDER"
