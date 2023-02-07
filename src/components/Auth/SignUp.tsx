@@ -1,30 +1,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-
-import { EMAIL_REGEX, HOME_PAGE, PASSWORD_REGEX } from '@/utils/constants';
-import { setLocalStorage } from '@/utils/storage';
-
-import api from '@/Api/api';
-
-import WarningLabel from './WarningLabel';
+import { EMAIL_REGEX, PASSWORD_REGEX } from '@/utils/constants';
 import Logo from '@/components/Auth/Logo';
-import { SIGNUP_SUCCESS } from '@/components/Toast/ToastText';
-
-type FormData = {
-  errors: {
-    email: {
-      message: string;
-    };
-  };
-  fullName: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-  extraError: string;
-};
+import { callSignupAPI } from '@/Api/signup';
+import { signupFormDataType } from '@/types';
+import FormInput from '../common/ReactHookForm/FormInput';
 
 const SignupForm = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
@@ -40,35 +22,11 @@ const SignupForm = () => {
     setError,
     watch,
     formState: { errors, isDirty, isValid },
-  } = useForm<FormData>({ mode: 'onChange' });
+  } = useForm<signupFormDataType>({ mode: 'onChange' });
 
   const fullName = watch('fullName');
   const email = watch('email');
   const password = watch('password');
-
-  const callSignupAPIBody = {
-    email,
-    fullName,
-    password,
-  };
-
-  const callSignupAPI = async () => {
-    try {
-      const response = await api.post('/signup', callSignupAPIBody, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      setLocalStorage('login-token', response.data.token);
-      navigate(HOME_PAGE);
-      toast.success(SIGNUP_SUCCESS);
-    } catch (error) {
-      setError('email', {
-        type: 'server',
-        message: '중복된 ID가 존재합니다!',
-      });
-    }
-  };
 
   const blockSpaceBar = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const target = e.target as HTMLDivElement;
@@ -82,7 +40,7 @@ const SignupForm = () => {
     }
   };
 
-  const onCheckSamePassword = (data: FormData) => {
+  const onCheckSamePassword = (data: signupFormDataType) => {
     if (data.password !== data.confirmPassword) {
       setError(
         'confirmPassword',
@@ -90,7 +48,7 @@ const SignupForm = () => {
         { shouldFocus: true }
       );
     } else {
-      callSignupAPI();
+      callSignupAPI({ navigate, setError, email, fullName, password });
     }
   };
 
@@ -98,85 +56,94 @@ const SignupForm = () => {
     <div className="pt-11 overflow-hidden flex flex-col items-center justify-center text-center pb-20 text-TEXT_BASE_BLACK">
       <form onSubmit={handleSubmit(onCheckSamePassword)}>
         <Logo logoText="회원가입" />
-        <div className="form-control w-80 max-w-xs mt-7">
-          <span className="text-base">이름</span>
-          <input
-            {...register('fullName', {
-              required: '이름을 입력해 주세요.',
-              validate: (value: string) =>
-                value === 'admin' ? 'admin으로 이름을 생성할 수 없습니다.' : true,
-            })}
-            type="text"
+        <div className="text-base mt-5">이름</div>
+        <FormInput<signupFormDataType>
+          type="text"
+          autoComplete="off"
+          placeholder="이름을 입력해주세요"
+          style={{
+            container: 'form-control w-80 h-20 max-w-xs',
+            input: 'input input-bordered text-center bg-white border-INPUT_BORDER',
+          }}
+          register={register}
+          registerName="fullName"
+          registerRules={{
+            required: '이름을 입력해 주세요.',
+            validate: (value: string) =>
+              value === 'admin' ? 'admin으로 이름을 생성할 수 없습니다.' : true,
+          }}
+          errors={errors.fullName}
+        />
+        <div className="text-base">이메일</div>
+        <FormInput<signupFormDataType>
+          type="text"
+          autoComplete="off"
+          placeholder="이메일을 입력해주세요"
+          style={{
+            container: 'form-control w-80 h-20 max-w-xs',
+            input: 'input input-bordered text-center bg-white border-INPUT_BORDER',
+          }}
+          register={register}
+          registerName="email"
+          registerRules={{
+            required: '이메일을 입력해 주세요.',
+            pattern: {
+              value: EMAIL_REGEX,
+              message: '정확한 이메일 주소를 넣어 주세요.',
+            },
+          }}
+          errors={errors.email}
+        />
+        <div className="text-base">비밀번호</div>
+        <div className="relative h-24">
+          <FormInput<signupFormDataType>
+            type={isShowPassword ? 'text' : 'password'}
             autoComplete="off"
-            placeholder="이름을 입력해 주세요."
-            className="input input-bordered text-center bg-white border-INPUT_BORDER"
-          />
-        </div>
-        {errors?.fullName && <WarningLabel message={errors.fullName.message} />}
-        <br />
-        <div className="form-control w-80 max-w-xs mt-1">
-          <div className="text-base">이메일</div>
-          <input
-            {...register('email', {
-              required: '이메일을 입력해 주세요.',
+            placeholder="비밀번호를 입력해주세요"
+            style={{
+              container: 'form-control w-80 h-30 max-w-xs',
+              input: 'input input-bordered text-center bg-white border-INPUT_BORDER',
+            }}
+            register={register}
+            registerName="password"
+            registerRules={{
+              required: '비밀번호를 입력해 주세요.',
               pattern: {
-                value: EMAIL_REGEX,
-                message: '정확한 이메일 주소를 넣어 주세요.',
+                value: PASSWORD_REGEX,
+                message:
+                  '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
               },
-            })}
-            type="text"
-            autoComplete="off"
-            placeholder="이메일을 입력해 주세요."
-            className="input input-bordered text-center bg-white border-INPUT_BORDER"
-          />
-        </div>
-        {errors?.email && <WarningLabel message={errors.email.message} />}
-        <br />
-        <div className="w-80 max-w-xs mt-1">
-          <div className="text-base">비밀번호</div>
-          <div className="relative form-control">
-            <input
-              {...register('password', {
-                required: '비밀번호를 입력해 주세요.',
-                pattern: {
-                  value: PASSWORD_REGEX,
-                  message:
-                    '최소 8자, 최대 20자, 최소 하나의 문자, 숫자, 특수 문자가 필요합니다.',
-                },
-              })}
-              type={isShowPassword ? 'text' : 'password'}
-              maxLength={20}
-              onKeyDown={blockSpaceBar}
-              autoComplete="off"
-              placeholder="비밀번호를 입력해 주세요."
-              className="input input-bordered text-center bg-white border-INPUT_BORDER"
-            />
+            }}
+            onKeyDown={blockSpaceBar}
+            maxLength={20}
+            errors={errors.password}
+          >
             <i
               className="absolute top-4 right-5 cursor-pointer"
               onClick={togglePasswordVisibility}
             >
               {isShowPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
             </i>
-          </div>
+          </FormInput>
         </div>
-        {errors?.password && <WarningLabel message={errors.password.message} />}
-        <br />
-        <div className="form-control w-80 max-w-xs mt-1">
-          <div className="text-base">비밀번호 확인</div>
-          <input
-            {...register('confirmPassword', {
-              required: '비밀번호를 확인해 주세요.',
-            })}
-            type="password"
-            autoComplete="off"
-            placeholder="비밀번호를 확인해 주세요."
-            className="input input-bordered text-center bg-white border-INPUT_BORDER"
-          />
-        </div>
-        {errors?.confirmPassword && (
-          <WarningLabel message={errors.confirmPassword.message} />
-        )}
-        <br />
+        <div className="text-base">비밀번호 확인</div>
+        <FormInput<signupFormDataType>
+          type="password"
+          autoComplete="off"
+          placeholder="비밀번호를 확인해주세요"
+          style={{
+            container: 'form-control w-80 h-20 max-w-xs',
+            input: 'input input-bordered text-center bg-white border-INPUT_BORDER',
+          }}
+          register={register}
+          registerName="confirmPassword"
+          registerRules={{
+            required: '비밀번호를 확인해 주세요.',
+          }}
+          onKeyDown={blockSpaceBar}
+          maxLength={20}
+          errors={errors.confirmPassword}
+        />
         <button
           type="submit"
           disabled={!isDirty || !isValid}

@@ -194,3 +194,16 @@ export type FollowProps = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type signupFormDataType = {
+  errors: {
+    email: {
+      message: string;
+    };
+  };
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  extraError: string;
+};
