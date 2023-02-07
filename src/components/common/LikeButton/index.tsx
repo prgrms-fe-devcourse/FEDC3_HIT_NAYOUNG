@@ -1,4 +1,4 @@
-import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
+import { createLikeAPI, deleteLikeAPI } from '@/Api/like';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
@@ -11,7 +11,7 @@ import { useRecoilValue } from 'recoil';
 const LikeButton = () => {
   const [likeToggle, setLikeToggle] = useState(false);
   const [likeId, setLikeId] = useState('');
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState('');
   const likePropState = useRecoilValue(likeState);
   const didMount = useRef(false);
 
@@ -24,30 +24,20 @@ const LikeButton = () => {
     };
     likePropState?.likes.forEach((like) => {
       if (like.user === userId) {
-        return setLikeId(like._id);
-      }
+        setLikeToggle(true);
+        setLikeId(like._id);
+      } else setLikeToggle(false);
     });
 
-    const checkedUserLiked = () => {
-      if (!userId) return;
-      likePropState &&
-        likePropState.likes.forEach((like) => {
-          if (like.user === userId) {
-            return setLikeToggle(true);
-          }
-        });
-    };
-
     getUser();
-    checkedUserLiked();
   }, [userId]);
 
   useEffect(() => {
     if (didMount.current) {
       const timer = setTimeout(() => {
-        if (likeToggle) onLike();
+        if (likeToggle) onLikeAndAlarm();
         else onUnLike();
-      }, 1000);
+      }, 500);
 
       return () => clearTimeout(timer);
     }
@@ -58,30 +48,30 @@ const LikeButton = () => {
     didMount.current = true;
   };
 
-  const onLike = async () => {
+  const onLikeAndAlarm = async () => {
     const likeAPIBody = {
       postId: likePropState?.id,
     };
 
-    const data = await callCreateLikeAPI(likeAPIBody);
+    const data = await createLikeAPI(likeAPIBody);
 
     if (!data) return false;
     setLikeId(data._id);
 
     if (data.user !== author._id) {
       // 알림 보내기
-      const createAlarmAPIBody = {
+      const alarmAPIBody = {
         notificationType: LIKE,
         notificationTypeId: data._id,
         userId: author._id,
         postId: data.post,
       };
-      await callCreateAlarmAPI(createAlarmAPIBody);
+      await callCreateAlarmAPI(alarmAPIBody);
     }
   };
 
   const onUnLike = () => {
-    callDeleteLikeAPI(likeId);
+    deleteLikeAPI(likeId);
   };
 
   return (
