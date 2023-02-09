@@ -1,83 +1,75 @@
-import api from '@/Api/api';
-import { callCreateLikeAPI, callDeleteLikeAPI } from '@/Api/like';
+import { createLikeAPI, deleteLikeAPI } from '@/Api/like';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
 import { reviewDetailState } from '@/store/recoilReviewState';
 import { LIKE } from '@/utils/constants';
-import { useState, useEffect, useCallback } from 'react';
+import { isCheckedLike } from '@/utils/like';
+import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 
 const LikeButton = () => {
   const [likeToggle, setLikeToggle] = useState(false);
   const [likeId, setLikeId] = useState('');
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState('');
   const likePropState = useRecoilValue(likeState);
+  const didMount = useRef(false);
 
   const { author } = useRecoilValue(reviewDetailState);
 
   useEffect(() => {
+    const { isChecked, likeId } = isCheckedLike(likePropState?.likes, userId);
     const getUser = async () => {
       const user = await getUserInformation();
       setUserId(user._id);
     };
-    likePropState?.likes.forEach((like) => {
-      if (like.user === userId) {
-        return setLikeId(like._id);
-      }
-    });
 
+    setLikeToggle(isChecked);
+    setLikeId(likeId);
     getUser();
-    checkedUserLiked();
   }, [userId]);
 
-  const checkedUserLiked = () => {
-    if (!userId) return;
-    likePropState &&
-      likePropState.likes.forEach((like) => {
-        if (like.user === userId) {
-          return setLikeToggle(true);
-        }
-      });
-  };
+  useEffect(() => {
+    if (didMount.current) {
+      const timer = setTimeout(() => {
+        if (likeToggle) onLikeAndAlarm();
+        else onUnLike();
+      }, 500);
 
-  const debouncing = (func: () => void, timeout = 1000) => {
-    let timer: any | number = null;
-    clearTimeout(timer);
-    timer = setTimeout(func, timeout);
-  };
-
-  const delayFunc = () => {
-    // console.log('딜레이');
-  };
-
-  const onToggleLikeButton = async () => {
-    debouncing(delayFunc);
-    if (likeToggle) {
-      callDeleteLikeAPI(likeId);
-    } else {
-      const likeAPIBody = {
-        postId: likePropState?.id,
-      };
-      const data = await callCreateLikeAPI(likeAPIBody);
-
-      if (!data) return false;
-      setLikeId(data._id);
-
-      if (data.user !== author._id) {
-        // 알림 보내기
-        const createAlarmAPIBody = {
-          notificationType: LIKE,
-          notificationTypeId: data._id,
-          userId: author._id,
-          postId: data.post,
-        };
-        await callCreateAlarmAPI(createAlarmAPIBody);
-      }
+      return () => clearTimeout(timer);
     }
+  }, [likeToggle]);
 
+  const onToggleLikeButton = () => {
     setLikeToggle(!likeToggle);
+    didMount.current = true;
+  };
+
+  const onLikeAndAlarm = async () => {
+    const likeAPIBody = {
+      postId: likePropState?.id,
+    };
+
+    const data = await createLikeAPI(likeAPIBody);
+
+    if (!data) return false;
+    setLikeId(data._id);
+
+    if (data.user !== author._id) {
+      // 알림 보내기
+      const alarmAPIBody = {
+        notificationType: LIKE,
+        notificationTypeId: data._id,
+        userId: author._id,
+        postId: data.post,
+      };
+      await callCreateAlarmAPI(alarmAPIBody);
+    }
+  };
+
+  const onUnLike = () => {
+    deleteLikeAPI(likeId);
   };
 
   return (

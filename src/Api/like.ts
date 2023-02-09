@@ -1,11 +1,11 @@
 import api from './api';
 import { getAxiosHeader } from './user';
 
-const callCreateLikeAPI = async (callCreateLikeAPIBody: { postId: string }) => {
+const createLikeAPI = async (likeAPIBody: { postId: string }) => {
   try {
     const headers = getAxiosHeader();
     if (!headers) return false;
-    const { data } = await api.post('/likes/create', callCreateLikeAPIBody, {
+    const { data } = await api.post('/likes/create', likeAPIBody, {
       headers,
     });
 
@@ -15,7 +15,7 @@ const callCreateLikeAPI = async (callCreateLikeAPIBody: { postId: string }) => {
   }
 };
 
-const callDeleteLikeAPI = async (likeId: string) => {
+const deleteLikeAPI = async (likeId: string) => {
   try {
     const headers = getAxiosHeader();
     if (!headers) return false;
@@ -30,4 +30,4 @@ const callDeleteLikeAPI = async (likeId: string) => {
   }
 };
 
-export { callCreateLikeAPI, callDeleteLikeAPI };
+export { createLikeAPI, deleteLikeAPI };
