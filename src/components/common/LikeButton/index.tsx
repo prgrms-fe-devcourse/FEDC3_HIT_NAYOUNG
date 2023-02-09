@@ -4,6 +4,7 @@ import { getUserInformation } from '@/Api/user';
 import { likeState } from '@/store/recoilLikeState';
 import { reviewDetailState } from '@/store/recoilReviewState';
 import { LIKE } from '@/utils/constants';
+import { isCheckedLike } from '@/utils/like';
 import { useState, useEffect, useRef } from 'react';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
@@ -18,17 +19,14 @@ const LikeButton = () => {
   const { author } = useRecoilValue(reviewDetailState);
 
   useEffect(() => {
+    const { isChecked, likeId } = isCheckedLike(likePropState?.likes, userId);
     const getUser = async () => {
       const user = await getUserInformation();
       setUserId(user._id);
     };
-    likePropState?.likes.forEach((like) => {
-      if (like.user === userId) {
-        setLikeToggle(true);
-        setLikeId(like._id);
-      } else setLikeToggle(false);
-    });
 
+    setLikeToggle(isChecked);
+    setLikeId(likeId);
     getUser();
   }, [userId]);
 
