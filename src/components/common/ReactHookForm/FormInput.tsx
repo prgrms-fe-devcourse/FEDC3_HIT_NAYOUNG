@@ -17,6 +17,7 @@ function FormInput<FormValues>({
   registerRules,
   style,
   errors,
+  children,
   ...props
 }: FormInputProps<FormValues>) {
   return (
@@ -28,6 +29,7 @@ function FormInput<FormValues>({
         {...(register && register(registerName, registerRules))}
         {...props}
       />
+      {children}
       {errors && <WarningLabel message={errors.message} style={style?.errors} />}
     </div>
   );
