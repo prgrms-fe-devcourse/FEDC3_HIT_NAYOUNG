@@ -1,6 +1,7 @@
 import { createLikeAPI, deleteLikeAPI } from '@/Api/like';
 import { callCreateAlarmAPI } from '@/Api/notification';
 import { getUserInformation } from '@/Api/user';
+import useDebounce from '@/hooks/common/useDebounce';
 import { likeState } from '@/store/recoilLikeState';
 import { reviewDetailState } from '@/store/recoilReviewState';
 import { LIKE } from '@/utils/constants';
@@ -10,11 +11,14 @@ import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 
 const LikeButton = () => {
+  const didMount = useRef(false);
   const [likeToggle, setLikeToggle] = useState(false);
+  const debounceValue = useDebounce<boolean>(likeToggle, 500);
+
   const [likeId, setLikeId] = useState('');
   const [userId, setUserId] = useState('');
+
   const likePropState = useRecoilValue(likeState);
-  const didMount = useRef(false);
 
   const { author } = useRecoilValue(reviewDetailState);
 
@@ -32,14 +36,10 @@ const LikeButton = () => {
 
   useEffect(() => {
     if (didMount.current) {
-      const timer = setTimeout(() => {
-        if (likeToggle) onLikeAndAlarm();
-        else onUnLike();
-      }, 500);
-
-      return () => clearTimeout(timer);
+      if (likeToggle) onLikeAndAlarm();
+      else deleteLikeAPI(likeId);
     }
-  }, [likeToggle]);
+  }, [debounceValue]);
 
   const onToggleLikeButton = () => {
     setLikeToggle(!likeToggle);
@@ -66,10 +66,6 @@ const LikeButton = () => {
       };
       await callCreateAlarmAPI(alarmAPIBody);
     }
-  };
-
-  const onUnLike = () => {
-    deleteLikeAPI(likeId);
   };
 
   return (
