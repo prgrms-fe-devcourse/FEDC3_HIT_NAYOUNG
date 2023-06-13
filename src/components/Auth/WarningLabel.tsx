@@ -5,7 +5,7 @@ type InputProps = {
 
 const WarningLabel = ({ message, style }: InputProps) => {
   return (
-    <label>
+    <label style={{ width: '330px' }}>
       <span className={style || 'label-text-alt text-red-500'}>{message}</span>
     </label>
   );
